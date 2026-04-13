@@ -384,16 +384,20 @@
     }
     .art-card:hover { background: var(--bg3); }
     .art-logo {
-      height: 22px; margin-bottom: 1rem;
+      height: 24px; margin-bottom: 1rem;
       display: flex; align-items: center;
     }
-    .art-logo img {
-      height: 100%; width: auto; max-width: 100px;
-      object-fit: contain;
-      filter: brightness(0) invert(1);
-      opacity: 0.7;
+    .art-logo-text {
+      font-family: var(--sans); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cream); opacity: 0.55;
+      transition: opacity 0.2s;
     }
-    .art-logo img:hover { opacity: 1; }
+    .art-card:hover .art-logo-text { opacity: 0.9; }
+    .art-logo-text.serif {
+      font-family: var(--serif); font-size: 13px; font-weight: 400;
+      letter-spacing: 0.06em; font-style: italic;
+    }
     .art-source {
       font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--gold); margin-bottom: 0.7rem; font-weight: 500;
@@ -706,42 +710,42 @@
   <div class="press-type-label" data-en="— Articles" data-es="— Artículos">— Articles</div>
   <div class="articles-grid">
     <a href="https://www.forbesargentina.com/summit/cuales-son-herramientas-resguardar-dinero-fuera-banca-tradicional-n32863" target="_blank" rel="noopener" class="art-card fade-in">
-      <div class="art-logo"><img src="https://logo.clearbit.com/forbes.com" alt="Forbes" /></div>
+      <div class="art-logo"><span class="art-logo-text">Forbes</span></div>
       <div class="art-source">Forbes Argentina</div>
       <div class="art-title" data-en="Managing money outside traditional banking" data-es="Manejar el dinero fuera de la banca tradicional">Managing money outside traditional banking</div>
       <div class="art-desc" data-en="Forbes Summit participation on the future of digital finance in LatAm." data-es="Participación en Forbes Summit sobre el futuro de las finanzas digitales.">Forbes Summit participation on the future of digital finance in LatAm.</div>
       <span class="art-arrow">→</span>
     </a>
     <a href="https://www.lanacion.com.ar/economia/uala-un-unicornio-busca-sumar-a-mas-de-700-empleados-este-ano-nid05042022/" target="_blank" rel="noopener" class="art-card fade-in">
-      <div class="art-logo"><img src="https://logo.clearbit.com/lanacion.com.ar" alt="La Nacion" /></div>
+      <div class="art-logo"><span class="art-logo-text serif">La Nación</span></div>
       <div class="art-source">La Nación</div>
       <div class="art-title" data-en="Ualá: a unicorn looking to hire 700+ employees" data-es="Ualá: un unicornio que busca sumar más de 700 empleados">Ualá: a unicorn looking to hire 700+ employees</div>
       <div class="art-desc" data-en="Ualá's expansion plans and talent strategy at the height of its growth." data-es="Los planes de expansión y estrategia de talento de Ualá en el pico de su crecimiento.">Ualá's expansion plans and talent strategy at the height of its growth.</div>
       <span class="art-arrow">→</span>
     </a>
     <a href="https://eleconomista.com.ar/negocios/uala-lanza-aula-uala-una-plataforma-gratuita-educacion-financiera-n50221" target="_blank" rel="noopener" class="art-card fade-in">
-      <div class="art-logo"><img src="https://logo.clearbit.com/eleconomista.com.ar" alt="El Economista" /></div>
+      <div class="art-logo"><span class="art-logo-text">El Economista</span></div>
       <div class="art-source">El Economista</div>
       <div class="art-title" data-en="Aula Ualá: financial education for everyone" data-es="Aula Ualá: educación financiera para todos">Aula Ualá: financial education for everyone</div>
       <div class="art-desc" data-en="A free learning platform open to all — not just Ualá users." data-es="Una plataforma gratuita abierta a todos, no solo a usuarios de Ualá.">A free learning platform open to all — not just Ualá users.</div>
       <span class="art-arrow">→</span>
     </a>
     <a href="https://www.merca20.com/entrevista-exclusiva-martin-bellocq-regional-chief-marketing-officer-de-ualaentrevista-exclusiva-martin-bellocq-regional-chief-marketing-officer-de-uala/" target="_blank" rel="noopener" class="art-card fade-in">
-      <div class="art-logo"><img src="https://logo.clearbit.com/merca20.com" alt="Merca 2.0" /></div>
+      <div class="art-logo"><span class="art-logo-text">Merca 2.0</span></div>
       <div class="art-source">Merca 2.0</div>
       <div class="art-title" data-en="Building Ualá's brand across three markets" data-es="Construyendo la marca de Ualá en tres mercados">Building Ualá's brand across three markets</div>
       <div class="art-desc" data-en="On campaign strategy, ambassadors, and financial inclusion in Mexico." data-es="Estrategia de campaña, embajadores e inclusión financiera en México.">On campaign strategy, ambassadors, and financial inclusion in Mexico.</div>
       <span class="art-arrow">→</span>
     </a>
     <a href="https://dossiernet.com/articulo/uala-renueva-su-imagen-de-marca-su-cmo-martin-bellocq-cuenta-todos-los-detalles/30946" target="_blank" rel="noopener" class="art-card fade-in">
-      <div class="art-logo"><img src="https://logo.clearbit.com/dossiernet.com" alt="Dossier Net" /></div>
+      <div class="art-logo"><span class="art-logo-text">Dossier Net</span></div>
       <div class="art-source">Dossier Net</div>
       <div class="art-title" data-en="Behind Ualá's brand relaunch" data-es="Detrás del relanzamiento de marca de Ualá">Behind Ualá's brand relaunch</div>
       <div class="art-desc" data-en="Why and how Ualá renewed its visual identity." data-es="Por qué y cómo Ualá renovó su identidad visual.">Why and how Ualá renewed its visual identity.</div>
       <span class="art-arrow">→</span>
     </a>
     <a href="https://dossiernet.com/articulo/uala-presento-estas-para-uala/37817" target="_blank" rel="noopener" class="art-card fade-in">
-      <div class="art-logo"><img src="https://logo.clearbit.com/dossiernet.com" alt="Dossier Net" /></div>
+      <div class="art-logo"><span class="art-logo-text">Dossier Net</span></div>
       <div class="art-source">Dossier Net</div>
       <div class="art-title" data-en="Ualá's first major campaign" data-es="La primera gran campaña de Ualá">Ualá's first major campaign</div>
       <div class="art-desc" data-en='The story behind "Estas para Ualá".' data-es='La historia detrás de "Estás para Ualá".'>The story behind "Estas para Ualá".</div>
