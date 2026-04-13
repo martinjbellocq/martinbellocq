@@ -128,6 +128,14 @@
       margin-bottom: 2rem; padding-bottom: 2rem;
       border-bottom: 0.5px solid var(--border2);
     }
+    .metrics-title {
+      font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .metrics-title::before {
+      content: ''; display: block; width: 1.5rem; height: 0.5px; background: var(--gold);
+    }
     .metrics-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 1.8rem 2rem; margin-bottom: 2.5rem;
@@ -305,6 +313,36 @@
       font-size: 0.95rem; color: var(--cream2);
       line-height: 1.85; max-width: 660px;
       text-align: justify;
+    }
+
+    /* ── EDUCATION BLOCK ── */
+    .edu-block {
+      margin-top: 2rem; padding-top: 4rem;
+      border-top: 0.5px solid var(--border2);
+    }
+    .edu-label {
+      font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 2.5rem;
+    }
+    .edu-label::before {
+      content: ''; display: block; width: 1.5rem; height: 0.5px; background: var(--gold);
+    }
+    .edu-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .edu-item {}
+    .edu-degree {
+      font-family: var(--serif); font-size: 1rem; font-weight: 400;
+      color: var(--cream); line-height: 1.3; margin-bottom: 0.3rem;
+    }
+    .edu-school {
+      font-size: 0.75rem; color: var(--cream2); margin-bottom: 0.2rem;
+    }
+    .edu-year {
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted);
     }
 
     /* ── PRESS ── */
@@ -522,6 +560,9 @@
     <p class="hero-tagline">
       <span data-en="Growth, brand, and expansion — scaling Latin America's financial future." data-es="Crecimiento, marca y expansión — escalando el futuro financiero de Latinoamérica.">Growth, brand, and expansion — scaling Latin America's financial future.</span>
     </p>
+    <div class="metrics-title">
+      <span data-en="Track Record" data-es="Trayectoria">Track Record</span>
+    </div>
     <div class="metrics-grid">
       <div>
         <div class="metric-val">0 → 10M+</div>
@@ -615,10 +656,30 @@
       <div class="tl-role" data-en="Auditor · Barcelona" data-es="Auditor · Barcelona">Auditor · Barcelona</div>
       <p class="tl-desc" data-en="Financial audits for multinational and regional companies across consumer goods, pharma, and construction. The discipline of reading businesses from the inside out." data-es="Auditorías financieras para empresas multinacionales y regionales en consumo masivo, farmacéutica y construcción. El entrenamiento de entender negocios desde adentro.">Financial audits for multinational and regional companies across consumer goods, pharma, and construction. The discipline of reading businesses from the inside out.</p>
     </div>
-  </div>
-</section>
+  </div>    <div class="edu-block fade-in">
+      <div class="edu-label">
+        <span data-en="Education" data-es="Educación">Education</span>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-item">
+          <div class="edu-degree" data-en="Master in Finance" data-es="Maestría en Finanzas">Master in Finance</div>
+          <div class="edu-school">Universidad de San Andrés</div>
+          <div class="edu-year">Argentina · 2013 – 2014</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree" data-en="B.A. Business Administration" data-es="Lic. Administración de Empresas">B.A. Business Administration</div>
+          <div class="edu-school">Universitat de Barcelona</div>
+          <div class="edu-year">España · 2009 – 2010</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree" data-en="B.A. Economics" data-es="Lic. en Economía">B.A. Economics</div>
+          <div class="edu-school">Universitat de Barcelona</div>
+          <div class="edu-year">España · 2005 – 2009</div>
+        </div>
+      </div>
+    </div>
 
-<!-- PRESS -->
+</section>
 <section id="press">
   <div class="sec-label">
     <span data-en="Press" data-es="Prensa">Press</span>
