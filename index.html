@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Martín Bellocq — Growth Executive & Advisor | Digital Banking LatAm</title>
+  <meta name="description" content="C-Level executive with 15+ years scaling digital financial businesses in Latin America. Former CMO at Ualá (10M+ users). Available for advisory, board, and consulting engagements." />
+  <meta name="keywords" content="Martin Bellocq, CMO, Ualá, fintech, digital banking, LatAm, growth executive, advisor, board member, Argentina" />
+  <meta name="author" content="Martín Bellocq" />
+  <meta property="og:title" content="Martín Bellocq — Growth Executive & Advisor" />
+  <meta property="og:description" content="Former CMO at Ualá · 0 to 10M+ users · Seed to Series E · LatAm digital banking expert" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://martinbellocq.com" />
+  <meta property="og:image" content="foto.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Martín Bellocq — Growth Executive & Advisor" />
+  <meta name="twitter:description" content="Former CMO at Ualá · 0 to 10M+ users · LatAm digital banking expert" />
+  <link rel="canonical" href="https://martinbellocq.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0D0D12;
+      --bg2:       #111118;
+      --bg3:       #16161F;
+      --cream:     #F0EBE0;
+      --cream2:    #A89F94;
+      --muted:     #5C5650;
+      --gold:      #C9A96E;
+      --gold-dim:  #6B5535;
+      --border:    rgba(201,169,110,0.18);
+      --border2:   rgba(240,235,224,0.07);
+      --serif:     'Cormorant Garamond', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.6rem 4rem;
+      transition: background 0.4s, border-color 0.4s;
+      border-bottom: 0.5px solid transparent;
+    }
+    nav.scrolled {
+      background: rgba(13,13,18,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom-color: var(--border2);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 400;
+      color: var(--cream); text-decoration: none;
+      letter-spacing: 0.06em;
+    }
+    .nav-right { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .lang-btn {
+      font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+      background: none; border: 0.5px solid var(--gold-dim);
+      padding: 0.38rem 1rem; cursor: pointer; transition: all 0.25s;
+    }
+    .lang-btn:hover { background: var(--gold); color: var(--bg); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 55% 45%;
+      align-items: center; padding: 0 4rem;
+      gap: 2rem; position: relative;
+    }
+    #hero::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 4rem; right: 4rem;
+      height: 0.5px; background: var(--border);
+    }
+    .hero-left { padding-top: 4rem; padding-bottom: 3rem; }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.63rem; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 2.5rem; height: 0.5px; background: var(--gold);
+    }
+    h1.hero-name {
+      font-family: var(--serif); font-weight: 300;
+      font-size: clamp(4rem, 7vw, 6.5rem);
+      line-height: 0.95; letter-spacing: -0.01em;
+      color: var(--cream); margin-bottom: 1.8rem;
+    }
+    .hero-tagline {
+      font-family: var(--serif); font-style: italic; font-weight: 300;
+      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      color: var(--cream2); line-height: 1.55; max-width: 500px;
+      margin-bottom: 2rem; padding-bottom: 2rem;
+      border-bottom: 0.5px solid var(--border2);
+    }
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem 2rem; margin-bottom: 2.5rem;
+    }
+    .metric-val {
+      font-family: var(--serif); font-size: 1.9rem; font-weight: 400;
+      color: var(--gold); line-height: 1; margin-bottom: 0.4rem;
+    }
+    .metric-val .unit { font-size: 1.1rem; }
+    .metric-lbl {
+      font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); line-height: 1.4;
+    }
+    .cta-btn {
+      display: inline-block; text-decoration: none;
+      font-family: var(--sans); font-size: 0.68rem;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--cream); border: 0.5px solid var(--gold);
+      padding: 1.1rem 2.8rem; position: relative; overflow: hidden;
+      transition: color 0.3s;
+    }
+    .cta-btn::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--gold); transform: translateX(-101%);
+      transition: transform 0.3s ease;
+    }
+    .cta-btn:hover { color: var(--bg); }
+    .cta-btn:hover::before { transform: translateX(0); }
+    .cta-btn span { position: relative; z-index: 1; }
+
+    .hero-right {
+      display: flex; align-items: center; justify-content: flex-end;
+      padding-top: 6rem; padding-bottom: 4rem;
+    }
+    .photo-wrap {
+      position: relative; width: 360px; height: 460px; flex-shrink: 0;
+    }
+    .photo-wrap::before {
+      content: ''; position: absolute;
+      top: -1.2rem; right: -1.2rem;
+      width: 100%; height: 100%;
+      border: 0.5px solid var(--gold-dim); z-index: 0;
+    }
+    .photo-wrap::after {
+      content: ''; position: absolute;
+      bottom: -1.2rem; left: -1.2rem;
+      width: 60%; height: 60%;
+      border: 0.5px solid rgba(201,169,110,0.1); z-index: 0;
+    }
+    .photo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      position: relative; z-index: 1;
+      filter: grayscale(10%) contrast(1.02);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem 4rem; position: relative;
+    }
+    section:not(:last-of-type)::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 4rem; right: 4rem;
+      height: 0.5px; background: var(--border2);
+    }
+    .sec-label {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.63rem; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 3rem;
+    }
+    .sec-label::before {
+      content: ''; display: block;
+      width: 2.5rem; height: 0.5px; background: var(--gold);
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid; grid-template-columns: 2fr 5fr;
+      gap: 7rem; align-items: start;
+    }
+    .about-title {
+      font-family: var(--serif); font-weight: 300;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      line-height: 1.1; color: var(--cream);
+    }
+    .about-title em { font-style: italic; color: var(--gold); }
+    .about-text {
+      font-size: 1rem; line-height: 1.95;
+      color: var(--cream2); font-weight: 300;
+      text-align: justify;
+    }
+    .about-text p + p { margin-top: 1.4rem; }
+
+    /* ── EXPERIENCE ── */
+    #experience {}
+    .exp-title {
+      font-family: var(--serif); font-weight: 300;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      color: var(--cream); max-width: 520px;
+      margin-bottom: 6rem; line-height: 1.1;
+    }
+    .timeline { position: relative; padding-left: 0; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0.5px; background: var(--border);
+    }
+    .tl-item {
+      padding-left: 3.5rem; padding-bottom: 5rem;
+      position: relative;
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .tl-item.visible { opacity: 1; transform: none; }
+    .tl-item::before {
+      content: ''; position: absolute;
+      left: -4px; top: 10px;
+      width: 8px; height: 8px;
+      border-radius: 50%; background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.15);
+    }
+    .tl-period {
+      font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.6rem;
+    }
+    .tl-company {
+      font-family: var(--serif); font-size: 1.8rem; font-weight: 400;
+      color: var(--cream); line-height: 1; margin-bottom: 0.3rem;
+    }
+    .tl-role {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.4rem;
+    }
+    .tl-desc {
+      font-size: 0.95rem; color: var(--cream2);
+      line-height: 1.85; max-width: 660px;
+      text-align: justify;
+    }
+
+    /* ── PRESS ── */
+    #press { background: var(--bg2); }
+    .press-header { margin-bottom: 5rem; }
+    .press-title {
+      font-family: var(--serif); font-weight: 300;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      color: var(--cream); margin-bottom: 0.8rem;
+    }
+    .press-sub {
+      font-size: 0.85rem; color: var(--muted);
+      letter-spacing: 0.04em; line-height: 1.6;
+    }
+    .press-type-label {
+      font-size: 0.63rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); padding-bottom: 1.2rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+    .videos-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border2);
+      margin-bottom: 5rem;
+    }
+    .vid-card {
+      background: var(--bg2); padding: 2rem 1.8rem;
+      text-decoration: none; display: block;
+      transition: background 0.3s;
+    }
+    .vid-card:hover { background: var(--bg3); }
+    .vid-play {
+      width: 2.2rem; height: 2.2rem;
+      border: 0.5px solid var(--gold-dim);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.4rem; transition: border-color 0.2s;
+    }
+    .vid-card:hover .vid-play { border-color: var(--gold); }
+    .vid-play svg { fill: var(--gold); }
+    .vid-title {
+      font-family: var(--serif); font-size: 1.08rem; font-weight: 400;
+      color: var(--cream); line-height: 1.3; margin-bottom: 0.7rem;
+    }
+    .vid-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+
+    .articles-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: var(--border2);
+    }
+    .art-card {
+      background: var(--bg2); padding: 2rem 2.2rem;
+      text-decoration: none; display: block;
+      transition: background 0.3s;
+    }
+    .art-card:hover { background: var(--bg3); }
+    .art-source {
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.7rem;
+    }
+    .art-title {
+      font-family: var(--serif); font-size: 1.05rem;
+      color: var(--cream); line-height: 1.3; margin-bottom: 0.5rem;
+    }
+    .art-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+    .art-arrow {
+      display: block; margin-top: 1rem;
+      font-size: 0.72rem; color: var(--gold-dim);
+      transition: color 0.2s, transform 0.2s; transform: translateX(0);
+    }
+    .art-card:hover .art-arrow { color: var(--gold); transform: translateX(4px); }
+
+    /* ── CONTACT ── */
+    #contact {}
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 9rem; align-items: start;
+    }
+    .contact-title {
+      font-family: var(--serif); font-weight: 300;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      color: var(--cream); line-height: 1.05; margin-bottom: 1.8rem;
+    }
+    .contact-title em { font-style: italic; color: var(--gold); }
+    .contact-body {
+      font-size: 0.92rem; color: var(--cream2);
+      line-height: 1.85; margin-bottom: 3rem;
+    }
+    .contact-info-label {
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.5rem;
+    }
+    .contact-info-val {
+      display: block; text-decoration: none;
+      font-size: 0.88rem; color: var(--cream2);
+      margin-bottom: 2rem; transition: color 0.2s;
+    }
+    .contact-info-val:hover { color: var(--gold); }
+
+    .form-field { margin-bottom: 2rem; }
+    .form-lbl {
+      display: block; font-size: 0.6rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.6rem;
+    }
+    .form-inp, .form-ta {
+      width: 100%; background: transparent;
+      border: none; border-bottom: 0.5px solid rgba(240,235,224,0.18);
+      color: var(--cream); font-family: var(--sans);
+      font-size: 0.92rem; font-weight: 300;
+      padding: 0.7rem 0; outline: none;
+      transition: border-color 0.25s;
+    }
+    .form-inp:focus, .form-ta:focus { border-bottom-color: var(--gold); }
+    .form-ta { resize: none; height: 90px; }
+    .form-btn {
+      font-family: var(--sans); font-size: 0.68rem;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--bg); background: var(--gold);
+      border: none; padding: 1.1rem 2.8rem;
+      cursor: pointer; transition: opacity 0.2s; margin-top: 0.5rem;
+    }
+    .form-btn:hover { opacity: 0.82; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 0.5px solid var(--border2);
+    }
+    .foot-name { font-family: var(--serif); font-size: 0.9rem; color: var(--muted); }
+    .foot-copy { font-size: 0.63rem; letter-spacing: 0.1em; color: var(--muted); }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0; transform: translateY(14px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      #hero { grid-template-columns: 1fr; padding: 7rem 2.5rem 5rem; }
+      .hero-right { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .videos-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 2rem; }
+      section::after { left: 2rem; right: 2rem; }
+      #hero::after { left: 2rem; right: 2rem; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .videos-grid { grid-template-columns: 1fr; }
+      .articles-grid { grid-template-columns: 1fr; }
+      footer { padding: 2rem; flex-direction: column; gap: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">MB</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about"      data-en="About"      data-es="Perfil">About</a></li>
+      <li><a href="#experience" data-en="Experience" data-es="Experiencia">Experience</a></li>
+      <li><a href="#press"      data-en="Press"      data-es="Prensa">Press</a></li>
+      <li><a href="#contact"    data-en="Contact"    data-es="Contacto">Contact</a></li>
+    </ul>
+    <button class="lang-btn" id="langBtn">ES</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span data-en="Executive Profile" data-es="Perfil Ejecutivo">Executive Profile</span>
+    </div>
+    <h1 class="hero-name">Martín<br>Bellocq</h1>
+    <p class="hero-tagline">
+      <span data-en="Growth, brand, and expansion — scaling Latin America's financial future." data-es="Crecimiento, marca y expansión — escalando el futuro financiero de Latinoamérica.">Growth, brand, and expansion — scaling Latin America's financial future.</span>
+    </p>
+    <div class="metrics-grid">
+      <div>
+        <div class="metric-val">0 → 10M+</div>
+        <div class="metric-lbl" data-en="Users Scaled" data-es="Usuarios Escalados">Users Scaled</div>
+      </div>
+      <div>
+        <div class="metric-val">Seed → E</div>
+        <div class="metric-lbl" data-en="First Round to Series E" data-es="Primera Ronda a Serie E">First Round to Series E</div>
+      </div>
+      <div>
+        <div class="metric-val">1 → 80+</div>
+        <div class="metric-lbl" data-en="Marketing Team Built" data-es="Equipo de Marketing Construido">Marketing Team Built</div>
+      </div>
+      <div>
+        <div class="metric-val">8 <span class="unit" data-en="yrs" data-es="años">yrs</span></div>
+        <div class="metric-lbl" data-en="On the Executive Committee" data-es="En el Comité Ejecutivo">On the Executive Committee</div>
+      </div>
+      <div>
+        <div class="metric-val" style="font-size:1.5rem;letter-spacing:0.04em">AR · MX · CO</div>
+        <div class="metric-lbl" data-en="Country Launches Led" data-es="Lanzamientos Liderados">Country Launches Led</div>
+      </div>
+      <div>
+        <div class="metric-val">15+</div>
+        <div class="metric-lbl" data-en="Years in LatAm" data-es="Años en LatAm">Years in LatAm</div>
+      </div>
+    </div>
+    <a href="#contact" class="cta-btn">
+      <span data-en="Start a Conversation" data-es="Empecemos una Conversación">Start a Conversation</span>
+    </a>
+  </div>
+  <div class="hero-right">
+    <div class="photo-wrap">
+      <img src="foto.jpg" alt="Martín Bellocq" />
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label">
+    <span data-en="About" data-es="Perfil">About</span>
+  </div>
+  <div class="about-grid">
+    <div>
+      <h2 class="about-title fade-in">
+        <span data-en="The work behind the numbers." data-es="El trabajo detrás de los números.">The work behind <em>the numbers.</em></span>
+      </h2>
+    </div>
+    <div class="about-text fade-in">
+      <p data-en="15 years at the intersection of finance, digital marketing, and growth in Latin America. The foundation: economics and a Master's in Finance, combined with five years at Google advising the marketing teams of hundreds of companies — across insurance, retail, telco, and automotive — on how to compete and grow in the digital world." data-es="15 años en la intersección entre finanzas, marketing digital y crecimiento en América Latina. La base: economía y una Maestría en Finanzas, más cinco años en Google asesorando a los equipos de marketing de cientos de empresas — en seguros, retail, telco y automotriz — sobre cómo competir y crecer en el mundo digital.">15 years at the intersection of finance, digital marketing, and growth in Latin America. The foundation: economics and a Master's in Finance, combined with five years at Google advising the marketing teams of hundreds of companies — across insurance, retail, telco, and automotive — on how to compete and grow in the digital world.</p>
+      <p data-en="The application: eight years as CMO at Ualá, leading market entry in three countries, co-owning commercial results across all revenue lines, and building the brand, team, and growth engine of one of the region's leading digital banks — from 14 employees to 1,400, from zero to 10M+ users. The focus has always been the same: building things that last and growing businesses with real results." data-es="La práctica: ocho años como CMO de Ualá, liderando el ingreso a tres mercados, siendo co-responsable de los resultados comerciales en todas las líneas de negocio y construyendo la marca, el equipo y el motor de crecimiento de uno de los bancos digitales más relevantes de la región — de 14 empleados a 1.400, de cero a más de 10 millones de usuarios. El foco siempre fue el mismo: construir algo real y hacer crecer negocios con resultados concretos.">The application: eight years as CMO at Ualá, leading market entry in three countries, co-owning commercial results across all revenue lines, and building the brand, team, and growth engine of one of the region's leading digital banks — from 14 employees to 1,400, from zero to 10M+ users. The focus has always been the same: building things that last and growing businesses with real results.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-label">
+    <span data-en="Experience" data-es="Experiencia">Experience</span>
+  </div>
+  <h2 class="exp-title fade-in" data-en="Brands, teams, and markets — built from zero." data-es="Marcas, equipos y mercados — construidos desde cero.">Brands, teams, and markets — built from zero.</h2>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-period">2017 — 2025</div>
+      <div class="tl-company">Ualá</div>
+      <div class="tl-role" data-en="Chief Marketing Officer" data-es="Chief Marketing Officer">Chief Marketing Officer</div>
+      <p class="tl-desc" data-en="Joined pre-launch in 2017, when fintech in Latin America was still an idea most people didn't trust. The challenge wasn't just building a brand — it was building a category and owning the commercial results that came with it. As part of the Executive Committee, I co-owned revenue performance across four business units: Lending, Investments, Payments, and Merchant Acquiring. Led end-to-end market entry in Argentina, Mexico, and Colombia — from strategy and team building to brand launch and growth execution, including Mexico's launch during the COVID-19 pandemic. Over eight years, the company grew from 14 people to 1,400, the marketing organization from zero to 80, and the user base from zero to 10M+. Every stage demanded a different kind of leadership: brand builder, growth operator, market launcher, and strategic partner to the CEO and board." data-es="Me incorporé antes del lanzamiento en 2017, cuando el fintech en América Latina era todavía una idea que pocos entendían y menos confiaban. El desafío no era solo lanzar una marca — era construir una categoría y ser co-responsable de los resultados comerciales que venían con ella. Como parte del Comité Ejecutivo, compartí la responsabilidad del desempeño de ingresos en cuatro unidades de negocio: Préstamos, Inversiones, Pagos y Adquirencia. Lideré el ingreso end-to-end a Argentina, México y Colombia — desde la estrategia y la construcción de equipos hasta el lanzamiento de marca y la ejecución de crecimiento, incluyendo el lanzamiento de México en plena pandemia. En ocho años, la empresa pasó de 14 personas a 1.400, el equipo de marketing de cero a 80, y la base de usuarios de cero a más de 10 millones. Cada etapa exigió un liderazgo diferente: constructor de marca, operador de crecimiento, responsable de expansión y socio estratégico del CEO y del directorio.">Joined pre-launch in 2017, when fintech in Latin America was still an idea most people didn't trust. The challenge wasn't just building a brand — it was building a category and owning the commercial results that came with it. As part of the Executive Committee, I co-owned revenue performance across four business units: Lending, Investments, Payments, and Merchant Acquiring. Led end-to-end market entry in Argentina, Mexico, and Colombia — from strategy and team building to brand launch and growth execution, including Mexico's launch during the COVID-19 pandemic. Over eight years, the company grew from 14 people to 1,400, the marketing organization from zero to 80, and the user base from zero to 10M+. Every stage demanded a different kind of leadership: brand builder, growth operator, market launcher, and strategic partner to the CEO and board.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">2012 — 2017</div>
+      <div class="tl-company">Google</div>
+      <div class="tl-role" data-en="Senior Account Manager · Account Manager SMB" data-es="Senior Account Manager · Account Manager SMB">Senior Account Manager · Account Manager SMB</div>
+      <p class="tl-desc" data-en="Five years advising the marketing teams of hundreds of companies — insurance, retail, telco, automotive, education — on how to grow in the digital world. Working at Google also meant experiencing a world-class organization firsthand: global processes, cutting-edge technology, and a culture built around performance. That foundation made the contrast that followed all the more formative — moving to Ualá meant crossing to the other side of the table, with a fraction of the resources and ten times the urgency. Both environments shaped the way I work: structured thinking, startup execution." data-es="Cinco años asesorando a los equipos de marketing de cientos de empresas — seguros, retail, telco, automotriz, educación — en cómo crecer en el mundo digital. Trabajar en Google también significó experimentar de cerca cómo funciona una organización de primer nivel mundial: procesos globales, tecnología de punta y una cultura orientada a resultados. Esa base hizo que el contraste que vino después fuera aún más formativo — pasar a Ualá implicó cruzar al otro lado del mostrador, con una fracción de los recursos y diez veces la urgencia. Los dos ambientes moldearon mi forma de trabajar: pensamiento estructurado, ejecución startup.">Five years advising the marketing teams of hundreds of companies — insurance, retail, telco, automotive, education — on how to grow in the digital world. Working at Google also meant experiencing a world-class organization firsthand: global processes, cutting-edge technology, and a culture built around performance. That foundation made the contrast that followed all the more formative — moving to Ualá meant crossing to the other side of the table, with a fraction of the resources and ten times the urgency. Both environments shaped the way I work: structured thinking, startup execution.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">2012</div>
+      <div class="tl-company">American Express</div>
+      <div class="tl-role" data-en="Business Planning Analyst" data-es="Business Planning Analyst">Business Planning Analyst</div>
+      <p class="tl-desc" data-en="Financial planning and commercial performance analysis within Merchant Services. A brief but formative stint inside one of the world's most recognized financial brands." data-es="Planificación financiera y análisis de desempeño comercial en Merchant Services. Un paso breve pero formativo dentro de una de las marcas financieras más reconocidas del mundo.">Financial planning and commercial performance analysis within Merchant Services. A brief but formative stint inside one of the world's most recognized financial brands.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">2010 — 2011</div>
+      <div class="tl-company">Deloitte</div>
+      <div class="tl-role" data-en="Auditor · Barcelona" data-es="Auditor · Barcelona">Auditor · Barcelona</div>
+      <p class="tl-desc" data-en="Financial audits for multinational and regional companies across consumer goods, pharma, and construction. The discipline of reading businesses from the inside out." data-es="Auditorías financieras para empresas multinacionales y regionales en consumo masivo, farmacéutica y construcción. El entrenamiento de entender negocios desde adentro.">Financial audits for multinational and regional companies across consumer goods, pharma, and construction. The discipline of reading businesses from the inside out.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section id="press">
+  <div class="sec-label">
+    <span data-en="Press" data-es="Prensa">Press</span>
+  </div>
+  <div class="press-header">
+    <h2 class="press-title fade-in" data-en="In the media." data-es="En los medios.">In the media.</h2>
+    <p class="press-sub fade-in" data-en="Interviews, talks, and features on digital banking, growth, and Latin America's financial transformation." data-es="Entrevistas, charlas y notas sobre banca digital, crecimiento y la transformación financiera de América Latina.">Interviews, talks, and features on digital banking, growth, and Latin America's financial transformation.</p>
+  </div>
+
+  <div class="press-type-label" data-en="— Video" data-es="— Video">— Video</div>
+  <div class="videos-grid">
+    <a href="https://www.youtube.com/watch?v=164ARUeEi9c" target="_blank" rel="noopener" class="vid-card fade-in">
+      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
+      <div class="vid-title" data-en="Digital wallets and the rise of interoperability" data-es="El auge de las billeteras digitales y la interoperabilidad del CVU">Digital wallets and the rise of interoperability</div>
+      <div class="vid-desc" data-en="The strategic role of CVU in connecting banks and fintechs in Argentina." data-es="Análisis sobre el funcionamiento de las billeteras virtuales y la importancia estratégica del CVU.">The strategic role of CVU in connecting banks and fintechs in Argentina.</div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=KQdmu7odnaA" target="_blank" rel="noopener" class="vid-card fade-in">
+      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
+      <div class="vid-title" data-en="Disruption in financial services: the Ualá story" data-es="Disrupción en la industria financiera: el caso Ualá">Disruption in financial services: the Ualá story</div>
+      <div class="vid-desc" data-en="Launching a brand from zero, scaling a marketing team, and leading the shift to digital banking." data-es="Lanzar una marca desde cero, escalar el equipo de marketing y liderar el cambio hacia la banca digital.">Launching a brand from zero, scaling a marketing team, and leading the shift to digital banking.</div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=h095zHfddqc" target="_blank" rel="noopener" class="vid-card fade-in">
+      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
+      <div class="vid-title" data-en="Financial inclusion and education in Latin America" data-es="Inclusión y educación financiera en América Latina">Financial inclusion and education in Latin America</div>
+      <div class="vid-desc" data-en="Democratizing access to financial services and the evolution of the regional investor." data-es="Democratización de servicios financieros y la evolución del perfil del inversor regional.">Democratizing access to financial services and the evolution of the regional investor.</div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=wd4kKUq7ens" target="_blank" rel="noopener" class="vid-card fade-in">
+      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
+      <div class="vid-title" data-en="Investment trends and the gender gap in retail markets" data-es="Tendencias de inversión y brecha de género en el mercado bursátil">Investment trends and the gender gap in retail markets</div>
+      <div class="vid-desc" data-en="CEDEARs, crypto, and the changing behavior of individual investors." data-es="CEDEARs, criptoactivos y el comportamiento cambiante de los inversores minoristas.">CEDEARs, crypto, and the changing behavior of individual investors.</div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=7KHeVGUrE9M" target="_blank" rel="noopener" class="vid-card fade-in">
+      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
+      <div class="vid-title" data-en="From fintech startup to licensed neobank" data-es="Evolución del ecosistema fintech: de startup a neobanco">From fintech startup to licensed neobank</div>
+      <div class="vid-desc" data-en="Building a financial ecosystem that integrates payments, credit, and investment under banking licenses." data-es="Construcción de un ecosistema que integra transacciones, crédito e inversiones bajo licencias bancarias.">Building a financial ecosystem that integrates payments, credit, and investment under banking licenses.</div>
+    </a>
+  </div>
+
+  <div class="press-type-label" data-en="— Articles" data-es="— Artículos">— Articles</div>
+  <div class="articles-grid">
+    <a href="https://www.forbesargentina.com/summit/cuales-son-herramientas-resguardar-dinero-fuera-banca-tradicional-n32863" target="_blank" rel="noopener" class="art-card fade-in">
+      <div class="art-source">Forbes Argentina</div>
+      <div class="art-title" data-en="Managing money outside traditional banking" data-es="Manejar el dinero fuera de la banca tradicional">Managing money outside traditional banking</div>
+      <div class="art-desc" data-en="Forbes Summit participation on the future of digital finance in LatAm." data-es="Participación en Forbes Summit sobre el futuro de las finanzas digitales.">Forbes Summit participation on the future of digital finance in LatAm.</div>
+      <span class="art-arrow">→</span>
+    </a>
+    <a href="https://www.merca20.com/entrevista-exclusiva-martin-bellocq-regional-chief-marketing-officer-de-ualaentrevista-exclusiva-martin-bellocq-regional-chief-marketing-officer-de-uala/" target="_blank" rel="noopener" class="art-card fade-in">
+      <div class="art-source">Merca 2.0</div>
+      <div class="art-title" data-en="Building Ualá's brand across three markets" data-es="Construyendo la marca de Ualá en tres mercados">Building Ualá's brand across three markets</div>
+      <div class="art-desc" data-en="On campaign strategy, ambassadors, and financial inclusion in Mexico." data-es="Estrategia de campaña, embajadores e inclusión financiera en México.">On campaign strategy, ambassadors, and financial inclusion in Mexico.</div>
+      <span class="art-arrow">→</span>
+    </a>
+    <a href="https://dossiernet.com/articulo/uala-renueva-su-imagen-de-marca-su-cmo-martin-bellocq-cuenta-todos-los-detalles/30946" target="_blank" rel="noopener" class="art-card fade-in">
+      <div class="art-source">Dossier Net</div>
+      <div class="art-title" data-en="Behind Ualá's brand relaunch" data-es="Detrás del relanzamiento de marca de Ualá">Behind Ualá's brand relaunch</div>
+      <div class="art-desc" data-en="Why and how Ualá renewed its visual identity." data-es="Por qué y cómo Ualá renovó su identidad visual.">Why and how Ualá renewed its visual identity.</div>
+      <span class="art-arrow">→</span>
+    </a>
+    <a href="https://dossiernet.com/articulo/uala-presento-estas-para-uala/37817" target="_blank" rel="noopener" class="art-card fade-in">
+      <div class="art-source">Dossier Net</div>
+      <div class="art-title" data-en="Ualá's first major campaign" data-es="La primera gran campaña de Ualá">Ualá's first major campaign</div>
+      <div class="art-desc" data-en='The story behind "Estas para Ualá".' data-es='La historia detrás de "Estás para Ualá".'>The story behind "Estas para Ualá".</div>
+      <span class="art-arrow">→</span>
+    </a>
+    <a href="https://eleconomista.com.ar/negocios/uala-lanza-aula-uala-una-plataforma-gratuita-educacion-financiera-n50221" target="_blank" rel="noopener" class="art-card fade-in">
+      <div class="art-source">El Economista</div>
+      <div class="art-title" data-en="Aula Ualá: financial education for everyone" data-es="Aula Ualá: educación financiera para todos">Aula Ualá: financial education for everyone</div>
+      <div class="art-desc" data-en="A free learning platform open to all — not just Ualá users." data-es="Una plataforma gratuita abierta a todos, no solo a usuarios de Ualá.">A free learning platform open to all — not just Ualá users.</div>
+      <span class="art-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-label">
+    <span data-en="Contact" data-es="Contacto">Contact</span>
+  </div>
+  <div class="contact-grid">
+    <div class="fade-in">
+      <h2 class="contact-title">
+        <span data-en="Start a" data-es="Empecemos">Start a</span><br>
+        <em data-en="conversation." data-es="una conversación.">conversation.</em>
+      </h2>
+      <p class="contact-body" data-en="Advisory. Board. Consulting. If you're building something serious in Latin America's financial ecosystem, let's talk." data-es="Advisory. Directorio. Consultoría. Si estás construyendo algo serio en el ecosistema financiero de América Latina, hablemos.">Advisory. Board. Consulting. If you're building something serious in Latin America's financial ecosystem, let's talk.</p>
+      <div class="contact-info-label" data-en="Email" data-es="Email">Email</div>
+      <a href="mailto:martinjbellocq@gmail.com" class="contact-info-val">martinjbellocq@gmail.com</a>
+      <div class="contact-info-label">LinkedIn</div>
+      <a href="https://www.linkedin.com/in/martin--bellocq/" target="_blank" rel="noopener" class="contact-info-val">linkedin.com/in/martin--bellocq</a>
+    </div>
+    <div class="fade-in">
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-field">
+          <label class="form-lbl" data-en="Your name" data-es="Tu nombre">Your name</label>
+          <input type="text" name="name" class="form-inp" required />
+        </div>
+        <div class="form-field">
+          <label class="form-lbl" data-en="Your email" data-es="Tu email">Your email</label>
+          <input type="email" name="email" class="form-inp" required />
+        </div>
+        <div class="form-field">
+          <label class="form-lbl" data-en="Message" data-es="Mensaje">Message</label>
+          <textarea name="message" class="form-ta" required></textarea>
+        </div>
+        <button type="submit" class="form-btn">
+          <span data-en="Send message" data-es="Enviar mensaje">Send message</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="foot-name">Martín Bellocq</span>
+  <span class="foot-copy" id="fcopy">© 2025 · Buenos Aires, Argentina</span>
+</footer>
+
+<script>
+  // NAV scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // LANG toggle
+  let lang = 'en';
+  const langBtn = document.getElementById('langBtn');
+  function setLang(l) {
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = l === 'en' ? el.dataset.en : el.dataset.es;
+    });
+    langBtn.textContent = l === 'en' ? 'ES' : 'EN';
+    document.documentElement.lang = l === 'en' ? 'en' : 'es';
+  }
+  langBtn.addEventListener('click', () => {
+    lang = lang === 'en' ? 'es' : 'en';
+    setLang(lang);
+  });
+
+  // INTERSECTION OBSERVER
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in, .tl-item').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.04}s`;
+    obs.observe(el);
+  });
+
+  // FOOTER year
+  document.getElementById('fcopy').textContent =
+    `© ${new Date().getFullYear()} · Buenos Aires, Argentina`;
+</script>
+</body>
+</html>
