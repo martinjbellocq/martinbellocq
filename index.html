@@ -28,7 +28,7 @@
       --bg3:       #16161F;
       --cream:     #F0EBE0;
       --cream2:    #A89F94;
-      --muted:     #5C5650;
+      --muted:     #908880;
       --gold:      #C9A96E;
       --gold-dim:  #6B5535;
       --border:    rgba(201,169,110,0.18);
@@ -141,6 +141,18 @@
       font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
       color: var(--muted); line-height: 1.4;
     }
+    /* Availability tags */
+    .avail-tags {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+    .avail-tag {
+      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); border: 0.5px solid var(--gold-dim);
+      padding: 0.35rem 0.9rem;
+    }
+
+    .cta-row { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
     .cta-btn {
       display: inline-block; text-decoration: none;
       font-family: var(--sans); font-size: 0.68rem;
@@ -157,34 +169,56 @@
     .cta-btn:hover { color: var(--bg); }
     .cta-btn:hover::before { transform: translateX(0); }
     .cta-btn span { position: relative; z-index: 1; }
+    .cv-btn {
+      display: inline-block; text-decoration: none;
+      font-family: var(--sans); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); border: 0.5px solid var(--border2);
+      padding: 1.1rem 2rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .cv-btn:hover { color: var(--gold); border-color: var(--gold-dim); }
 
     .hero-right {
       display: flex; align-items: center; justify-content: flex-end;
       padding-top: 6rem; padding-bottom: 4rem;
     }
     .photo-wrap {
-      position: relative; width: 360px; height: 460px; flex-shrink: 0;
+      position: relative; width: 300px; height: 380px; flex-shrink: 0;
     }
     .photo-wrap::before {
       content: ''; position: absolute;
-      top: -1.2rem; right: -1.2rem;
+      top: -1.4rem; right: -1.4rem;
       width: 100%; height: 100%;
-      border: 0.5px solid var(--gold-dim); z-index: 0;
+      border: 1.5px solid var(--gold-dim); z-index: 0;
+      border-radius: 6px;
     }
     .photo-wrap::after {
       content: ''; position: absolute;
-      bottom: -1.2rem; left: -1.2rem;
-      width: 60%; height: 60%;
-      border: 0.5px solid rgba(201,169,110,0.1); z-index: 0;
+      bottom: -1rem; left: -1rem;
+      width: 55%; height: 55%;
+      border: 0.5px solid rgba(201,169,110,0.12); z-index: 0;
     }
     .photo-wrap img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: center top;
       position: relative; z-index: 1;
-      filter: grayscale(10%) contrast(1.02);
+      filter: grayscale(100%) contrast(1.05);
+      border-radius: 4px;
     }
 
-    /* ── SECTIONS ── */
+    /* Mobile photo */
+    .mobile-photo {
+      display: none;
+      width: 90px; height: 90px; border-radius: 50%;
+      overflow: hidden; border: 1.5px solid var(--gold-dim);
+      margin-bottom: 1.5rem; flex-shrink: 0;
+    }
+    .mobile-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: grayscale(10%);
+    }
     section {
       padding: 5rem 4rem; position: relative;
     }
@@ -288,28 +322,51 @@
     }
     .videos-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--border2);
+      gap: 1px; background: transparent;
       margin-bottom: 5rem;
     }
     .vid-card {
-      background: var(--bg2); padding: 2rem 1.8rem;
+      background: var(--bg2); padding: 0;
       text-decoration: none; display: block;
-      transition: background 0.3s;
+      transition: background 0.3s; overflow: hidden;
+      border: 0.5px solid var(--border2);
     }
     .vid-card:hover { background: var(--bg3); }
-    .vid-play {
-      width: 2.2rem; height: 2.2rem;
-      border: 0.5px solid var(--gold-dim);
+    .vid-thumb {
+      position: relative; width: 100%; padding-top: 56.25%;
+      overflow: hidden; background: var(--bg3);
+    }
+    .vid-thumb img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+      transition: transform 0.4s ease;
+    }
+    .vid-card:hover .vid-thumb img { transform: scale(1.04); }
+    .vid-thumb-overlay {
+      position: absolute; inset: 0;
+      background: rgba(13,13,18,0.55);
       display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.4rem; transition: border-color 0.2s;
+      transition: background 0.3s;
     }
-    .vid-card:hover .vid-play { border-color: var(--gold); }
-    .vid-play svg { fill: var(--gold); }
+    .vid-card:hover .vid-thumb-overlay { background: rgba(13,13,18,0.3); }
+    .vid-play-btn {
+      width: 3rem; height: 3rem;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(13,13,18,0.6);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .vid-card:hover .vid-play-btn { background: var(--gold); }
+    .vid-card:hover .vid-play-btn svg { fill: var(--bg); }
+    .vid-play-btn svg { fill: var(--gold); transition: fill 0.2s; }
+    .vid-body { padding: 1.4rem 1.6rem; }
     .vid-title {
-      font-family: var(--serif); font-size: 1.08rem; font-weight: 400;
-      color: var(--cream); line-height: 1.3; margin-bottom: 0.7rem;
+      font-family: var(--serif); font-size: 1.05rem; font-weight: 400;
+      color: var(--cream); line-height: 1.3; margin-bottom: 0.6rem;
     }
-    .vid-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+    .vid-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.6; }
 
     .articles-grid {
       display: grid; grid-template-columns: repeat(2, 1fr);
@@ -407,19 +464,22 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
-      #hero { grid-template-columns: 1fr; padding: 7rem 2.5rem 5rem; }
+      #hero { grid-template-columns: 1fr; padding: 3.5rem 2.5rem 3rem; }
+      .hero-left { padding-top: 2rem; padding-bottom: 2rem; }
       .hero-right { display: none; }
+      .mobile-photo { display: block; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
       .videos-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      nav { padding: 1.2rem 2rem; }
+      nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
-      section { padding: 5rem 2rem; }
-      section::after { left: 2rem; right: 2rem; }
-      #hero::after { left: 2rem; right: 2rem; }
-      .metrics-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      section { padding: 3.5rem 1.5rem; }
+      section::after { left: 1.5rem; right: 1.5rem; }
+      #hero::after { left: 1.5rem; right: 1.5rem; }
+      .sec-label { margin-bottom: 2rem; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
       .videos-grid { grid-template-columns: 1fr; }
       .articles-grid { grid-template-columns: 1fr; }
       footer { padding: 2rem; flex-direction: column; gap: 0.6rem; }
@@ -445,6 +505,9 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-left">
+    <div class="mobile-photo">
+      <img src="foto.jpg" alt="Martín Bellocq" />
+    </div>
     <div class="hero-eyebrow">
       <span data-en="Executive Profile" data-es="Perfil Ejecutivo">Executive Profile</span>
     </div>
@@ -478,9 +541,12 @@
         <div class="metric-lbl" data-en="Years in LatAm" data-es="Años en LatAm">Years in LatAm</div>
       </div>
     </div>
-    <a href="#contact" class="cta-btn">
-      <span data-en="Start a Conversation" data-es="Empecemos una Conversación">Start a Conversation</span>
-    </a>
+    <div class="cta-row">
+      <a href="#contact" class="cta-btn">
+        <span data-en="Start a Conversation" data-es="Empecemos una Conversación">Start a Conversation</span>
+      </a>
+      <a href="cv-en.pdf" download id="cvBtn" class="cv-btn" data-en="Download CV" data-es="Descargar CV">Download CV</a>
+    </div>
   </div>
   <div class="hero-right">
     <div class="photo-wrap">
@@ -519,7 +585,7 @@
       <div class="tl-period">2017 — 2025</div>
       <div class="tl-company">Ualá</div>
       <div class="tl-role" data-en="Chief Marketing Officer" data-es="Chief Marketing Officer">Chief Marketing Officer</div>
-      <p class="tl-desc" data-en="Joined pre-launch in 2017, when fintech in Latin America was still an idea most people didn't trust. The challenge wasn't just building a brand — it was building a category and owning the commercial results that came with it. As part of the Executive Committee, I co-owned revenue performance across four business units: Lending, Investments, Payments, and Merchant Acquiring. Led end-to-end market entry in Argentina, Mexico, and Colombia — from strategy and team building to brand launch and growth execution, including Mexico's launch during the COVID-19 pandemic. Over eight years, the company grew from 14 people to 1,400, the marketing organization from zero to 80, and the user base from zero to 10M+. Every stage demanded a different kind of leadership: brand builder, growth operator, market launcher, and strategic partner to the CEO and board." data-es="Me incorporé antes del lanzamiento en 2017, cuando el fintech en América Latina era todavía una idea que pocos entendían y menos confiaban. El desafío no era solo lanzar una marca — era construir una categoría y ser co-responsable de los resultados comerciales que venían con ella. Como parte del Comité Ejecutivo, compartí la responsabilidad del desempeño de ingresos en cuatro unidades de negocio: Préstamos, Inversiones, Pagos y Adquirencia. Lideré el ingreso end-to-end a Argentina, México y Colombia — desde la estrategia y la construcción de equipos hasta el lanzamiento de marca y la ejecución de crecimiento, incluyendo el lanzamiento de México en plena pandemia. En ocho años, la empresa pasó de 14 personas a 1.400, el equipo de marketing de cero a 80, y la base de usuarios de cero a más de 10 millones. Cada etapa exigió un liderazgo diferente: constructor de marca, operador de crecimiento, responsable de expansión y socio estratégico del CEO y del directorio.">Joined pre-launch in 2017, when fintech in Latin America was still an idea most people didn't trust. The challenge wasn't just building a brand — it was building a category and owning the commercial results that came with it. As part of the Executive Committee, I co-owned revenue performance across four business units: Lending, Investments, Payments, and Merchant Acquiring. Led end-to-end market entry in Argentina, Mexico, and Colombia — from strategy and team building to brand launch and growth execution, including Mexico's launch during the COVID-19 pandemic. Over eight years, the company grew from 14 people to 1,400, the marketing organization from zero to 80, and the user base from zero to 10M+. Every stage demanded a different kind of leadership: brand builder, growth operator, market launcher, and strategic partner to the CEO and board.</p>
+      <p class="tl-desc" data-en="Joined pre-launch in 2017, when fintech in Latin America was still an idea most people didn't trust. The challenge wasn't just building a brand — it was building a category and owning the commercial results that came with it. As part of the Executive Committee, I co-owned revenue performance across four business units: Lending, Investments, Payments, and Merchant Acquiring. Led end-to-end market entry in Argentina, Mexico, and Colombia — from strategy and team building to brand launch and growth execution, including building local teams on the ground in each market and leading Mexico's launch during the COVID-19 pandemic. Over eight years, the company grew from 14 people to 1,400, the marketing organization from zero to 80, and the user base from zero to 10M+. As of 2025, available for new engagements." data-es="Me incorporé antes del lanzamiento en 2017, cuando el fintech en América Latina era todavía una idea que pocos entendían y menos confiaban. El desafío no era solo lanzar una marca — era construir una categoría y ser co-responsable de los resultados comerciales que venían con ella. Como parte del Comité Ejecutivo, compartí la responsabilidad del desempeño de ingresos en cuatro unidades de negocio: Préstamos, Inversiones, Pagos y Adquirencia. Lideré el ingreso end-to-end a Argentina, México y Colombia — desde la estrategia y la construcción de equipos locales en cada mercado hasta el lanzamiento de marca y la ejecución de crecimiento, incluyendo el lanzamiento de México en plena pandemia. En ocho años, la empresa pasó de 14 personas a 1.400, el equipo de marketing de cero a 80, y la base de usuarios de cero a más de 10 millones. Disponible para nuevos proyectos desde 2025.">Joined pre-launch in 2017, when fintech in Latin America was still an idea most people didn't trust. The challenge wasn't just building a brand — it was building a category and owning the commercial results that came with it. As part of the Executive Committee, I co-owned revenue performance across four business units: Lending, Investments, Payments, and Merchant Acquiring. Led end-to-end market entry in Argentina, Mexico, and Colombia — from strategy and team building to brand launch and growth execution, including building local teams on the ground in each market and leading Mexico's launch during the COVID-19 pandemic. Over eight years, the company grew from 14 people to 1,400, the marketing organization from zero to 80, and the user base from zero to 10M+. As of 2025, available for new engagements.</p>
     </div>
 
     <div class="tl-item">
@@ -558,29 +624,54 @@
   <div class="press-type-label" data-en="— Video" data-es="— Video">— Video</div>
   <div class="videos-grid">
     <a href="https://www.youtube.com/watch?v=164ARUeEi9c" target="_blank" rel="noopener" class="vid-card fade-in">
-      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
-      <div class="vid-title" data-en="Digital wallets and the rise of interoperability" data-es="El auge de las billeteras digitales y la interoperabilidad del CVU">Digital wallets and the rise of interoperability</div>
-      <div class="vid-desc" data-en="The strategic role of CVU in connecting banks and fintechs in Argentina." data-es="Análisis sobre el funcionamiento de las billeteras virtuales y la importancia estratégica del CVU.">The strategic role of CVU in connecting banks and fintechs in Argentina.</div>
+      <div class="vid-thumb">
+        <img src="https://img.youtube.com/vi/164ARUeEi9c/hqdefault.jpg" alt="Digital wallets and interoperability" loading="lazy" />
+        <div class="vid-thumb-overlay"><div class="vid-play-btn"><svg width="11" height="13" viewBox="0 0 11 13"><path d="M0 0L11 6.5L0 13V0Z"/></svg></div></div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title" data-en="Digital wallets and the rise of interoperability" data-es="El auge de las billeteras digitales y la interoperabilidad del CVU">Digital wallets and the rise of interoperability</div>
+        <div class="vid-desc" data-en="The strategic role of CVU in connecting banks and fintechs in Argentina." data-es="Análisis sobre el funcionamiento de las billeteras virtuales y la importancia estratégica del CVU.">The strategic role of CVU in connecting banks and fintechs in Argentina.</div>
+      </div>
     </a>
     <a href="https://www.youtube.com/watch?v=KQdmu7odnaA" target="_blank" rel="noopener" class="vid-card fade-in">
-      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
-      <div class="vid-title" data-en="Disruption in financial services: the Ualá story" data-es="Disrupción en la industria financiera: el caso Ualá">Disruption in financial services: the Ualá story</div>
-      <div class="vid-desc" data-en="Launching a brand from zero, scaling a marketing team, and leading the shift to digital banking." data-es="Lanzar una marca desde cero, escalar el equipo de marketing y liderar el cambio hacia la banca digital.">Launching a brand from zero, scaling a marketing team, and leading the shift to digital banking.</div>
+      <div class="vid-thumb">
+        <img src="https://img.youtube.com/vi/KQdmu7odnaA/hqdefault.jpg" alt="Disruption in financial services" loading="lazy" />
+        <div class="vid-thumb-overlay"><div class="vid-play-btn"><svg width="11" height="13" viewBox="0 0 11 13"><path d="M0 0L11 6.5L0 13V0Z"/></svg></div></div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title" data-en="Disruption in financial services: the Ualá story" data-es="Disrupción en la industria financiera: el caso Ualá">Disruption in financial services: the Ualá story</div>
+        <div class="vid-desc" data-en="Launching a brand from zero, scaling a marketing team, and leading the shift to digital banking." data-es="Lanzar una marca desde cero, escalar el equipo de marketing y liderar el cambio hacia la banca digital.">Launching a brand from zero, scaling a marketing team, and leading the shift to digital banking.</div>
+      </div>
     </a>
     <a href="https://www.youtube.com/watch?v=h095zHfddqc" target="_blank" rel="noopener" class="vid-card fade-in">
-      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
-      <div class="vid-title" data-en="Financial inclusion and education in Latin America" data-es="Inclusión y educación financiera en América Latina">Financial inclusion and education in Latin America</div>
-      <div class="vid-desc" data-en="Democratizing access to financial services and the evolution of the regional investor." data-es="Democratización de servicios financieros y la evolución del perfil del inversor regional.">Democratizing access to financial services and the evolution of the regional investor.</div>
+      <div class="vid-thumb">
+        <img src="https://img.youtube.com/vi/h095zHfddqc/hqdefault.jpg" alt="Financial inclusion in Latin America" loading="lazy" />
+        <div class="vid-thumb-overlay"><div class="vid-play-btn"><svg width="11" height="13" viewBox="0 0 11 13"><path d="M0 0L11 6.5L0 13V0Z"/></svg></div></div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title" data-en="Financial inclusion and education in Latin America" data-es="Inclusión y educación financiera en América Latina">Financial inclusion and education in Latin America</div>
+        <div class="vid-desc" data-en="Democratizing access to financial services and the evolution of the regional investor." data-es="Democratización de servicios financieros y la evolución del perfil del inversor regional.">Democratizing access to financial services and the evolution of the regional investor.</div>
+      </div>
     </a>
     <a href="https://www.youtube.com/watch?v=wd4kKUq7ens" target="_blank" rel="noopener" class="vid-card fade-in">
-      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
-      <div class="vid-title" data-en="Investment trends and the gender gap in retail markets" data-es="Tendencias de inversión y brecha de género en el mercado bursátil">Investment trends and the gender gap in retail markets</div>
-      <div class="vid-desc" data-en="CEDEARs, crypto, and the changing behavior of individual investors." data-es="CEDEARs, criptoactivos y el comportamiento cambiante de los inversores minoristas.">CEDEARs, crypto, and the changing behavior of individual investors.</div>
+      <div class="vid-thumb">
+        <img src="https://img.youtube.com/vi/wd4kKUq7ens/hqdefault.jpg" alt="Investment trends and gender gap" loading="lazy" />
+        <div class="vid-thumb-overlay"><div class="vid-play-btn"><svg width="11" height="13" viewBox="0 0 11 13"><path d="M0 0L11 6.5L0 13V0Z"/></svg></div></div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title" data-en="Investment trends and the gender gap in retail markets" data-es="Tendencias de inversión y brecha de género en el mercado bursátil">Investment trends and the gender gap in retail markets</div>
+        <div class="vid-desc" data-en="CEDEARs, crypto, and the changing behavior of individual investors." data-es="CEDEARs, criptoactivos y el comportamiento cambiante de los inversores minoristas.">CEDEARs, crypto, and the changing behavior of individual investors.</div>
+      </div>
     </a>
     <a href="https://www.youtube.com/watch?v=7KHeVGUrE9M" target="_blank" rel="noopener" class="vid-card fade-in">
-      <div class="vid-play"><svg width="10" height="12" viewBox="0 0 10 12"><path d="M0 0L10 6L0 12V0Z"/></svg></div>
-      <div class="vid-title" data-en="From fintech startup to licensed neobank" data-es="Evolución del ecosistema fintech: de startup a neobanco">From fintech startup to licensed neobank</div>
-      <div class="vid-desc" data-en="Building a financial ecosystem that integrates payments, credit, and investment under banking licenses." data-es="Construcción de un ecosistema que integra transacciones, crédito e inversiones bajo licencias bancarias.">Building a financial ecosystem that integrates payments, credit, and investment under banking licenses.</div>
+      <div class="vid-thumb">
+        <img src="https://img.youtube.com/vi/7KHeVGUrE9M/hqdefault.jpg" alt="From fintech startup to neobank" loading="lazy" />
+        <div class="vid-thumb-overlay"><div class="vid-play-btn"><svg width="11" height="13" viewBox="0 0 11 13"><path d="M0 0L11 6.5L0 13V0Z"/></svg></div></div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title" data-en="From fintech startup to licensed neobank" data-es="Evolución del ecosistema fintech: de startup a neobanco">From fintech startup to licensed neobank</div>
+        <div class="vid-desc" data-en="Building a financial ecosystem that integrates payments, credit, and investment under banking licenses." data-es="Construcción de un ecosistema que integra transacciones, crédito e inversiones bajo licencias bancarias.">Building a financial ecosystem that integrates payments, credit, and investment under banking licenses.</div>
+      </div>
     </a>
   </div>
 
@@ -630,14 +721,14 @@
         <span data-en="Start a" data-es="Empecemos">Start a</span><br>
         <em data-en="conversation." data-es="una conversación.">conversation.</em>
       </h2>
-      <p class="contact-body" data-en="Advisory. Board. Consulting. If you're building something serious in Latin America's financial ecosystem, let's talk." data-es="Advisory. Directorio. Consultoría. Si estás construyendo algo serio en el ecosistema financiero de América Latina, hablemos.">Advisory. Board. Consulting. If you're building something serious in Latin America's financial ecosystem, let's talk.</p>
+      <p class="contact-body" data-en="CMO. Country Manager. Fractional Executive. Board Advisor. If you're building or scaling something in Latin America — a brand, a market, a team — let's talk." data-es="CMO. Country Manager. Ejecutivo Fractional. Board Advisor. Si estás construyendo o escalando algo en América Latina — una marca, un mercado, un equipo — hablemos.">CMO. Country Manager. Fractional Executive. Board Advisor. If you're building or scaling something in Latin America — a brand, a market, a team — let's talk.</p>
       <div class="contact-info-label" data-en="Email" data-es="Email">Email</div>
       <a href="mailto:martinjbellocq@gmail.com" class="contact-info-val">martinjbellocq@gmail.com</a>
       <div class="contact-info-label">LinkedIn</div>
       <a href="https://www.linkedin.com/in/martin--bellocq/" target="_blank" rel="noopener" class="contact-info-val">linkedin.com/in/martin--bellocq</a>
     </div>
     <div class="fade-in">
-      <form action="https://formspree.io/f/mzdybdna" method="POST">
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
         <div class="form-field">
           <label class="form-lbl" data-en="Your name" data-es="Tu nombre">Your name</label>
           <input type="text" name="name" class="form-inp" required />
@@ -674,12 +765,14 @@
   // LANG toggle
   let lang = 'en';
   const langBtn = document.getElementById('langBtn');
+  const cvBtn = document.getElementById('cvBtn');
   function setLang(l) {
     document.querySelectorAll('[data-en]').forEach(el => {
       el.textContent = l === 'en' ? el.dataset.en : el.dataset.es;
     });
     langBtn.textContent = l === 'en' ? 'ES' : 'EN';
     document.documentElement.lang = l === 'en' ? 'en' : 'es';
+    if (cvBtn) cvBtn.href = l === 'en' ? 'cv-en.pdf' : 'cv-es.pdf';
   }
   langBtn.addEventListener('click', () => {
     lang = lang === 'en' ? 'es' : 'en';
