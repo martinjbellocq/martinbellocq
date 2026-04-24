@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://martinbellocq.vercel.app/sitemap.xml
