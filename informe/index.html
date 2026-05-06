@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe de Running · Análisis profundo de tu data de Garmin</title>
+<meta name="description" content="Un informe analítico profundo sobre tu data de running de Garmin. Gratis. Hecho a mano. 48–72hs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rose:#E11D48;
+  --rose-soft:#FFE4E6;
+  --rose-dim:#FB7185;
+  --black:#0a0a0a;
+  --white:#ffffff;
+  --gray-1:#fafafa;
+  --gray-2:#f3f3f3;
+  --gray-3:#e5e5e5;
+  --gray-4:#a3a3a3;
+  --gray-5:#737373;
+  --green:#16A34A;
+  --fb:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --fm:'DM Mono','Courier New',monospace;
+  --max:760px;
+  --pad:24px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--fb);
+  background:var(--white);
+  color:var(--black);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:'kern' 1,'liga' 1;
+  line-height:1.55;
+  overflow-x:hidden;
+}
+
+/* Top bar minimal */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--gray-2);
+}
+.topbar-in{
+  max-width:var(--max);margin:0 auto;
+  padding:14px var(--pad);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.topbar-brand{
+  font-family:var(--fm);font-size:11px;font-weight:500;
+  letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--black);text-decoration:none;
+}
+.topbar-brand b{color:var(--rose);font-weight:700}
+.topbar-tag{
+  font-family:var(--fm);font-size:10px;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--gray-5);
+}
+
+/* Container */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+/* HERO */
+.hero{padding:56px 0 48px;position:relative}
+.hero-eyebrow{
+  font-family:var(--fm);font-size:11px;font-weight:600;
+  letter-spacing:2.4px;color:var(--rose);text-transform:uppercase;
+  display:flex;align-items:center;gap:12px;margin-bottom:28px;
+  opacity:0;transform:translateY(8px);
+  animation:fadeUp .6s ease-out .1s forwards;
+}
+.hero-eyebrow::before{content:'';width:32px;height:2px;background:var(--rose);display:block}
+.hero-title{
+  font-family:var(--fb);
+  font-size:clamp(40px,9vw,68px);
+  font-weight:900;line-height:.96;letter-spacing:-2px;
+  color:var(--black);margin-bottom:24px;
+  opacity:0;transform:translateY(12px);
+  animation:fadeUp .8s ease-out .2s forwards;
+}
+.hero-title em{font-style:normal;color:var(--rose);position:relative;display:inline-block}
+.hero-title em::after{
+  content:'';position:absolute;left:0;right:0;bottom:.04em;height:.08em;
+  background:var(--rose);opacity:.18;
+}
+.hero-sub{
+  font-size:17px;line-height:1.6;color:var(--gray-5);
+  max-width:540px;margin-bottom:36px;font-weight:400;
+  opacity:0;transform:translateY(12px);
+  animation:fadeUp .8s ease-out .35s forwards;
+}
+.hero-sub strong{color:var(--black);font-weight:600}
+.hero-cta-row{
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;
+  margin-bottom:28px;
+  opacity:0;transform:translateY(12px);
+  animation:fadeUp .8s ease-out .5s forwards;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--black);color:var(--white);
+  padding:16px 26px;border-radius:8px;
+  font-size:15px;font-weight:600;letter-spacing:-.1px;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:transform .15s ease,background .15s ease;
+}
+.btn-primary:hover{background:var(--rose);transform:translateY(-1px)}
+.btn-primary .arrow{transition:transform .2s ease}
+.btn-primary:hover .arrow{transform:translateX(4px)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--black);text-decoration:none;
+  font-size:14px;font-weight:500;
+  border-bottom:1px solid var(--gray-3);
+  padding-bottom:2px;transition:border-color .2s ease,color .2s ease;
+}
+.btn-ghost:hover{border-color:var(--rose);color:var(--rose)}
+.hero-meta{
+  font-family:var(--fm);font-size:11px;letter-spacing:.6px;
+  color:var(--gray-5);display:flex;flex-wrap:wrap;gap:6px 14px;
+  opacity:0;transform:translateY(12px);
+  animation:fadeUp .8s ease-out .65s forwards;
+}
+.hero-meta span{display:inline-flex;align-items:center;gap:6px}
+.hero-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--rose);display:inline-block}
+
+/* Hero visual: número dramático tipo teaser del informe */
+.hero-teaser{
+  margin-top:48px;
+  background:linear-gradient(180deg,var(--gray-1) 0%,var(--white) 100%);
+  border:1px solid var(--gray-3);border-radius:14px;
+  padding:32px 24px;text-align:center;position:relative;
+  overflow:hidden;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .9s ease-out .8s forwards;
+}
+.hero-teaser::before{
+  content:'EJEMPLO REAL';
+  position:absolute;top:14px;left:14px;
+  font-family:var(--fm);font-size:9px;font-weight:600;
+  letter-spacing:1.5px;color:var(--rose);
+  background:var(--rose-soft);padding:3px 8px;border-radius:4px;
+}
+.hero-teaser-lbl{
+  font-family:var(--fm);font-size:10px;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--gray-5);margin-bottom:8px;
+  font-weight:500;margin-top:14px;
+}
+.hero-teaser-num{
+  font-size:clamp(64px,16vw,108px);font-weight:900;
+  line-height:.9;letter-spacing:-3px;color:var(--rose);
+  font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1;
+}
+.hero-teaser-unit{
+  font-family:var(--fb);font-size:13px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--black);margin-top:6px;
+}
+.hero-teaser-foot{
+  font-family:var(--fm);font-size:10px;letter-spacing:1px;
+  color:var(--gray-5);margin-top:18px;padding-top:14px;
+  border-top:1px solid var(--gray-3);
+}
+
+/* Section base */
+.section{padding:64px 0;position:relative}
+.section-num{
+  font-family:var(--fm);font-size:11px;font-weight:600;
+  letter-spacing:2.2px;color:var(--rose);text-transform:uppercase;
+  margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.section-num::before{content:'';width:24px;height:1px;background:var(--rose)}
+.section-title{
+  font-size:clamp(28px,5.5vw,40px);font-weight:800;
+  line-height:1.05;letter-spacing:-1px;color:var(--black);
+  margin-bottom:24px;
+}
+.section-title em{font-style:normal;color:var(--rose)}
+
+/* Quien soy */
+.about{display:block}
+.about-text p{font-size:16px;line-height:1.7;color:var(--gray-5);margin-bottom:14px;max-width:640px}
+.about-text p strong{color:var(--black);font-weight:700}
+.about-text p:last-child{margin-bottom:0}
+
+/* Que vas a recibir */
+.receive-intro{
+  font-size:16px;line-height:1.65;color:var(--gray-5);
+  margin-bottom:32px;max-width:580px;
+}
+.receive-list{
+  display:grid;grid-template-columns:1fr;gap:0;
+  border-top:1px solid var(--gray-2);
+}
+.receive-item{
+  padding:18px 0;border-bottom:1px solid var(--gray-2);
+  display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start;
+}
+.receive-num{
+  font-family:var(--fm);font-size:11px;font-weight:600;
+  color:var(--rose);letter-spacing:1px;padding-top:3px;
+}
+.receive-text{font-size:15px;line-height:1.5;color:var(--black);font-weight:500}
+.receive-text small{
+  display:block;color:var(--gray-5);font-weight:400;
+  font-size:13px;margin-top:3px;line-height:1.5;
+}
+.receive-cta{margin-top:32px}
+.receive-cta a{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:14px;font-weight:600;color:var(--rose);
+  text-decoration:none;padding:12px 18px;
+  border:1.5px solid var(--rose);border-radius:8px;
+  transition:background .15s ease,color .15s ease;
+}
+.receive-cta a:hover{background:var(--rose);color:var(--white)}
+
+/* Como funciona */
+.how-grid{
+  display:grid;grid-template-columns:1fr;gap:14px;
+}
+.how-card{
+  background:var(--white);border:1px solid var(--gray-3);
+  border-radius:12px;padding:22px 22px 24px;position:relative;
+  transition:border-color .2s ease,transform .2s ease;
+}
+.how-card:hover{border-color:var(--rose-dim);transform:translateY(-2px)}
+.how-step{
+  font-family:var(--fm);font-size:11px;font-weight:600;
+  letter-spacing:1.6px;color:var(--rose);text-transform:uppercase;
+  margin-bottom:8px;
+}
+.how-title{
+  font-size:18px;font-weight:800;letter-spacing:-.3px;
+  margin-bottom:8px;color:var(--black);
+}
+.how-desc{font-size:14px;line-height:1.55;color:var(--gray-5)}
+
+/* FAQ */
+.faq-list{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--gray-2)}
+.faq-item{border-bottom:1px solid var(--gray-2)}
+.faq-q{
+  width:100%;text-align:left;background:transparent;border:none;cursor:pointer;
+  padding:20px 36px 20px 0;font-family:var(--fb);font-size:16px;
+  font-weight:700;color:var(--black);letter-spacing:-.2px;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  position:relative;
+}
+.faq-q::after{
+  content:'+';position:absolute;right:6px;top:50%;
+  transform:translateY(-50%);
+  font-size:22px;font-weight:300;color:var(--rose);
+  transition:transform .25s ease;line-height:1;
+}
+.faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .35s ease;
+}
+.faq-a-in{
+  font-size:15px;line-height:1.7;color:var(--gray-5);
+  padding:0 0 22px 0;max-width:600px;
+}
+.faq-a-in a{color:var(--rose);text-decoration:underline}
+.faq-item.open .faq-a{max-height:500px}
+
+/* CTA final */
+.cta-final{
+  background:var(--black);color:var(--white);
+  border-radius:18px;padding:44px 26px;text-align:center;
+  margin-top:48px;position:relative;overflow:hidden;
+}
+.cta-final::before{
+  content:'';position:absolute;
+  top:-30%;right:-20%;width:60%;height:160%;
+  background:radial-gradient(circle,var(--rose) 0%,transparent 60%);
+  opacity:.15;pointer-events:none;
+}
+.cta-final-eyebrow{
+  font-family:var(--fm);font-size:11px;font-weight:600;
+  letter-spacing:2.2px;color:var(--rose-dim);
+  text-transform:uppercase;margin-bottom:14px;
+  position:relative;
+}
+.cta-final-title{
+  font-size:clamp(30px,6vw,42px);font-weight:900;
+  line-height:1;letter-spacing:-1px;margin-bottom:14px;
+  position:relative;
+}
+.cta-final-sub{
+  font-size:15px;line-height:1.6;color:var(--gray-4);
+  max-width:440px;margin:0 auto 28px;position:relative;
+}
+.cta-final-form{
+  background:var(--white);border-radius:12px;padding:24px;
+  text-align:left;color:var(--black);position:relative;
+  min-height:420px;
+}
+.form-placeholder{
+  font-family:var(--fm);font-size:12px;letter-spacing:1px;
+  color:var(--gray-5);text-align:center;
+  padding:60px 20px;border:2px dashed var(--gray-3);border-radius:8px;
+  line-height:1.7;
+}
+.form-placeholder strong{color:var(--rose);display:block;margin-bottom:8px;font-size:13px;letter-spacing:1.5px}
+.form-placeholder code{
+  background:var(--gray-2);padding:2px 6px;border-radius:3px;
+  font-family:var(--fm);font-size:11px;
+}
+
+/* Full-width background wrapper para secciones con fondo distinto */
+.fullbg{
+  background:var(--gray-1);
+  border-top:1px solid var(--gray-2);
+  border-bottom:1px solid var(--gray-2);
+}
+
+/* Footer */
+.footer{
+  border-top:1px solid var(--gray-2);padding:32px 0 48px;margin-top:48px;
+  font-family:var(--fm);font-size:11px;letter-spacing:1px;
+  color:var(--gray-5);text-align:center;line-height:1.7;
+}
+.footer a{color:var(--rose);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* Animations */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01s !important;transition-duration:.01s !important}
+}
+
+/* Desktop polish */
+@media(min-width:680px){
+  :root{--pad:32px}
+  .how-grid{grid-template-columns:1fr 1fr 1fr}
+  .receive-list{grid-template-columns:1fr 1fr;gap:0 32px}
+  .hero{padding:80px 0 64px}
+  .section{padding:80px 0}
+  .cta-final{padding:64px 48px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="https://martinbellocq.vercel.app" class="topbar-brand">Martín Bellocq <b>·</b> Informe</a>
+    <span class="topbar-tag">Gratis</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="hero-eyebrow">Informe de Running · Gratis</div>
+    <h1 class="hero-title">No estás leyendo<br>tu propia <em>data de running</em>.</h1>
+    <p class="hero-sub">
+      Tu Garmin guarda meses de información sobre vos: ritmos, zonas, recuperación, lugares, tendencias.
+      <strong>La app te muestra el último entrenamiento. El resto se acumula.</strong>
+      Armé un informe que sí lee todo eso. Te lo hago a vos también.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#pedir" class="btn-primary">
+        Pedir mi informe <span class="arrow">→</span>
+      </a>
+      <a href="#ejemplo" class="btn-ghost">Ver un ejemplo real</a>
+    </div>
+    <div class="hero-meta">
+      <span><span class="dot"></span>Gratis</span>
+      <span><span class="dot"></span>48–72hs</span>
+      <span><span class="dot"></span>A cambio: 5 min de feedback</span>
+    </div>
+
+    <div class="hero-teaser" id="ejemplo">
+      <div class="hero-teaser-lbl">Mi propia data — 18 meses corriendo</div>
+      <div class="hero-teaser-num" id="counter">0</div>
+      <div class="hero-teaser-unit">Kilómetros analizados</div>
+      <div class="hero-teaser-foot">
+        <a href="#" style="color:var(--rose);text-decoration:none;font-weight:600;letter-spacing:.5px;">Ver mi informe completo →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIEN SOY -->
+  <section class="section wrap">
+    <div class="section-num">01 · Quién hace esto</div>
+    <h2 class="section-title">¿Quién soy y por qué te lo<br>estoy <em>regalando</em>?</h2>
+    <div class="about reveal">
+      <div class="about-text">
+        <p>
+          Soy <a href="https://martinbellocq.vercel.app" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:none;font-weight:700;border-bottom:1px solid var(--rose-soft)">Martín Bellocq</a>. Vengo de 15 años en fintech y tecnología — último cargo, CMO Regional de Ualá. Hace 18 meses empecé a correr en serio.
+        </p>
+        <p>
+          Hace dos meses pedí a una IA que analizara toda mi data de Garmin. Esperaba un resumen lindo. Lo que recibí fue otra cosa: un informe que detectaba patrones, quiebres y tendencias que <strong>ninguna app me había mostrado en 18 meses</strong> de uso.
+        </p>
+        <p>
+          Quiero saber si a otros corredores les pasa lo mismo, o si solo me sirvió a mí. Por eso lo estoy haciendo. <strong>Es gratis, sin trampa</strong>: a cambio te pido 5 minutos de feedback honesto cuando lo recibas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUE VAS A RECIBIR -->
+  <div class="fullbg">
+  <section class="section wrap">
+    <div class="section-num">02 · Qué vas a recibir</div>
+    <h2 class="section-title">Un análisis de <em>18 secciones</em><br>sobre toda tu historia.</h2>
+    <p class="receive-intro reveal">
+      No es un resumen automático tipo "Year in Sport". Es un análisis profundo que detecta patrones que tu Garmin tiene pero que ninguna app te muestra.
+    </p>
+    <div class="receive-list reveal">
+      <div class="receive-item"><div class="receive-num">01</div><div class="receive-text">Tu volumen total y la curva real de progresión<small>Mes a mes, con quiebres detectados automáticamente</small></div></div>
+      <div class="receive-item"><div class="receive-num">02</div><div class="receive-text">El momento exacto donde diste un salto<small>O donde se rompió tu progresión, y qué cambió ahí</small></div></div>
+      <div class="receive-item"><div class="receive-num">03</div><div class="receive-text">Mejores y peores meses<small>Con qué se explica cada uno: volumen, ritmo, recuperación</small></div></div>
+      <div class="receive-item"><div class="receive-num">04</div><div class="receive-text">Records personales en cada distancia<small>5K, 10K, media, maratón — con el contexto de cuándo</small></div></div>
+      <div class="receive-item"><div class="receive-num">05</div><div class="receive-text">Lugares donde más corriste<small>Ciudades, países, kilometraje por destino</small></div></div>
+      <div class="receive-item"><div class="receive-num">06</div><div class="receive-text">Distribución por día de semana<small>Y los patrones que no notás en tu rutina semanal</small></div></div>
+      <div class="receive-item"><div class="receive-num">07</div><div class="receive-text">Análisis de zonas cardíacas y carga<small>Tendencias en intensidad y tiempo en cada zona</small></div></div>
+      <div class="receive-item"><div class="receive-num">08</div><div class="receive-text">Glosario explicativo con tus valores<small>Cada métrica, qué significa y dónde caés en una escala</small></div></div>
+    </div>
+    <div class="receive-cta reveal">
+      <a href="#ejemplo">Ver mi informe completo como ejemplo →</a>
+    </div>
+  </section>
+  </div>
+
+  <!-- COMO FUNCIONA -->
+  <section class="section wrap">
+    <div class="section-num">03 · Cómo funciona</div>
+    <h2 class="section-title">Tres pasos.<br><em>Sin instalar nada.</em></h2>
+    <div class="how-grid reveal">
+      <div class="how-card">
+        <div class="how-step">Paso 01</div>
+        <div class="how-title">Pedilo</div>
+        <div class="how-desc">Completá un formulario corto de 2 minutos. Necesito saber un poco sobre vos para hacer mejor el análisis.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-step">Paso 02</div>
+        <div class="how-title">Mandame tu CSV</div>
+        <div class="how-desc">Te paso instrucciones claras (con screenshots) para exportar el CSV de Garmin Connect. Son dos clicks. No hace falta app ni permisos especiales.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-step">Paso 03</div>
+        <div class="how-title">Recibís tu informe</div>
+        <div class="how-desc">En 48–72hs te llega un link privado con tu análisis. A los 7 días te escribo para 5 minutos de feedback.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <div class="fullbg">
+  <section class="section wrap">
+    <div class="section-num">04 · Preguntas frecuentes</div>
+    <h2 class="section-title">Lo que probablemente<br>te estás <em>preguntando</em>.</h2>
+    <div class="faq-list reveal">
+
+      <div class="faq-item open">
+        <button class="faq-q">¿Por qué es gratis?</button>
+        <div class="faq-a"><div class="faq-a-in">
+          Estoy probando si este tipo de análisis le sirve a otros corredores o solo me sirvió a mí. El feedback que me das vale más que el dinero que cobraría.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">¿Funciona solo con Garmin?</button>
+        <div class="faq-a"><div class="faq-a-in">
+          Por ahora sí, solo con datos exportados de Garmin Connect. Si tenés Polar, Coros, Apple Watch o solo Strava sin Garmin de fondo, el análisis todavía no está disponible. Sumar otras fuentes es algo que evalúo más adelante según la respuesta que tenga este experimento.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">¿Qué pasa con mi data?</button>
+        <div class="faq-a"><div class="faq-a-in">
+          Solo la uso para armar tu informe. No la guardo, no la comparto, no la uso para entrenar modelos. Una vez que te mando el link, borro el CSV de mi computadora. El informe en sí queda en una URL privada con código alfanumérico — nadie llega de casualidad.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">¿Cuánto tarda?</button>
+        <div class="faq-a"><div class="faq-a-in">
+          48–72hs hábiles desde que recibo tu CSV. Si me llega un volumen alto de pedidos, puede tardar un poco más — te aviso si pasa.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">¿Qué tan profundo es el análisis?</button>
+        <div class="faq-a"><div class="faq-a-in">
+          La mejor forma de entenderlo es ver un ejemplo real. <a href="#ejemplo">Acá tenés mi propio informe completo</a>. Mismo formato, misma profundidad, distinta data.
+        </div></div>
+      </div>
+
+    </div>
+  </section>
+  </div>
+
+  <!-- CTA FINAL CON FORM -->
+  <section class="wrap" id="pedir" style="padding-bottom:32px">
+    <div class="cta-final">
+      <div class="cta-final-eyebrow">Empezá ahora</div>
+      <h2 class="cta-final-title">Pedí tu informe.</h2>
+      <p class="cta-final-sub">Completá el formulario, mandame tu CSV de Garmin, y en 48–72hs tenés tu análisis personalizado.</p>
+      <div class="cta-final-form">
+        <!-- ============================================
+             ACÁ VA EL EMBED DE TALLY
+             Reemplazar todo este div .form-placeholder con:
+             <iframe data-tally-src="https://tally.so/embed/TU_FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                     loading="lazy" width="100%" height="500" frameborder="0"
+                     marginheight="0" marginwidth="0" title="Pedir informe"></iframe>
+             <script async src="https://tally.so/widgets/embed.js"></script>
+             ============================================ -->
+        <div class="form-placeholder">
+          <strong>← FORM DE TALLY VA ACÁ</strong>
+          Reemplazar este placeholder con el embed de Tally cuando esté creado.<br>
+          Instrucciones en el comentario HTML de arriba (<code>&lt;!-- ACÁ VA EL EMBED --&gt;</code>).
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer wrap">
+  ¿Dudas antes de pedirlo? <a href="mailto:martinjbellocq@gmail.com">martinjbellocq@gmail.com</a><br>
+  Hecho por <a href="https://martinbellocq.vercel.app">Martín Bellocq</a> · 2026
+</footer>
+
+<script>
+// Counter animation del hero teaser
+(function(){
+  var el=document.getElementById('counter');
+  if(!el) return;
+  var target=1126;
+  var dur=2200;
+  var start=null;
+  function step(ts){
+    if(!start) start=ts;
+    var p=Math.min((ts-start)/dur,1);
+    var eased=1-Math.pow(1-p,4);
+    el.textContent=Math.round(target*eased).toLocaleString('es-AR');
+    if(p<1) requestAnimationFrame(step);
+  }
+  // Iniciar cuando el teaser entre en viewport
+  var teaser=document.querySelector('.hero-teaser');
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){requestAnimationFrame(step);obs.unobserve(e.target)}
+      });
+    },{threshold:.4});
+    obs.observe(teaser);
+  }else{requestAnimationFrame(step)}
+})();
+
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var item=btn.parentElement;
+    item.classList.toggle('open');
+  });
+});
+
+// Reveal on scroll
+if('IntersectionObserver' in window){
+  var revealObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target)}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){revealObs.observe(el)});
+}else{
+  document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});
+}
+</script>
+
+</body>
+</html>
