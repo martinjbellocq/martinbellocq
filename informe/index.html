@@ -25,7 +25,7 @@
   --fb:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
   --fm:'DM Mono','Courier New',monospace;
   --max:760px;
-  --pad:24px;
+  --pad:28px;
 }
 html{scroll-behavior:smooth}
 body{
@@ -165,6 +165,32 @@ body{
   font-family:var(--fm);font-size:10px;letter-spacing:1px;
   color:var(--gray-5);margin-top:18px;padding-top:14px;
   border-top:1px solid var(--gray-3);
+}
+
+/* Teaser enriquecido: mini chart + stats secundarios */
+.teaser-mini-chart{
+  display:flex;align-items:flex-end;gap:3px;
+  height:42px;margin:18px 4px 4px;
+}
+.teaser-mini-chart span{
+  flex:1;background:var(--rose-dim);border-radius:1px 1px 0 0;
+  transform-origin:bottom;
+}
+.teaser-mini-chart span:nth-child(n+6){background:var(--rose)}
+.teaser-stats{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:14px 22px;margin:14px 0;padding:14px 0;
+  border-top:1px solid var(--gray-3);
+  border-bottom:1px solid var(--gray-3);
+}
+.teaser-stats > div{display:flex;flex-direction:column;align-items:center;gap:2px}
+.teaser-stats b{
+  font-size:18px;font-weight:800;color:var(--black);
+  letter-spacing:-.4px;font-family:var(--fb);line-height:1;
+}
+.teaser-stats span{
+  font-family:var(--fm);font-size:9px;letter-spacing:1.2px;
+  color:var(--gray-5);text-transform:uppercase;font-weight:500;
 }
 
 /* Section base */
@@ -357,7 +383,6 @@ body{
 <header class="topbar">
   <div class="topbar-in">
     <a href="https://martinbellocq.vercel.app" class="topbar-brand">Martín Bellocq <b>·</b> Informe</a>
-    <span class="topbar-tag">Gratis</span>
   </div>
 </header>
 
@@ -366,11 +391,9 @@ body{
   <!-- HERO -->
   <section class="hero wrap">
     <div class="hero-eyebrow">Informe de Running · Gratis</div>
-    <h1 class="hero-title">No estás leyendo<br>tu propia <em>data de running</em>.</h1>
+    <h1 class="hero-title">Tu Garmin tiene una historia.<br>Falta que <em>alguien la lea</em>.</h1>
     <p class="hero-sub">
-      Tu Garmin guarda meses de información sobre vos: ritmos, zonas, recuperación, lugares, tendencias.
-      <strong>La app te muestra el último entrenamiento. El resto se acumula.</strong>
-      Armé un informe que sí lee todo eso. Te lo hago a vos también.
+      Tu data ya existe. La <strong>procesamos en un análisis</strong> que podés leer y entender.
     </p>
     <div class="hero-cta-row">
       <a href="#pedir" class="btn-primary">
@@ -388,6 +411,33 @@ body{
       <div class="hero-teaser-lbl">Mi propia data — 18 meses corriendo</div>
       <div class="hero-teaser-num" id="counter">0</div>
       <div class="hero-teaser-unit">Kilómetros analizados</div>
+
+      <div class="teaser-mini-chart" aria-hidden="true">
+        <span style="height:18%"></span>
+        <span style="height:30%"></span>
+        <span style="height:25%"></span>
+        <span style="height:40%"></span>
+        <span style="height:28%"></span>
+        <span style="height:62%"></span>
+        <span style="height:78%"></span>
+        <span style="height:90%"></span>
+        <span style="height:68%"></span>
+        <span style="height:88%"></span>
+        <span style="height:100%"></span>
+        <span style="height:82%"></span>
+        <span style="height:92%"></span>
+        <span style="height:75%"></span>
+        <span style="height:95%"></span>
+        <span style="height:85%"></span>
+      </div>
+
+      <div class="teaser-stats">
+        <div><b>106</b><span>sesiones</span></div>
+        <div><b>100h</b><span>corriendo</span></div>
+        <div><b>4.609m</b><span>ascenso</span></div>
+        <div><b>16</b><span>lugares</span></div>
+      </div>
+
       <div class="hero-teaser-foot">
         <a href="https://martinbellocq.vercel.app/informe/martin-bellocq-a3f7" style="color:var(--rose);text-decoration:none;font-weight:600;letter-spacing:.5px;">Ver mi informe completo →</a>
         <div style="font-family:var(--fm);font-size:9px;letter-spacing:1.4px;color:var(--gray-4);text-transform:uppercase;margin-top:8px;">📱 Se ve mejor en mobile</div>
@@ -395,20 +445,20 @@ body{
     </div>
   </section>
 
-  <!-- QUIEN SOY -->
+  <!-- POR QUE LO HAGO -->
   <section class="section wrap">
-    <div class="section-num">01 · Quién hace esto</div>
-    <h2 class="section-title">¿Quién soy y por qué te lo<br>estoy <em>regalando</em>?</h2>
+    <div class="section-num">01 · Por qué lo hago</div>
+    <h2 class="section-title">¿Por qué <em>lo hago</em>?</h2>
     <div class="about reveal">
       <div class="about-text">
         <p>
           Soy <a href="https://martinbellocq.vercel.app" target="_blank" rel="noopener" style="color:var(--rose);text-decoration:none;font-weight:700;border-bottom:1px solid var(--rose-soft)">Martín Bellocq</a>. Vengo de 15 años en fintech y tecnología — último cargo, CMO Regional de Ualá. Hace 18 meses empecé a correr en serio.
         </p>
         <p>
-          Hace dos meses pedí a una IA que analizara toda mi data de Garmin. Esperaba un resumen lindo. Lo que recibí fue otra cosa: un informe que detectaba patrones, quiebres y tendencias que <strong>ninguna app me había mostrado en 18 meses</strong> de uso.
+          Hace dos meses pedí a una IA que analizara toda mi data de Garmin. El informe que recibí detectaba patrones, quiebres y tendencias que <strong>ninguna app me había mostrado en 18 meses</strong> de uso. Quiero saber si a otros corredores les sirve lo mismo, o si solo me sirvió a mí.
         </p>
         <p>
-          Quiero saber si a otros corredores les pasa lo mismo, o si solo me sirvió a mí. Por eso lo estoy haciendo. <strong>Es gratis, sin trampa</strong>: a cambio te pido 5 minutos de feedback honesto cuando lo recibas.
+          El único pedido es que, cuando lo recibas, dediques 5 minutos a darme feedback honesto y constructivo. Eso es todo.
         </p>
       </div>
     </div>
