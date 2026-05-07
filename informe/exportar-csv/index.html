@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo exportar tu CSV de Garmin Connect · Martín Bellocq</title>
+<meta name="description" content="Paso a paso para exportar el CSV de actividades de Garmin Connect.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rose:#E11D48;
+  --rose-soft:#FFE4E6;
+  --rose-dim:#FB7185;
+  --black:#0a0a0a;
+  --white:#ffffff;
+  --gray-1:#fafafa;
+  --gray-2:#f3f3f3;
+  --gray-3:#e5e5e5;
+  --gray-4:#a3a3a3;
+  --gray-5:#737373;
+  --amber:#F59E0B;
+  --amber-soft:#FEF3C7;
+  --fb:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --fm:'DM Mono','Courier New',monospace;
+  --max:760px;
+  --pad:24px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--fb);background:var(--white);color:var(--black);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  font-feature-settings:'kern' 1,'liga' 1;line-height:1.55;overflow-x:hidden;
+}
+
+/* Topbar */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--gray-2);
+}
+.topbar-in{
+  max-width:var(--max);margin:0 auto;
+  padding:14px var(--pad);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+}
+.topbar-brand{
+  font-family:var(--fm);font-size:11px;font-weight:500;
+  letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--black);text-decoration:none;
+}
+.topbar-brand b{color:var(--rose);font-weight:700}
+.topbar-back{
+  font-family:var(--fm);font-size:10px;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--rose);text-decoration:none;
+  font-weight:600;display:inline-flex;align-items:center;gap:6px;
+  border-bottom:1px solid transparent;transition:border-color .2s ease;
+}
+.topbar-back:hover{border-color:var(--rose)}
+
+/* Container */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+/* HERO */
+.hero{padding:48px 0 36px}
+.hero-eyebrow{
+  font-family:var(--fm);font-size:11px;font-weight:600;
+  letter-spacing:2.4px;color:var(--rose);text-transform:uppercase;
+  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.hero-eyebrow::before{content:'';width:32px;height:2px;background:var(--rose);display:block}
+.hero-title{
+  font-size:clamp(32px,7vw,48px);font-weight:900;
+  line-height:1.02;letter-spacing:-1.4px;color:var(--black);
+  margin-bottom:18px;
+}
+.hero-title em{font-style:normal;color:var(--rose)}
+.hero-sub{
+  font-size:16px;line-height:1.65;color:var(--gray-5);max-width:560px;
+}
+.hero-sub strong{color:var(--black);font-weight:600}
+
+/* Step */
+.step{
+  padding:36px 0;border-top:1px solid var(--gray-2);
+}
+.step:first-of-type{border-top:none;padding-top:24px}
+.step-num{
+  font-family:var(--fm);font-size:11px;font-weight:600;
+  letter-spacing:2.2px;color:var(--rose);text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:10px;
+}
+.step-num::before{content:'';width:24px;height:1px;background:var(--rose)}
+.step-title{
+  font-size:clamp(22px,4.5vw,28px);font-weight:800;
+  line-height:1.15;letter-spacing:-.6px;color:var(--black);
+  margin-bottom:12px;
+}
+.step-title em{font-style:normal;color:var(--rose)}
+.step-desc{
+  font-size:15px;line-height:1.65;color:var(--gray-5);
+  margin-bottom:20px;max-width:600px;
+}
+.step-desc strong{color:var(--black);font-weight:600}
+.step-desc code{
+  background:var(--gray-2);padding:2px 7px;border-radius:4px;
+  font-family:var(--fm);font-size:13px;color:var(--black);
+}
+
+/* Screenshot */
+.shot{
+  margin:8px 0 0;border-radius:10px;overflow:hidden;
+  border:1px solid var(--gray-3);background:var(--gray-1);
+  box-shadow:0 2px 14px rgba(0,0,0,.04);
+}
+.shot img{width:100%;display:block;height:auto}
+.shot-cap{
+  font-family:var(--fm);font-size:10px;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--gray-5);
+  padding:10px 14px;background:var(--gray-1);border-top:1px solid var(--gray-3);
+  font-weight:500;
+}
+.shot-cap strong{color:var(--rose);font-weight:700}
+
+/* Warning callout */
+.warn{
+  margin:20px 0 0;padding:18px 20px;
+  background:var(--amber-soft);border-left:3px solid var(--amber);
+  border-radius:0 10px 10px 0;
+}
+.warn-tag{
+  font-family:var(--fm);font-size:10px;font-weight:700;
+  letter-spacing:1.5px;color:#a16207;text-transform:uppercase;
+  margin-bottom:8px;display:flex;align-items:center;gap:8px;
+}
+.warn-body{
+  font-size:14px;line-height:1.6;color:var(--black);
+}
+.warn-body strong{color:#a16207;font-weight:700}
+
+/* CTA final */
+.cta-final{
+  background:var(--black);color:var(--white);
+  border-radius:16px;padding:36px 26px;text-align:center;
+  margin:48px 0 32px;position:relative;overflow:hidden;
+}
+.cta-final::before{
+  content:'';position:absolute;top:-30%;right:-20%;
+  width:60%;height:160%;
+  background:radial-gradient(circle,var(--rose) 0%,transparent 60%);
+  opacity:.18;pointer-events:none;
+}
+.cta-final-eyebrow{
+  font-family:var(--fm);font-size:11px;font-weight:600;
+  letter-spacing:2.2px;color:var(--rose-dim);
+  text-transform:uppercase;margin-bottom:12px;position:relative;
+}
+.cta-final-title{
+  font-size:clamp(24px,5vw,34px);font-weight:900;
+  line-height:1.05;letter-spacing:-.7px;margin-bottom:10px;position:relative;
+}
+.cta-final-sub{
+  font-size:14px;line-height:1.6;color:var(--gray-4);
+  max-width:420px;margin:0 auto 22px;position:relative;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--rose);color:var(--white);
+  padding:14px 24px;border-radius:8px;
+  font-size:14px;font-weight:600;letter-spacing:-.1px;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:transform .15s ease,background .15s ease;position:relative;
+}
+.btn-primary:hover{background:var(--white);color:var(--black);transform:translateY(-1px)}
+.btn-primary .arrow{transition:transform .2s ease}
+.btn-primary:hover .arrow{transform:translateX(4px)}
+
+/* Footer */
+.footer{
+  border-top:1px solid var(--gray-2);padding:28px 0 40px;
+  font-family:var(--fm);font-size:11px;letter-spacing:1px;
+  color:var(--gray-5);text-align:center;line-height:1.7;
+}
+.footer a{color:var(--rose);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+@media(min-width:680px){
+  :root{--pad:32px}
+  .hero{padding:64px 0 48px}
+  .step{padding:48px 0}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="https://martinbellocq.vercel.app/informe" class="topbar-brand">Martín Bellocq <b>·</b> Informe</a>
+    <a href="https://martinbellocq.vercel.app/informe#pedir" class="topbar-back">← Volver al pedido</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="hero-eyebrow">Instrucciones · Garmin Connect</div>
+    <h1 class="hero-title">Cómo exportar tu <em>CSV de actividades</em>.</h1>
+    <p class="hero-sub">
+      Son <strong>4 pasos</strong>, no más de 30 segundos. Importante: hay que hacerlo desde la <strong>web de Garmin Connect en una computadora</strong> — la app del celular no tiene esta opción.
+    </p>
+  </section>
+
+  <!-- STEPS -->
+  <section class="wrap">
+
+    <!-- Paso 1 -->
+    <div class="step">
+      <div class="step-num">Paso 01</div>
+      <h2 class="step-title">Entrá a <em>Garmin Connect</em> en tu computadora</h2>
+      <p class="step-desc">
+        Andá a <code>connect.garmin.com</code> desde el navegador y logueate con tu cuenta. Si ya estabas logueado, vas directo a la home.
+      </p>
+    </div>
+
+    <!-- Paso 2 -->
+    <div class="step">
+      <div class="step-num">Paso 02</div>
+      <h2 class="step-title">Andá a <em>Actividades → Todas las actividades</em></h2>
+      <p class="step-desc">
+        En el menú lateral izquierdo, click en <strong>"Actividades"</strong>. Se despliega un sub-menú. Click en <strong>"Todas las actividades"</strong>.
+      </p>
+      <div class="shot">
+        <img src="screenshots/01-actividades.png" alt="Sidebar de Garmin Connect mostrando Actividades expandido con la opción Todas las actividades">
+        <div class="shot-cap">↑ En el sidebar izquierdo, <strong>Actividades</strong> → <strong>Todas las actividades</strong></div>
+      </div>
+    </div>
+
+    <!-- Paso 3 -->
+    <div class="step">
+      <div class="step-num">Paso 03</div>
+      <h2 class="step-title"><em>Cargá todas</em> tus actividades scrolleando hacia abajo</h2>
+      <p class="step-desc">
+        Vas a ver una lista de tus carreras más recientes. Bajá scrolleando hasta que se carguen <strong>todas</strong> las actividades que querés exportar — Garmin va cargando en bloques a medida que llegás al final.
+      </p>
+      <div class="warn">
+        <div class="warn-tag">⚠️ Crítico — no te lo saltees</div>
+        <div class="warn-body">
+          <strong>Garmin solo exporta lo que está visible en pantalla.</strong> Si en la lista solo se cargaron las últimas 10 actividades y exportás, vas a recibir un CSV con esas 10 nada más. Para tu informe necesitás <strong>toda tu historia</strong>, así que asegurate de bajar hasta el último día que querés incluir antes de pasar al siguiente paso.
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 4 -->
+    <div class="step">
+      <div class="step-num">Paso 04</div>
+      <h2 class="step-title">Click en <em>"Exportar a CSV"</em></h2>
+      <p class="step-desc">
+        Una vez que cargaste toda tu historia, hacé click en el botón <strong>"Exportar a CSV"</strong> que está arriba a la derecha de la lista. Garmin descarga automáticamente un archivo <code>.csv</code> a tu computadora.
+      </p>
+      <div class="shot">
+        <img src="screenshots/02-exportar.png" alt="Pantalla de actividades de Garmin Connect con el botón Exportar a CSV arriba a la derecha">
+        <div class="shot-cap">↑ Arriba a la derecha: <strong>Exportar a CSV</strong></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="wrap">
+    <div class="cta-final">
+      <div class="cta-final-eyebrow">Listo, tenés tu archivo</div>
+      <h2 class="cta-final-title">Volvé al pedido y subilo.</h2>
+      <p class="cta-final-sub">El archivo <code style="background:rgba(255,255,255,.1);color:#fff;padding:1px 6px;border-radius:3px;font-family:var(--fm);font-size:12px">.csv</code> que descargaste va en el último campo del formulario. En 48–72hs te llega tu informe.</p>
+      <a href="https://martinbellocq.vercel.app/informe#pedir" class="btn-primary">
+        Volver al pedido <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer wrap">
+  ¿Algo no funciona? <a href="mailto:martinjbellocq@gmail.com">martinjbellocq@gmail.com</a><br>
+  Hecho por <a href="https://martinbellocq.vercel.app">Martín Bellocq</a> · 2026
+</footer>
+
+</body>
+</html>
