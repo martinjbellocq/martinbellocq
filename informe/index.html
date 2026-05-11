@@ -96,13 +96,13 @@ body{
 }
 .hero-sub strong{color:var(--black);font-weight:600}
 .hero-cta-row{
-  display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;
+  display:flex;flex-direction:column;align-items:stretch;gap:12px;
   margin-bottom:28px;
   opacity:0;transform:translateY(12px);
   animation:fadeUp .8s ease-out .5s forwards;
 }
 .btn-primary{
-  display:inline-flex;align-items:center;gap:10px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
   background:var(--black);color:var(--white);
   padding:16px 26px;border-radius:8px;
   font-size:15px;font-weight:600;letter-spacing:-.1px;
@@ -112,6 +112,17 @@ body{
 .btn-primary:hover{background:var(--rose);transform:translateY(-1px)}
 .btn-primary .arrow{transition:transform .2s ease}
 .btn-primary:hover .arrow{transform:translateX(4px)}
+.btn-secondary{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:transparent;color:var(--black);
+  padding:14px 24px;border-radius:8px;
+  font-size:14px;font-weight:600;letter-spacing:-.1px;
+  text-decoration:none;border:1.5px solid var(--black);cursor:pointer;
+  transition:transform .15s ease,background .15s ease,color .15s ease;
+}
+.btn-secondary:hover{background:var(--black);color:var(--white);transform:translateY(-1px)}
+.btn-secondary .arrow{transition:transform .2s ease}
+.btn-secondary:hover .arrow{transform:translateX(4px)}
 .btn-ghost{
   display:inline-flex;align-items:center;gap:8px;
   color:var(--black);text-decoration:none;
@@ -140,7 +151,7 @@ body{
   animation:fadeUp .9s ease-out .8s forwards;
 }
 .hero-teaser::before{
-  content:'EJEMPLO REAL';
+  content:'EJEMPLO';
   position:absolute;top:14px;left:14px;
   font-family:var(--fm);font-size:9px;font-weight:600;
   letter-spacing:1.5px;color:var(--rose);
@@ -375,6 +386,9 @@ body{
   .hero{padding-top:80px;padding-bottom:64px}
   .section{padding-top:80px;padding-bottom:80px}
   .cta-final{padding:64px 48px}
+  .hero-cta-row{flex-direction:row;flex-wrap:wrap;align-items:center;gap:14px 16px}
+  .hero-cta-row .btn-primary,
+  .hero-cta-row .btn-secondary{width:auto;justify-content:flex-start}
 }
 </style>
 </head>
@@ -396,10 +410,12 @@ body{
       Tu data ya existe. La <strong>procesamos en un análisis</strong> que podés leer y entender.
     </p>
     <div class="hero-cta-row">
-      <a href="#pedir" class="btn-primary">
-        Pedir mi informe <span class="arrow">→</span>
+      <a href="https://martinbellocq.vercel.app/informe/martin-bellocq-a3f7" class="btn-primary">
+        Ver un informe completo <span class="arrow">→</span>
       </a>
-      <a href="https://martinbellocq.vercel.app/informe/martin-bellocq-a3f7" class="btn-ghost">Ver un ejemplo real</a>
+      <a href="#pedir" class="btn-secondary">
+        Quiero el mío <span class="arrow">→</span>
+      </a>
     </div>
     <div class="hero-meta">
       <span><span class="dot"></span>Gratis</span>
@@ -483,7 +499,7 @@ body{
       <div class="receive-item"><div class="receive-num">08</div><div class="receive-text">Glosario explicativo con tus valores<small>Cada métrica, qué significa y dónde caés en una escala</small></div></div>
     </div>
     <div class="receive-cta reveal">
-      <a href="https://martinbellocq.vercel.app/informe/martin-bellocq-a3f7">Ver mi informe completo como ejemplo →</a>
+      <a href="https://martinbellocq.vercel.app/informe/martin-bellocq-a3f7">Ver mi informe completo →</a>
     </div>
   </section>
   </div>
@@ -549,7 +565,7 @@ body{
       <div class="faq-item">
         <button class="faq-q">¿Qué tan profundo es el análisis?</button>
         <div class="faq-a"><div class="faq-a-in">
-          La mejor forma de entenderlo es ver un ejemplo real. <a href="https://martinbellocq.vercel.app/informe/martin-bellocq-a3f7">Acá tenés mi propio informe completo</a>. Mismo formato, misma profundidad, distinta data.
+          La mejor forma de entenderlo es ver uno completo. <a href="https://martinbellocq.vercel.app/informe/martin-bellocq-a3f7">Acá tenés mi propio informe</a>. Mismo formato, misma profundidad, distinta data.
         </div></div>
       </div>
 
