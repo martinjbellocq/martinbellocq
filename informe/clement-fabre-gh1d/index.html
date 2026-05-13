@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="robots" content="noindex,nofollow">
+<title>Tu año corriendo · Clement · 2022-2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--rose:#E11D48;--rose-soft:#FFE4E6;--rose-dim:#FB7185;--black:#0a0a0a;--gray-1:#fafafa;--gray-2:#f3f3f3;--gray-3:#e5e5e5;--gray-4:#a3a3a3;--gray-5:#737373;--green:#16A34A;--amber:#F59E0B;--blue:#3B82F6;--fb:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;--fm:'DM Mono','Courier New',monospace}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--fb);background:#000;color:var(--black);-webkit-font-smoothing:antialiased}
+.feed-progress{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:3px;background:rgba(0,0,0,.06);z-index:50;pointer-events:none}
+.feed-progress-fill{height:100%;background:var(--rose);width:0%;transition:width .15s ease-out}
+.feed{height:100vh;height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;-ms-overflow-style:none}
+.feed::-webkit-scrollbar{display:none}
+.row{height:100vh;height:100dvh;width:100%;scroll-snap-align:start;scroll-snap-stop:always;max-width:480px;margin:0 auto;border-left:1px solid #1a1a1a;border-right:1px solid #1a1a1a;position:relative;overflow:hidden;background:#fff}
+.pages{display:flex;height:100%;width:100%;overflow-x:scroll;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none}
+.pages::-webkit-scrollbar{display:none}
+.page{flex:0 0 100%;width:100%;height:100%;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;padding:24px 22px 40px;background:#fff;position:relative;overflow-y:auto}
+.page-head{display:flex;align-items:baseline;justify-content:space-between;margin-top:6px;margin-bottom:8px}
+.page-cap{font-family:var(--fm);font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gray-5);font-weight:500}
+.page-num{font-family:var(--fm);font-size:9px;color:var(--gray-4);letter-spacing:1.4px}
+.page-title{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1;margin-bottom:4px}
+.page-title em{font-style:normal;color:var(--rose)}
+.page-sub{font-family:var(--fm);font-size:10px;letter-spacing:.9px;text-transform:uppercase;color:var(--gray-5);margin-bottom:12px;font-weight:500}
+.chart-zone{flex:1;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;min-height:0}
+.chart-zone svg{width:100%;height:100%;max-height:100%}
+/* DOTS PERSISTENTES — fijos al pie de cada página */
+.ig-dots{display:flex;justify-content:center;align-items:center;gap:5px;padding:8px 0}
+.ig-dots.floating{position:absolute;bottom:14px;left:0;right:0;background:rgba(255,255,255,.95);padding:8px 0;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:10}
+.detail .ig-dots.floating{background:rgba(255,250,250,.95)}
+.ig-dot{width:5px;height:5px;border-radius:50%;background:var(--gray-3);transition:background .2s ease,transform .2s ease}
+.ig-dot.active{background:var(--rose);transform:scale(1.15)}
+.scroll-hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-family:var(--fm);font-size:9px;color:var(--gray-4);letter-spacing:1.4px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:500}
+.scroll-hint::after{content:'↓';font-size:14px;color:var(--rose);font-weight:700;animation:bounceY 1.8s ease-in-out infinite}
+@keyframes bounceY{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.detail{background:linear-gradient(180deg,#fff 0%,#FFFAFA 100%)}
+.detail-tag{display:inline-block;font-family:var(--fm);font-size:9px;color:var(--rose);text-transform:uppercase;letter-spacing:1.6px;font-weight:700;padding:4px 9px;background:var(--rose-soft);border-radius:4px;margin-bottom:12px;align-self:flex-start}
+.detail-title{font-size:22px;font-weight:800;letter-spacing:-.4px;line-height:1.15;margin-bottom:14px;color:var(--black)}
+.detail-title em{font-style:normal;color:var(--rose)}
+.detail-body{flex:1;overflow-y:auto;padding-bottom:30px}
+.detail-body p{font-size:14px;line-height:1.55;color:var(--black);margin-bottom:11px}
+.detail-body p strong{color:var(--rose);font-weight:700}
+.detail-body .stat-line{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--gray-2);gap:10px}
+.detail-body .stat-line .lbl{font-size:10px;color:var(--gray-5);text-transform:uppercase;letter-spacing:.9px;font-family:var(--fm);font-weight:500;flex-shrink:1}
+.detail-body .stat-line .val{font-size:16px;font-weight:800;color:var(--black);letter-spacing:-.2px;text-align:right}
+.detail-body .stat-line .val.rose{color:var(--rose)}
+.detail-body .stat-line .val.green{color:var(--green)}
+.glosario-scale{display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px}
+.gs-row{display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:6px;font-size:11px}
+.gs-row .gs-range{font-family:var(--fm);font-weight:700;font-size:10px;min-width:54px}
+.gs-row .gs-desc{color:var(--gray-5);font-size:11px;line-height:1.4}
+.gs-row .gs-desc strong{color:var(--black)}
+.gs-row.green{background:#DCFCE7}.gs-row.green .gs-range{color:var(--green)}
+.gs-row.amber{background:#FEF3C7}.gs-row.amber .gs-range{color:#a16207}
+.gs-row.red{background:#FEE2E2}.gs-row.red .gs-range{color:var(--rose)}
+
+/* HERO HÍBRIDO A+C */
+.hero-card{background:linear-gradient(180deg,#fff 0%,#FFF8F8 100%);padding:42px 22px 28px}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;color:var(--rose);text-transform:uppercase;margin-top:8px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';width:24px;height:2px;background:var(--rose)}
+.hero-name{font-size:32px;font-weight:800;line-height:1;letter-spacing:-1.2px;color:var(--black);margin-bottom:5px}
+.hero-period{font-family:var(--fm);font-size:10px;color:var(--gray-5);letter-spacing:.4px;margin-bottom:20px}
+.hero-stage{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:0;gap:10px}
+.hero-counter{font-size:88px;font-weight:900;line-height:.85;letter-spacing:-3px;color:var(--rose);font-feature-settings:'tnum' 1;text-align:center;font-variant-numeric:tabular-nums;transition:transform .15s ease}
+.hero-counter.bounce{animation:heroBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)}
+@keyframes heroBounce{0%{transform:scale(1)}30%{transform:scale(1.12)}60%{transform:scale(0.97)}100%{transform:scale(1)}}
+.hero-counter.glow{filter:drop-shadow(0 0 16px rgba(225,29,72,.4))}
+.hero-unit{font-size:14px;font-weight:700;color:var(--black);letter-spacing:1px;text-transform:uppercase;text-align:center;opacity:0;transition:opacity .4s ease;margin-bottom:6px}
+.hero-unit.show{opacity:1}
+.hero-histo-wrap{width:100%;padding:0 4px;opacity:0;transition:opacity .4s ease}
+.hero-histo-wrap.show{opacity:1}
+.hero-histo-lbl{font-family:var(--fm);font-size:9px;color:var(--gray-5);text-transform:uppercase;letter-spacing:1.4px;margin-bottom:6px;text-align:center}
+.hero-histo{display:flex;align-items:flex-end;gap:3px;height:80px;padding:0 4px;position:relative}
+.hero-bar{flex:1;background:var(--gray-3);border-radius:2px 2px 0 0;transform:scaleY(0);transform-origin:bottom;transition:transform .35s ease}
+.hero-bar.show{transform:scaleY(1)}
+.hero-bar.rose{background:var(--rose)}
+.hero-bar.rose-dim{background:var(--rose-dim)}
+.hero-histo-base{width:100%;height:1px;background:var(--black)}
+.hero-bottom{text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--gray-3);opacity:0;transition:opacity .5s ease}
+.hero-bottom.show{opacity:1}
+.hero-bottom-lbl{font-family:var(--fm);font-size:9px;color:var(--gray-5);text-transform:uppercase;letter-spacing:1.6px;margin-bottom:5px}
+.hero-bottom-val{font-size:14px;font-weight:700;color:var(--black);letter-spacing:-.2px;line-height:1.3;padding:0 12px}
+
+.mag-stage{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:0;padding:6px 0;gap:12px}
+.mag-num{font-size:56px;font-weight:900;line-height:.9;letter-spacing:-1.8px;color:var(--rose);font-feature-settings:'tnum' 1;text-align:center;margin-bottom:0}
+.mag-num.amber{color:var(--amber)}.mag-num.green{color:var(--green)}.mag-num.blue{color:var(--blue)}
+.mag-num small{font-size:24px;font-weight:700;color:var(--black);margin-left:4px}
+.mag-unit{font-size:11px;font-weight:600;color:var(--black);letter-spacing:1px;text-transform:uppercase;text-align:center}
+.mag-stage svg{width:100%;display:block}
+.mag-equiv{text-align:center;padding:11px 14px;background:var(--gray-1);border-radius:10px;border:1px solid var(--gray-3);width:100%}
+.mag-equiv-lbl{font-family:var(--fm);font-size:9px;color:var(--gray-5);text-transform:uppercase;letter-spacing:1.4px;margin-bottom:4px}
+.mag-equiv-val{font-size:13px;font-weight:700;color:var(--black);letter-spacing:-.1px;line-height:1.3}
+.mag-equiv-val em{font-style:normal;color:var(--rose)}
+
+.wd-list{display:flex;flex-direction:column;gap:5px;flex:1;justify-content:center;min-height:0;padding-bottom:30px}
+.wd-row{display:grid;grid-template-columns:74px 1fr 70px;align-items:center;gap:8px}
+.wd-row .lbl{font-size:13px;font-weight:600;color:var(--gray-5)}
+.wd-row.featured .lbl{color:var(--rose);font-weight:700}
+.wd-row .bar{height:18px;background:var(--gray-2);border-radius:4px;overflow:hidden;position:relative}
+.wd-row .bar-fill{height:100%;background:var(--gray-3);border-radius:4px;transition:width .8s ease-out}
+.wd-row.featured .bar-fill{background:var(--rose)}
+.wd-row .val{text-align:right;font-size:14px;font-weight:700;color:var(--black);font-family:var(--fm);line-height:1.1}
+.wd-row .val small{display:block;font-size:9px;color:var(--gray-5);font-weight:400;margin-top:2px}
+
+/* LUGARES — lista visual */
+.lugares-list{display:flex;flex-direction:column;gap:8px;flex:1;justify-content:center;min-height:0;padding-bottom:30px}
+.lugar-row{display:grid;grid-template-columns:28px 1fr 64px;align-items:center;gap:10px}
+.lugar-row .flag{font-size:20px;line-height:1}
+.lugar-info{display:flex;flex-direction:column;gap:4px;min-width:0}
+.lugar-name{font-size:12px;font-weight:600;color:var(--black);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lugar-bar{height:6px;background:var(--gray-2);border-radius:3px;overflow:hidden}
+.lugar-bar-fill{height:100%;background:var(--rose);border-radius:3px}
+.lugar-val{text-align:right;font-size:14px;font-weight:700;color:var(--black);font-family:var(--fm);line-height:1.1}
+.lugar-val small{display:block;font-size:9px;color:var(--gray-5);font-weight:400;margin-top:1px}
+
+.records-stack{flex:1;display:flex;flex-direction:column;gap:12px;justify-content:center;min-height:0;padding-bottom:20px}
+.record-card{background:var(--gray-1);border:1px solid var(--gray-3);border-radius:12px;padding:16px 18px}
+.record-card.best{border-top:3px solid var(--green)}
+.record-card.worst{border-top:3px solid var(--gray-4)}
+.record-tag{font-family:var(--fm);font-size:9px;color:var(--gray-5);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;font-weight:600}
+.record-num{font-size:36px;font-weight:900;line-height:1;letter-spacing:-1.2px;color:var(--rose);margin-bottom:6px}
+.record-num.best{color:var(--green)}
+.record-num.worst{color:var(--gray-4)}
+.record-num .unit{font-size:13px;color:var(--gray-5);font-weight:600;margin-left:4px}
+.record-info{font-size:12px;color:var(--gray-5);line-height:1.4}
+.record-info strong{color:var(--black);font-weight:700}
+
+.close-card{background:linear-gradient(180deg,#FFF8F8 0%,#fff 100%);padding:32px 20px;overflow-y:auto}
+.close-resume{padding:16px 18px;background:#0a0a0a;color:#fff;border-radius:12px;margin-bottom:14px}
+.close-resume-lbl{font-family:var(--fm);font-size:9px;color:var(--rose-dim);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;font-weight:600}
+.close-resume-text{font-size:15px;font-weight:700;line-height:1.4;letter-spacing:-.2px}
+.close-resume-text em{font-style:normal;color:var(--rose-dim)}
+.preguntas{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.pregunta{background:#fff;border:1px solid var(--gray-3);border-left:3px solid var(--rose);border-radius:8px;padding:12px 14px}
+.pregunta-tag{font-family:var(--fm);font-size:8px;color:var(--rose);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;font-weight:700}
+.pregunta-q{font-size:13px;font-weight:700;line-height:1.3;color:var(--black);letter-spacing:-.1px;margin-bottom:4px}
+.pregunta-sub{font-size:11px;color:var(--gray-5);line-height:1.45}
+.aster{background:var(--gray-1);border-radius:10px;padding:14px;font-size:11px;color:var(--gray-5);line-height:1.5;margin-bottom:12px}
+.aster strong{color:var(--black);font-weight:700}
+.cta-block{background:#0a0a0a;color:#fff;border-radius:12px;padding:18px;text-align:center;margin-bottom:12px}
+.cta-block-title{font-size:16px;font-weight:800;margin-bottom:4px;letter-spacing:-.2px}
+.cta-block-sub{font-size:11px;color:#a3a3a3;margin-bottom:12px}
+.cta-block-btn{display:inline-block;padding:10px 18px;background:var(--rose);color:#fff;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none}
+.share-row{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.share-btn{flex:1;padding:10px;background:#fff;border:1.5px solid var(--gray-3);color:var(--black);border-radius:8px;font-size:11px;font-weight:600;text-decoration:none;text-align:center;cursor:pointer}
+.share-btn.primary{background:var(--rose);color:#fff;border-color:var(--rose)}
+.brand-foot{text-align:center;font-family:var(--fm);font-size:9px;color:var(--gray-4);text-transform:uppercase;letter-spacing:1.6px;padding:8px 0}
+.brand-foot strong{color:var(--rose)}
+.row-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:100;pointer-events:none;background:rgba(255,255,255,.92);padding:7px 12px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.08),0 0 0 1px rgba(0,0,0,.04);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.row-dot{width:6px;height:6px;border-radius:50%;background:#c1c5cc;transition:background .25s ease,transform .25s ease,width .25s ease}
+.row-dot.active{background:var(--rose);width:18px;border-radius:3px}
+.chart-direction{text-align:center;font-size:11px;color:var(--gray-5);font-weight:600;margin-top:8px;font-style:italic;padding:6px 12px;background:var(--gray-1);border-radius:6px;display:inline-block;align-self:center}
+.chart-direction.green{color:var(--green);background:#DCFCE7}
+.chart-direction.amber{color:#a16207;background:#FEF3C7}
+.chart-direction.blue{color:var(--blue);background:#DBEAFE}
+.chart-direction.purple{color:#9333EA;background:#F3E8FF}
+
+.stat-card{margin-top:auto;padding:14px 16px;background:var(--gray-1);border-radius:10px;border:1px solid var(--gray-3);width:100%;display:flex;align-items:center;gap:14px}
+.stat-card-icon{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:var(--rose-soft);display:flex;align-items:center;justify-content:center;font-size:18px}
+.stat-card-content{flex:1;min-width:0}
+.stat-card-lbl{font-family:var(--fm);font-size:9px;color:var(--gray-5);text-transform:uppercase;letter-spacing:1.4px;margin-bottom:3px;font-weight:600}
+.stat-card-val{font-size:13px;font-weight:700;color:var(--black);letter-spacing:-.1px;line-height:1.3}
+.stat-card-val em{font-style:normal;color:var(--rose)}
+</style>
+</head>
+<body>
+<div class="feed-progress"><div class="feed-progress-fill" id="progressFill"></div></div>
+<div class="feed" id="feed">
+<section class="row">
+<div class="pages"><article class="page hero-card">
+<div class="hero-eyebrow">Tu año corriendo</div>
+<h1 class="hero-name">Clement</h1>
+<div class="hero-period">14/04/2022 — 11/05/2026 · 1488 días</div>
+<div class="hero-stage">
+<div class="hero-counter" id="counter">0</div>
+<div class="hero-unit" id="heroUnit">kilómetros</div>
+
+<div class="hero-histo-wrap" id="heroHistoWrap">
+<div class="hero-histo-lbl" id="heroHistoLbl">tu volumen mes a mes</div>
+<div class="hero-histo"><div class="hero-bar " style="height:37%" data-i="0"></div><div class="hero-bar " style="height:35%" data-i="1"></div><div class="hero-bar " style="height:51%" data-i="2"></div><div class="hero-bar " style="height:24%" data-i="3"></div><div class="hero-bar " style="height:20%" data-i="4"></div><div class="hero-bar " style="height:27%" data-i="5"></div><div class="hero-bar " style="height:20%" data-i="6"></div><div class="hero-bar " style="height:43%" data-i="7"></div><div class="hero-bar " style="height:37%" data-i="8"></div><div class="hero-bar " style="height:51%" data-i="9"></div><div class="hero-bar " style="height:14%" data-i="10"></div><div class="hero-bar " style="height:42%" data-i="11"></div><div class="hero-bar " style="height:17%" data-i="12"></div><div class="hero-bar " style="height:24%" data-i="13"></div><div class="hero-bar " style="height:44%" data-i="14"></div><div class="hero-bar " style="height:51%" data-i="15"></div><div class="hero-bar " style="height:38%" data-i="16"></div><div class="hero-bar " style="height:43%" data-i="17"></div><div class="hero-bar " style="height:15%" data-i="18"></div><div class="hero-bar " style="height:64%" data-i="19"></div><div class="hero-bar " style="height:32%" data-i="20"></div><div class="hero-bar " style="height:38%" data-i="21"></div><div class="hero-bar " style="height:39%" data-i="22"></div><div class="hero-bar " style="height:37%" data-i="23"></div><div class="hero-bar " style="height:47%" data-i="24"></div><div class="hero-bar " style="height:70%" data-i="25"></div><div class="hero-bar " style="height:52%" data-i="26"></div><div class="hero-bar " style="height:31%" data-i="27"></div><div class="hero-bar " style="height:46%" data-i="28"></div><div class="hero-bar " style="height:49%" data-i="29"></div><div class="hero-bar " style="height:50%" data-i="30"></div><div class="hero-bar " style="height:45%" data-i="31"></div><div class="hero-bar " style="height:82%" data-i="32"></div><div class="hero-bar " style="height:49%" data-i="33"></div><div class="hero-bar " style="height:24%" data-i="34"></div><div class="hero-bar " style="height:59%" data-i="35"></div><div class="hero-bar " style="height:52%" data-i="36"></div><div class="hero-bar " style="height:61%" data-i="37"></div><div class="hero-bar " style="height:38%" data-i="38"></div><div class="hero-bar " style="height:29%" data-i="39"></div><div class="hero-bar " style="height:22%" data-i="40"></div><div class="hero-bar " style="height:44%" data-i="41"></div><div class="hero-bar " style="height:29%" data-i="42"></div><div class="hero-bar " style="height:39%" data-i="43"></div><div class="hero-bar " style="height:42%" data-i="44"></div><div class="hero-bar " style="height:12%" data-i="45"></div><div class="hero-bar " style="height:13%" data-i="46"></div><div class="hero-bar rose" style="height:100%" data-i="47"></div><div class="hero-bar rose" style="height:54%" data-i="48"></div><div class="hero-bar rose-dim" style="height:36%" data-i="49"></div></div>
+<div class="hero-histo-base"></div>
+</div>
+
+<div class="hero-bottom" id="heroBottom">
+<div class="hero-bottom-lbl">Equivalente a</div>
+<div class="hero-bottom-val">62 maratones · una atrás de otra</div>
+</div>
+</div>
+<div class="scroll-hint">scroll para ver tu año</div>
+</article></div></section>
+<section class="row" data-pages="2"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">02 · Frecuencia</div><div class="page-num">02/18</div></div>
+<h2 class="page-title">Sesiones por <em>mes</em></h2>
+<div class="page-sub">Total: 289 sesiones consolidadas</div>
+<div class="mag-stage">
+<div class="mag-num">289</div>
+<div class="mag-unit">corridas en 50 meses</div>
+<svg viewBox="0 0 400 230" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block"><line x1="36" y1="20" x2="395" y2="20" stroke="#f3f3f3"/><line x1="36" y1="65" x2="395" y2="65" stroke="#f3f3f3"/><line x1="36" y1="110" x2="395" y2="110" stroke="#f3f3f3"/><line x1="36" y1="155" x2="395" y2="155" stroke="#f3f3f3"/><text x="32" y="24" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">12</text><text x="32" y="114" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">6,1</text><line x1="373" y1="14" x2="373" y2="206" stroke="#E11D48" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/><rect x="36.6" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="43.8" y="95.9" width="5.9" height="104.1" fill="#a3a3a3" rx="2"/><rect x="51.0" y="66.1" width="5.9" height="133.9" fill="#a3a3a3" rx="2"/><rect x="58.2" y="140.5" width="5.9" height="59.5" fill="#a3a3a3" rx="2"/><rect x="65.4" y="155.4" width="5.9" height="44.6" fill="#a3a3a3" rx="2"/><rect x="72.5" y="140.5" width="5.9" height="59.5" fill="#a3a3a3" rx="2"/><rect x="79.7" y="140.5" width="5.9" height="59.5" fill="#a3a3a3" rx="2"/><rect x="86.9" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="94.1" y="125.6" width="5.9" height="74.4" fill="#a3a3a3" rx="2"/><rect x="101.3" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="108.4" y="170.2" width="5.9" height="29.8" fill="#a3a3a3" rx="2"/><rect x="115.6" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="122.8" y="155.4" width="5.9" height="44.6" fill="#a3a3a3" rx="2"/><rect x="130.0" y="125.6" width="5.9" height="74.4" fill="#a3a3a3" rx="2"/><rect x="137.2" y="81.0" width="5.9" height="119.0" fill="#a3a3a3" rx="2"/><rect x="144.3" y="81.0" width="5.9" height="119.0" fill="#a3a3a3" rx="2"/><rect x="151.5" y="125.6" width="5.9" height="74.4" fill="#a3a3a3" rx="2"/><rect x="158.7" y="95.9" width="5.9" height="104.1" fill="#a3a3a3" rx="2"/><rect x="165.9" y="155.4" width="5.9" height="44.6" fill="#a3a3a3" rx="2"/><rect x="173.1" y="81.0" width="5.9" height="119.0" fill="#a3a3a3" rx="2"/><rect x="180.2" y="140.5" width="5.9" height="59.5" fill="#a3a3a3" rx="2"/><rect x="187.4" y="125.6" width="5.9" height="74.4" fill="#a3a3a3" rx="2"/><rect x="194.6" y="125.6" width="5.9" height="74.4" fill="#a3a3a3" rx="2"/><rect x="201.8" y="125.6" width="5.9" height="74.4" fill="#a3a3a3" rx="2"/><rect x="209.0" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="216.1" y="66.1" width="5.9" height="133.9" fill="#a3a3a3" rx="2"/><rect x="223.3" y="81.0" width="5.9" height="119.0" fill="#a3a3a3" rx="2"/><rect x="230.5" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="237.7" y="95.9" width="5.9" height="104.1" fill="#a3a3a3" rx="2"/><rect x="244.9" y="95.9" width="5.9" height="104.1" fill="#a3a3a3" rx="2"/><rect x="252.0" y="95.9" width="5.9" height="104.1" fill="#a3a3a3" rx="2"/><rect x="259.2" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="266.4" y="36.4" width="5.9" height="163.6" fill="#a3a3a3" rx="2"/><rect x="273.6" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="280.8" y="140.5" width="5.9" height="59.5" fill="#a3a3a3" rx="2"/><rect x="287.9" y="51.2" width="5.9" height="148.8" fill="#a3a3a3" rx="2"/><rect x="295.1" y="95.9" width="5.9" height="104.1" fill="#a3a3a3" rx="2"/><rect x="302.3" y="81.0" width="5.9" height="119.0" fill="#a3a3a3" rx="2"/><rect x="309.5" y="125.6" width="5.9" height="74.4" fill="#a3a3a3" rx="2"/><rect x="316.7" y="140.5" width="5.9" height="59.5" fill="#a3a3a3" rx="2"/><rect x="323.8" y="155.4" width="5.9" height="44.6" fill="#a3a3a3" rx="2"/><rect x="331.0" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="338.2" y="140.5" width="5.9" height="59.5" fill="#a3a3a3" rx="2"/><rect x="345.4" y="125.6" width="5.9" height="74.4" fill="#a3a3a3" rx="2"/><rect x="352.6" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="359.7" y="170.2" width="5.9" height="29.8" fill="#a3a3a3" rx="2"/><rect x="366.9" y="170.2" width="5.9" height="29.8" fill="#a3a3a3" rx="2"/><rect x="374.1" y="66.1" width="5.9" height="133.9" fill="#E11D48" rx="2"/><rect x="381.3" y="81.0" width="5.9" height="119.0" fill="#E11D48" rx="2"/><rect x="388.5" y="125.6" width="5.9" height="74.4" fill="#E11D48" rx="2"/><text x="391" y="118" fill="#E11D48" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">5</text><line x1="36" y1="200" x2="395" y2="200" stroke="#0a0a0a" stroke-width="1.5"/><text x="40" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="126" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="219" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="305" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="391" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text></svg>
+<div class="mag-equiv">
+<div class="mag-equiv-lbl">A partir del quiebre</div>
+<div class="mag-equiv-val"><em>22 sesiones en 3 meses</em><br>vs 267 en los 47 anteriores</div>
+</div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">02 · Detalle</div><div class="page-num">02/18</div></div>
+<span class="detail-tag">El detalle</span>
+<h2 class="detail-title">Tu ritmo <em>mes a mes</em></h2>
+<div class="detail-body">
+<p>Antes del cambio de plan corrías <strong>5.7 sesiones por mes</strong> en promedio.</p>
+<p>Después estás en un promedio de <strong>7.3 sesiones por mes</strong>.</p>
+<div class="stat-line"><span class="lbl">Mes con más sesiones</span><span class="val rose">11 · dic 24</span></div>
+<div class="stat-line"><span class="lbl">Mes con menos</span><span class="val">2 · feb 23</span></div>
+<div class="stat-line"><span class="lbl">Promedio antes</span><span class="val">5.7 ses/mes</span></div>
+<div class="stat-line"><span class="lbl">Promedio después</span><span class="val rose">7.3 ses/mes</span></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="2"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">03 · Tiempo</div><div class="page-num">03/18</div></div>
+<h2 class="page-title">Horas en <em>movimiento</em></h2>
+<div class="page-sub">Total acumulado de las 289 sesiones</div>
+<div class="mag-stage">
+<div class="mag-num">250<small>h</small></div>
+<div class="mag-unit">en zapatillas</div>
+<svg viewBox="0 0 400 230" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block"><line x1="36" y1="20" x2="395" y2="20" stroke="#f3f3f3"/><line x1="36" y1="65" x2="395" y2="65" stroke="#f3f3f3"/><line x1="36" y1="110" x2="395" y2="110" stroke="#f3f3f3"/><line x1="36" y1="155" x2="395" y2="155" stroke="#f3f3f3"/><text x="32" y="24" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">12</text><text x="32" y="114" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">5,8</text><line x1="373" y1="14" x2="373" y2="206" stroke="#E11D48" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/><rect x="36.6" y="126.5" width="5.9" height="73.5" fill="#a3a3a3" rx="2"/><rect x="43.8" y="130.4" width="5.9" height="69.6" fill="#a3a3a3" rx="2"/><rect x="51.0" y="98.5" width="5.9" height="101.5" fill="#a3a3a3" rx="2"/><rect x="58.2" y="152.2" width="5.9" height="47.8" fill="#a3a3a3" rx="2"/><rect x="65.4" y="169.0" width="5.9" height="31.0" fill="#a3a3a3" rx="2"/><rect x="72.5" y="172.7" width="5.9" height="27.3" fill="#a3a3a3" rx="2"/><rect x="79.7" y="161.4" width="5.9" height="38.6" fill="#a3a3a3" rx="2"/><rect x="86.9" y="116.8" width="5.9" height="83.2" fill="#a3a3a3" rx="2"/><rect x="94.1" y="127.6" width="5.9" height="72.4" fill="#a3a3a3" rx="2"/><rect x="101.3" y="109.0" width="5.9" height="91.0" fill="#a3a3a3" rx="2"/><rect x="108.4" y="174.0" width="5.9" height="26.0" fill="#a3a3a3" rx="2"/><rect x="115.6" y="120.1" width="5.9" height="79.9" fill="#a3a3a3" rx="2"/><rect x="122.8" y="165.4" width="5.9" height="34.6" fill="#a3a3a3" rx="2"/><rect x="130.0" y="153.4" width="5.9" height="46.6" fill="#a3a3a3" rx="2"/><rect x="137.2" y="113.7" width="5.9" height="86.3" fill="#a3a3a3" rx="2"/><rect x="144.3" y="99.6" width="5.9" height="100.4" fill="#a3a3a3" rx="2"/><rect x="151.5" y="127.4" width="5.9" height="72.6" fill="#a3a3a3" rx="2"/><rect x="158.7" y="119.1" width="5.9" height="80.9" fill="#a3a3a3" rx="2"/><rect x="165.9" y="168.3" width="5.9" height="31.7" fill="#a3a3a3" rx="2"/><rect x="173.1" y="77.9" width="5.9" height="122.1" fill="#a3a3a3" rx="2"/><rect x="180.2" y="141.0" width="5.9" height="59.0" fill="#a3a3a3" rx="2"/><rect x="187.4" y="125.8" width="5.9" height="74.2" fill="#a3a3a3" rx="2"/><rect x="194.6" y="126.8" width="5.9" height="73.2" fill="#a3a3a3" rx="2"/><rect x="201.8" y="130.5" width="5.9" height="69.5" fill="#a3a3a3" rx="2"/><rect x="209.0" y="110.0" width="5.9" height="90.0" fill="#a3a3a3" rx="2"/><rect x="216.1" y="70.7" width="5.9" height="129.3" fill="#a3a3a3" rx="2"/><rect x="223.3" y="100.3" width="5.9" height="99.7" fill="#a3a3a3" rx="2"/><rect x="230.5" y="139.7" width="5.9" height="60.3" fill="#a3a3a3" rx="2"/><rect x="237.7" y="110.7" width="5.9" height="89.3" fill="#a3a3a3" rx="2"/><rect x="244.9" y="104.2" width="5.9" height="95.8" fill="#a3a3a3" rx="2"/><rect x="252.0" y="107.4" width="5.9" height="92.6" fill="#a3a3a3" rx="2"/><rect x="259.2" y="115.9" width="5.9" height="84.1" fill="#a3a3a3" rx="2"/><rect x="266.4" y="36.4" width="5.9" height="163.6" fill="#a3a3a3" rx="2"/><rect x="273.6" y="105.0" width="5.9" height="95.0" fill="#a3a3a3" rx="2"/><rect x="280.8" y="151.3" width="5.9" height="48.7" fill="#a3a3a3" rx="2"/><rect x="287.9" y="86.7" width="5.9" height="113.3" fill="#a3a3a3" rx="2"/><rect x="295.1" y="104.1" width="5.9" height="95.9" fill="#a3a3a3" rx="2"/><rect x="302.3" y="84.8" width="5.9" height="115.2" fill="#a3a3a3" rx="2"/><rect x="309.5" y="128.3" width="5.9" height="71.7" fill="#a3a3a3" rx="2"/><rect x="316.7" y="144.6" width="5.9" height="55.4" fill="#a3a3a3" rx="2"/><rect x="323.8" y="159.3" width="5.9" height="40.7" fill="#a3a3a3" rx="2"/><rect x="331.0" y="115.2" width="5.9" height="84.8" fill="#a3a3a3" rx="2"/><rect x="338.2" y="140.3" width="5.9" height="59.7" fill="#a3a3a3" rx="2"/><rect x="345.4" y="122.5" width="5.9" height="77.5" fill="#a3a3a3" rx="2"/><rect x="352.6" y="114.9" width="5.9" height="85.1" fill="#a3a3a3" rx="2"/><rect x="359.7" y="175.0" width="5.9" height="25.0" fill="#a3a3a3" rx="2"/><rect x="366.9" y="173.6" width="5.9" height="26.4" fill="#a3a3a3" rx="2"/><rect x="374.1" y="36.6" width="5.9" height="163.4" fill="#E11D48" rx="2"/><rect x="381.3" y="86.1" width="5.9" height="113.9" fill="#E11D48" rx="2"/><rect x="388.5" y="126.5" width="5.9" height="73.5" fill="#E11D48" rx="2"/><text x="391" y="119" fill="#E11D48" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">5h</text><line x1="36" y1="200" x2="395" y2="200" stroke="#0a0a0a" stroke-width="1.5"/><text x="40" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="126" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="219" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="305" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="391" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text></svg>
+<div class="mag-equiv">
+<div class="mag-equiv-lbl">Equivalente a</div>
+<div class="mag-equiv-val">Más de <em>10 días enteros</em> sin parar</div>
+</div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">03 · Detalle</div><div class="page-num">03/18</div></div>
+<span class="detail-tag">El detalle</span>
+<h2 class="detail-title">Tu tiempo <em>en pista</em></h2>
+<div class="detail-body">
+<p>Las 250 horas se repartieron en sesiones que en promedio duraron <strong>51 minutos</strong>.</p>
+<p>Tu mes con más horas fue dic 24 con 10.6 horas. El más bajo con actividad fue ene 26 con 1.6 horas.</p>
+<div class="stat-line"><span class="lbl">Total horas</span><span class="val rose">250 h</span></div>
+<div class="stat-line"><span class="lbl">Promedio por sesión</span><span class="val">51 min</span></div>
+<div class="stat-line"><span class="lbl">Mes más activo</span><span class="val rose">10.6h · dic 24</span></div>
+<div class="stat-line"><span class="lbl">Mes más bajo</span><span class="val">1.6h · ene 26</span></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="2"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">04 · Energía</div><div class="page-num">04/18</div></div>
+<h2 class="page-title">Calorías <em>quemadas</em></h2>
+<div class="page-sub">Energía consumida en 289 corridas</div>
+<div class="mag-stage">
+<div class="mag-num amber">202.371</div>
+<div class="mag-unit">calorías</div>
+<svg viewBox="0 0 400 230" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block"><line x1="36" y1="20" x2="395" y2="20" stroke="#f3f3f3"/><line x1="36" y1="65" x2="395" y2="65" stroke="#f3f3f3"/><line x1="36" y1="110" x2="395" y2="110" stroke="#f3f3f3"/><line x1="36" y1="155" x2="395" y2="155" stroke="#f3f3f3"/><text x="32" y="24" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">9042</text><text x="32" y="114" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">4521</text><line x1="373" y1="14" x2="373" y2="206" stroke="#E11D48" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/><rect x="36.6" y="121.8" width="5.9" height="78.2" fill="#a3a3a3" rx="2"/><rect x="43.8" y="124.4" width="5.9" height="75.6" fill="#a3a3a3" rx="2"/><rect x="51.0" y="93.0" width="5.9" height="107.0" fill="#a3a3a3" rx="2"/><rect x="58.2" y="148.0" width="5.9" height="52.0" fill="#a3a3a3" rx="2"/><rect x="65.4" y="157.4" width="5.9" height="42.6" fill="#a3a3a3" rx="2"/><rect x="72.5" y="141.7" width="5.9" height="58.3" fill="#a3a3a3" rx="2"/><rect x="79.7" y="156.9" width="5.9" height="43.1" fill="#a3a3a3" rx="2"/><rect x="86.9" y="109.2" width="5.9" height="90.8" fill="#a3a3a3" rx="2"/><rect x="94.1" y="123.8" width="5.9" height="76.2" fill="#a3a3a3" rx="2"/><rect x="101.3" y="99.9" width="5.9" height="100.1" fill="#a3a3a3" rx="2"/><rect x="108.4" y="171.2" width="5.9" height="28.8" fill="#a3a3a3" rx="2"/><rect x="115.6" y="115.1" width="5.9" height="84.9" fill="#a3a3a3" rx="2"/><rect x="122.8" y="165.9" width="5.9" height="34.1" fill="#a3a3a3" rx="2"/><rect x="130.0" y="148.6" width="5.9" height="51.4" fill="#a3a3a3" rx="2"/><rect x="137.2" y="108.4" width="5.9" height="91.6" fill="#a3a3a3" rx="2"/><rect x="144.3" y="98.0" width="5.9" height="102.0" fill="#a3a3a3" rx="2"/><rect x="151.5" y="119.9" width="5.9" height="80.1" fill="#a3a3a3" rx="2"/><rect x="158.7" y="114.2" width="5.9" height="85.8" fill="#a3a3a3" rx="2"/><rect x="165.9" y="168.6" width="5.9" height="31.4" fill="#a3a3a3" rx="2"/><rect x="173.1" y="72.6" width="5.9" height="127.4" fill="#a3a3a3" rx="2"/><rect x="180.2" y="138.1" width="5.9" height="61.9" fill="#a3a3a3" rx="2"/><rect x="187.4" y="124.4" width="5.9" height="75.6" fill="#a3a3a3" rx="2"/><rect x="194.6" y="122.5" width="5.9" height="77.5" fill="#a3a3a3" rx="2"/><rect x="201.8" y="126.7" width="5.9" height="73.3" fill="#a3a3a3" rx="2"/><rect x="209.0" y="107.1" width="5.9" height="92.9" fill="#a3a3a3" rx="2"/><rect x="216.1" y="64.6" width="5.9" height="135.4" fill="#a3a3a3" rx="2"/><rect x="223.3" y="96.3" width="5.9" height="103.7" fill="#a3a3a3" rx="2"/><rect x="230.5" y="133.5" width="5.9" height="66.5" fill="#a3a3a3" rx="2"/><rect x="237.7" y="104.1" width="5.9" height="95.9" fill="#a3a3a3" rx="2"/><rect x="244.9" y="99.5" width="5.9" height="100.5" fill="#a3a3a3" rx="2"/><rect x="252.0" y="100.3" width="5.9" height="99.7" fill="#a3a3a3" rx="2"/><rect x="259.2" y="112.2" width="5.9" height="87.8" fill="#a3a3a3" rx="2"/><rect x="266.4" y="36.4" width="5.9" height="163.6" fill="#a3a3a3" rx="2"/><rect x="273.6" y="105.5" width="5.9" height="94.5" fill="#a3a3a3" rx="2"/><rect x="280.8" y="150.5" width="5.9" height="49.5" fill="#a3a3a3" rx="2"/><rect x="287.9" y="84.2" width="5.9" height="115.8" fill="#a3a3a3" rx="2"/><rect x="295.1" y="99.1" width="5.9" height="100.9" fill="#a3a3a3" rx="2"/><rect x="302.3" y="77.1" width="5.9" height="122.9" fill="#a3a3a3" rx="2"/><rect x="309.5" y="126.3" width="5.9" height="73.7" fill="#a3a3a3" rx="2"/><rect x="316.7" y="140.0" width="5.9" height="60.0" fill="#a3a3a3" rx="2"/><rect x="323.8" y="159.5" width="5.9" height="40.5" fill="#a3a3a3" rx="2"/><rect x="331.0" y="112.8" width="5.9" height="87.2" fill="#a3a3a3" rx="2"/><rect x="338.2" y="139.2" width="5.9" height="60.8" fill="#a3a3a3" rx="2"/><rect x="345.4" y="122.2" width="5.9" height="77.8" fill="#a3a3a3" rx="2"/><rect x="352.6" y="115.1" width="5.9" height="84.9" fill="#a3a3a3" rx="2"/><rect x="359.7" y="176.5" width="5.9" height="23.5" fill="#a3a3a3" rx="2"/><rect x="366.9" y="172.6" width="5.9" height="27.4" fill="#a3a3a3" rx="2"/><rect x="374.1" y="46.8" width="5.9" height="153.2" fill="#F59E0B" rx="2"/><rect x="381.3" y="92.2" width="5.9" height="107.8" fill="#F59E0B" rx="2"/><rect x="388.5" y="127.8" width="5.9" height="72.2" fill="#F59E0B" rx="2"/><text x="391" y="120" fill="#F59E0B" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">3626</text><line x1="36" y1="200" x2="395" y2="200" stroke="#0a0a0a" stroke-width="1.5"/><text x="40" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="126" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="219" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="305" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="391" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text></svg>
+<div class="mag-equiv">
+<div class="mag-equiv-lbl">Equivalente a</div>
+<div class="mag-equiv-val"><em>337 hamburguesas</em><br>o 809 alfajores triples</div>
+</div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">04 · Detalle</div><div class="page-num">04/18</div></div>
+<span class="detail-tag">El detalle</span>
+<h2 class="detail-title">Tu motor <em>energético</em></h2>
+<div class="detail-body">
+<p>En 50 meses quemaste <strong>202.371 calorías</strong>, un promedio de 700 por sesión.</p>
+<p>Las calorías están directamente correlacionadas con el volumen y la intensidad. Tu mejor mes energético: dic 24 con 8.220.</p>
+<div class="stat-line"><span class="lbl">Total calorías</span><span class="val" style="color:#F59E0B">202.371</span></div>
+<div class="stat-line"><span class="lbl">Promedio por sesión</span><span class="val">700 kcal</span></div>
+<div class="stat-line"><span class="lbl">Mejor mes</span><span class="val rose">8.220 · dic 24</span></div>
+<div class="stat-line"><span class="lbl">Peor mes</span><span class="val">1.181 · ene 26</span></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="2"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">05 · Pasos</div><div class="page-num">05/18</div></div>
+<h2 class="page-title">Pasos <em>totales</em></h2>
+<div class="page-sub">Cadencia × tiempo en 289 sesiones</div>
+<div class="mag-stage">
+<div class="mag-num blue">2.518.012</div>
+<div class="mag-unit">pasos</div>
+<svg viewBox="0 0 400 230" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block"><line x1="36" y1="20" x2="395" y2="20" stroke="#f3f3f3"/><line x1="36" y1="65" x2="395" y2="65" stroke="#f3f3f3"/><line x1="36" y1="110" x2="395" y2="110" stroke="#f3f3f3"/><line x1="36" y1="155" x2="395" y2="155" stroke="#f3f3f3"/><text x="32" y="24" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">120k</text><text x="32" y="114" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">60k</text><line x1="373" y1="14" x2="373" y2="206" stroke="#E11D48" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/><rect x="36.6" y="127.9" width="5.9" height="72.1" fill="#a3a3a3" rx="2"/><rect x="43.8" y="131.7" width="5.9" height="68.3" fill="#a3a3a3" rx="2"/><rect x="51.0" y="100.1" width="5.9" height="99.9" fill="#a3a3a3" rx="2"/><rect x="58.2" y="153.6" width="5.9" height="46.4" fill="#a3a3a3" rx="2"/><rect x="65.4" y="160.4" width="5.9" height="39.6" fill="#a3a3a3" rx="2"/><rect x="72.5" y="149.4" width="5.9" height="50.6" fill="#a3a3a3" rx="2"/><rect x="79.7" y="162.6" width="5.9" height="37.4" fill="#a3a3a3" rx="2"/><rect x="86.9" y="117.2" width="5.9" height="82.8" fill="#a3a3a3" rx="2"/><rect x="94.1" y="127.9" width="5.9" height="72.1" fill="#a3a3a3" rx="2"/><rect x="101.3" y="107.8" width="5.9" height="92.2" fill="#a3a3a3" rx="2"/><rect x="108.4" y="174.3" width="5.9" height="25.7" fill="#a3a3a3" rx="2"/><rect x="115.6" y="119.9" width="5.9" height="80.1" fill="#a3a3a3" rx="2"/><rect x="122.8" y="165.5" width="5.9" height="34.5" fill="#a3a3a3" rx="2"/><rect x="130.0" y="153.8" width="5.9" height="46.2" fill="#a3a3a3" rx="2"/><rect x="137.2" y="114.1" width="5.9" height="85.9" fill="#a3a3a3" rx="2"/><rect x="144.3" y="101.6" width="5.9" height="98.4" fill="#a3a3a3" rx="2"/><rect x="151.5" y="129.0" width="5.9" height="71.0" fill="#a3a3a3" rx="2"/><rect x="158.7" y="119.2" width="5.9" height="80.8" fill="#a3a3a3" rx="2"/><rect x="165.9" y="169.2" width="5.9" height="30.8" fill="#a3a3a3" rx="2"/><rect x="173.1" y="78.0" width="5.9" height="122.0" fill="#a3a3a3" rx="2"/><rect x="180.2" y="141.5" width="5.9" height="58.5" fill="#a3a3a3" rx="2"/><rect x="187.4" y="126.2" width="5.9" height="73.8" fill="#a3a3a3" rx="2"/><rect x="194.6" y="127.3" width="5.9" height="72.7" fill="#a3a3a3" rx="2"/><rect x="201.8" y="131.0" width="5.9" height="69.0" fill="#a3a3a3" rx="2"/><rect x="209.0" y="110.8" width="5.9" height="89.2" fill="#a3a3a3" rx="2"/><rect x="216.1" y="71.2" width="5.9" height="128.8" fill="#a3a3a3" rx="2"/><rect x="223.3" y="102.3" width="5.9" height="97.7" fill="#a3a3a3" rx="2"/><rect x="230.5" y="141.4" width="5.9" height="58.6" fill="#a3a3a3" rx="2"/><rect x="237.7" y="113.0" width="5.9" height="87.0" fill="#a3a3a3" rx="2"/><rect x="244.9" y="106.1" width="5.9" height="93.9" fill="#a3a3a3" rx="2"/><rect x="252.0" y="107.8" width="5.9" height="92.2" fill="#a3a3a3" rx="2"/><rect x="259.2" y="116.5" width="5.9" height="83.5" fill="#a3a3a3" rx="2"/><rect x="266.4" y="36.4" width="5.9" height="163.6" fill="#a3a3a3" rx="2"/><rect x="273.6" y="105.7" width="5.9" height="94.3" fill="#a3a3a3" rx="2"/><rect x="280.8" y="152.6" width="5.9" height="47.4" fill="#a3a3a3" rx="2"/><rect x="287.9" y="88.7" width="5.9" height="111.3" fill="#a3a3a3" rx="2"/><rect x="295.1" y="105.5" width="5.9" height="94.5" fill="#a3a3a3" rx="2"/><rect x="302.3" y="86.4" width="5.9" height="113.6" fill="#a3a3a3" rx="2"/><rect x="309.5" y="129.1" width="5.9" height="70.9" fill="#a3a3a3" rx="2"/><rect x="316.7" y="145.4" width="5.9" height="54.6" fill="#a3a3a3" rx="2"/><rect x="323.8" y="160.0" width="5.9" height="40.0" fill="#a3a3a3" rx="2"/><rect x="331.0" y="116.2" width="5.9" height="83.8" fill="#a3a3a3" rx="2"/><rect x="338.2" y="142.3" width="5.9" height="57.7" fill="#a3a3a3" rx="2"/><rect x="345.4" y="124.0" width="5.9" height="76.0" fill="#a3a3a3" rx="2"/><rect x="352.6" y="116.6" width="5.9" height="83.4" fill="#a3a3a3" rx="2"/><rect x="359.7" y="175.9" width="5.9" height="24.1" fill="#a3a3a3" rx="2"/><rect x="366.9" y="174.0" width="5.9" height="26.0" fill="#a3a3a3" rx="2"/><rect x="374.1" y="78.7" width="5.9" height="121.3" fill="#3B82F6" rx="2"/><rect x="381.3" y="89.9" width="5.9" height="110.1" fill="#3B82F6" rx="2"/><rect x="388.5" y="128.7" width="5.9" height="71.3" fill="#3B82F6" rx="2"/><text x="391" y="121" fill="#3B82F6" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">47446</text><line x1="36" y1="200" x2="395" y2="200" stroke="#0a0a0a" stroke-width="1.5"/><text x="40" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="126" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="219" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="305" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="391" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text></svg>
+<div class="mag-equiv">
+<div class="mag-equiv-lbl">Equivalente a</div>
+<div class="mag-equiv-val">Más de <em>2.518.012 pasos</em><br>≈ 2014 km caminados</div>
+</div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">05 · Detalle</div><div class="page-num">05/18</div></div>
+<span class="detail-tag">El detalle</span>
+<h2 class="detail-title">Tu motor <em>en pasos</em></h2>
+<div class="detail-body">
+<p>Diste <strong>2.518.012 pasos</strong> en total. Eso equivale a una caminata continua de unos 2014 kilómetros.</p>
+<p>El conteo de pasos depende de la cadencia (pasos por minuto) y el tiempo total de cada corrida.</p>
+<div class="stat-line"><span class="lbl">Total pasos</span><span class="val" style="color:#3B82F6">2.518.012</span></div>
+<div class="stat-line"><span class="lbl">Promedio por sesión</span><span class="val">8.713</span></div>
+<div class="stat-line"><span class="lbl">Pasos por km (aprox)</span><span class="val">956</span></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="2"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">06 · Ascenso</div><div class="page-num">06/18</div></div>
+<h2 class="page-title">Metros de <em>ascenso</em></h2>
+<div class="page-sub">Acumulado en todas las sesiones</div>
+<div class="mag-stage">
+<div class="mag-num green">19.344</div>
+<div class="mag-unit">metros subidos</div>
+<svg viewBox="0 0 400 230" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block"><line x1="36" y1="20" x2="395" y2="20" stroke="#f3f3f3"/><line x1="36" y1="65" x2="395" y2="65" stroke="#f3f3f3"/><line x1="36" y1="110" x2="395" y2="110" stroke="#f3f3f3"/><line x1="36" y1="155" x2="395" y2="155" stroke="#f3f3f3"/><text x="32" y="24" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">1327</text><text x="32" y="114" fill="#a3a3a3" font-size="10" font-family="DM Mono,monospace" text-anchor="end">663</text><line x1="373" y1="14" x2="373" y2="206" stroke="#E11D48" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/><rect x="36.6" y="126.9" width="5.9" height="73.1" fill="#a3a3a3" rx="2"/><rect x="43.8" y="128.6" width="5.9" height="71.4" fill="#a3a3a3" rx="2"/><rect x="51.0" y="106.8" width="5.9" height="93.2" fill="#a3a3a3" rx="2"/><rect x="58.2" y="119.8" width="5.9" height="80.2" fill="#a3a3a3" rx="2"/><rect x="65.4" y="180.2" width="5.9" height="19.8" fill="#a3a3a3" rx="2"/><rect x="72.5" y="125.5" width="5.9" height="74.5" fill="#a3a3a3" rx="2"/><rect x="79.7" y="146.1" width="5.9" height="53.9" fill="#a3a3a3" rx="2"/><rect x="86.9" y="125.1" width="5.9" height="74.9" fill="#a3a3a3" rx="2"/><rect x="94.1" y="153.1" width="5.9" height="46.9" fill="#a3a3a3" rx="2"/><rect x="101.3" y="148.7" width="5.9" height="51.3" fill="#a3a3a3" rx="2"/><rect x="108.4" y="168.5" width="5.9" height="31.5" fill="#a3a3a3" rx="2"/><rect x="115.6" y="152.6" width="5.9" height="47.4" fill="#a3a3a3" rx="2"/><rect x="122.8" y="193.9" width="5.9" height="6.1" fill="#a3a3a3" rx="2"/><rect x="130.0" y="178.4" width="5.9" height="21.6" fill="#a3a3a3" rx="2"/><rect x="137.2" y="184.3" width="5.9" height="15.7" fill="#a3a3a3" rx="2"/><rect x="144.3" y="141.9" width="5.9" height="58.1" fill="#a3a3a3" rx="2"/><rect x="151.5" y="146.7" width="5.9" height="53.3" fill="#a3a3a3" rx="2"/><rect x="158.7" y="167.8" width="5.9" height="32.2" fill="#a3a3a3" rx="2"/><rect x="165.9" y="160.2" width="5.9" height="39.8" fill="#a3a3a3" rx="2"/><rect x="173.1" y="156.9" width="5.9" height="43.1" fill="#a3a3a3" rx="2"/><rect x="180.2" y="191.3" width="5.9" height="8.7" fill="#a3a3a3" rx="2"/><rect x="187.4" y="171.2" width="5.9" height="28.8" fill="#a3a3a3" rx="2"/><rect x="194.6" y="152.5" width="5.9" height="47.5" fill="#a3a3a3" rx="2"/><rect x="201.8" y="155.6" width="5.9" height="44.4" fill="#a3a3a3" rx="2"/><rect x="209.0" y="144.5" width="5.9" height="55.5" fill="#a3a3a3" rx="2"/><rect x="216.1" y="150.5" width="5.9" height="49.5" fill="#a3a3a3" rx="2"/><rect x="223.3" y="100.1" width="5.9" height="99.9" fill="#a3a3a3" rx="2"/><rect x="230.5" y="135.8" width="5.9" height="64.2" fill="#a3a3a3" rx="2"/><rect x="237.7" y="129.7" width="5.9" height="70.3" fill="#a3a3a3" rx="2"/><rect x="244.9" y="133.8" width="5.9" height="66.2" fill="#a3a3a3" rx="2"/><rect x="252.0" y="138.5" width="5.9" height="61.5" fill="#a3a3a3" rx="2"/><rect x="259.2" y="162.6" width="5.9" height="37.4" fill="#a3a3a3" rx="2"/><rect x="266.4" y="83.2" width="5.9" height="116.8" fill="#a3a3a3" rx="2"/><rect x="273.6" y="146.5" width="5.9" height="53.5" fill="#a3a3a3" rx="2"/><rect x="280.8" y="153.5" width="5.9" height="46.5" fill="#a3a3a3" rx="2"/><rect x="287.9" y="111.3" width="5.9" height="88.7" fill="#a3a3a3" rx="2"/><rect x="295.1" y="142.2" width="5.9" height="57.8" fill="#a3a3a3" rx="2"/><rect x="302.3" y="103.8" width="5.9" height="96.2" fill="#a3a3a3" rx="2"/><rect x="309.5" y="175.3" width="5.9" height="24.7" fill="#a3a3a3" rx="2"/><rect x="316.7" y="179.2" width="5.9" height="20.8" fill="#a3a3a3" rx="2"/><rect x="323.8" y="189.4" width="5.9" height="10.6" fill="#a3a3a3" rx="2"/><rect x="331.0" y="174.1" width="5.9" height="25.9" fill="#a3a3a3" rx="2"/><rect x="338.2" y="139.6" width="5.9" height="60.4" fill="#a3a3a3" rx="2"/><rect x="345.4" y="157.5" width="5.9" height="42.5" fill="#a3a3a3" rx="2"/><rect x="352.6" y="150.9" width="5.9" height="49.1" fill="#a3a3a3" rx="2"/><rect x="359.7" y="187.9" width="5.9" height="12.1" fill="#a3a3a3" rx="2"/><rect x="366.9" y="186.7" width="5.9" height="13.3" fill="#a3a3a3" rx="2"/><rect x="374.1" y="36.4" width="5.9" height="163.6" fill="#16A34A" rx="2"/><rect x="381.3" y="152.5" width="5.9" height="47.5" fill="#16A34A" rx="2"/><rect x="388.5" y="127.0" width="5.9" height="73.0" fill="#16A34A" rx="2"/><text x="391" y="119" fill="#16A34A" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">538</text><line x1="36" y1="200" x2="395" y2="200" stroke="#0a0a0a" stroke-width="1.5"/><text x="40" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="126" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="219" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="305" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="391" y="216" fill="#737373" font-size="9" font-family="DM Mono,monospace" text-anchor="middle">M</text></svg>
+<div class="mag-equiv">
+<div class="mag-equiv-lbl">Equivalente a</div>
+<div class="mag-equiv-val"><em>Más alto que el Everest</em><br>5527 pisos en total</div>
+</div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">06 · Detalle</div><div class="page-num">06/18</div></div>
+<span class="detail-tag">El detalle</span>
+<h2 class="detail-title">Tu <em>ascenso</em> total</h2>
+<div class="detail-body">
+<p>Subiste <strong>19.344 metros</strong> en total a lo largo del período. Eso equivale a 5527 pisos de edificio.</p>
+<p>El ascenso depende del terreno donde corras. Mucho ascenso en pocas sesiones indica trabajo en cuestas o trail.</p>
+<div class="stat-line"><span class="lbl">Total ascenso</span><span class="val" style="color:#16A34A">19.344 m</span></div>
+<div class="stat-line"><span class="lbl">Promedio por sesión</span><span class="val">67 m</span></div>
+<div class="stat-line"><span class="lbl">Promedio por km</span><span class="val">7.3 m</span></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="3"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">07 · Frecuencia cardíaca</div><div class="page-num">07/18</div></div>
+<h2 class="page-title">Tu FC media, mes a <em>mes</em></h2>
+<div class="page-sub">Pulsaciones por minuto · promedio mensual</div>
+<div class="chart-zone"><svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet"><rect x="34" y="-345.8" width="361" height="472.5" fill="#FEE2E2" opacity="0.3"/><text x="390" y="-330" fill="#E11D48" font-size="10" font-family="DM Mono,monospace" text-anchor="end" font-weight="600">FC alta 160+</text><line x1="34" y1="290.0" x2="395" y2="290.0" stroke="#f3f3f3"/><text x="30" y="294.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">146</text><line x1="34" y1="222.5" x2="395" y2="222.5" stroke="#f3f3f3"/><text x="30" y="226.5" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">152</text><line x1="34" y1="155.0" x2="395" y2="155.0" stroke="#f3f3f3"/><text x="30" y="159.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">158</text><line x1="34" y1="87.5" x2="395" y2="87.5" stroke="#f3f3f3"/><text x="30" y="91.5" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">163</text><line x1="34" y1="20.0" x2="395" y2="20.0" stroke="#f3f3f3"/><text x="30" y="24.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">169</text><line x1="373" y1="14" x2="373" y2="296" stroke="#E11D48" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/><polyline points="38,169 45,177 52,166 59,136 66,181 74,132 81,97 88,113 95,173 103,171 110,148 117,121 124,257 131,104 139,123 146,171 153,33 160,135 168,250 175,137 182,132 189,129 196,146 204,144 211,213 218,225 225,216 233,126 240,205 247,194 254,158 261,199 269,267 276,244 283,215 290,177 298,186 305,167 312,196 319,147 326,198 334,167 341,200 348,178 355,196 363,226 370,89 377,240 384,244 391,214" fill="none" stroke="#E11D48" stroke-width="3" stroke-linejoin="round"/><circle cx="38" cy="169" r="4" fill="#E11D48"/><circle cx="45" cy="177" r="4" fill="#E11D48"/><circle cx="52" cy="166" r="4" fill="#E11D48"/><circle cx="59" cy="136" r="4" fill="#E11D48"/><circle cx="66" cy="181" r="4" fill="#E11D48"/><circle cx="74" cy="132" r="4" fill="#E11D48"/><circle cx="81" cy="97" r="4" fill="#E11D48"/><circle cx="88" cy="113" r="4" fill="#E11D48"/><circle cx="95" cy="173" r="4" fill="#E11D48"/><circle cx="103" cy="171" r="4" fill="#E11D48"/><circle cx="110" cy="148" r="4" fill="#E11D48"/><circle cx="117" cy="121" r="4" fill="#E11D48"/><circle cx="124" cy="257" r="4" fill="#E11D48"/><circle cx="131" cy="104" r="4" fill="#E11D48"/><circle cx="139" cy="123" r="4" fill="#E11D48"/><circle cx="146" cy="171" r="4" fill="#E11D48"/><circle cx="153" cy="33" r="4" fill="#E11D48"/><circle cx="160" cy="135" r="4" fill="#E11D48"/><circle cx="168" cy="250" r="4" fill="#E11D48"/><circle cx="175" cy="137" r="4" fill="#E11D48"/><circle cx="182" cy="132" r="4" fill="#E11D48"/><circle cx="189" cy="129" r="4" fill="#E11D48"/><circle cx="196" cy="146" r="4" fill="#E11D48"/><circle cx="204" cy="144" r="4" fill="#E11D48"/><circle cx="211" cy="213" r="4" fill="#E11D48"/><circle cx="218" cy="225" r="4" fill="#E11D48"/><circle cx="225" cy="216" r="4" fill="#E11D48"/><circle cx="233" cy="126" r="4" fill="#E11D48"/><circle cx="240" cy="205" r="4" fill="#E11D48"/><circle cx="247" cy="194" r="4" fill="#E11D48"/><circle cx="254" cy="158" r="4" fill="#E11D48"/><circle cx="261" cy="199" r="4" fill="#E11D48"/><circle cx="269" cy="267" r="4" fill="#E11D48"/><circle cx="276" cy="244" r="4" fill="#E11D48"/><circle cx="283" cy="215" r="4" fill="#E11D48"/><circle cx="290" cy="177" r="4" fill="#E11D48"/><circle cx="298" cy="186" r="4" fill="#E11D48"/><circle cx="305" cy="167" r="4" fill="#E11D48"/><circle cx="312" cy="196" r="4" fill="#E11D48"/><circle cx="319" cy="147" r="4" fill="#E11D48"/><circle cx="326" cy="198" r="4" fill="#E11D48"/><circle cx="334" cy="167" r="4" fill="#E11D48"/><circle cx="341" cy="200" r="4" fill="#E11D48"/><circle cx="348" cy="178" r="4" fill="#E11D48"/><circle cx="355" cy="196" r="4" fill="#E11D48"/><circle cx="363" cy="226" r="4" fill="#E11D48"/><circle cx="370" cy="89" r="4" fill="#E11D48"/><circle cx="377" cy="240" r="4" fill="#E11D48"/><circle cx="384" cy="244" r="4" fill="#E11D48"/><circle cx="391" cy="214" r="6" fill="#E11D48" stroke="#fff" stroke-width="3"/><text x="391" y="202" fill="#E11D48" font-size="13" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">153</text><line x1="34" y1="290" x2="395" y2="290" stroke="#0a0a0a" stroke-width="1.5"/><text x="38" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="124" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="218" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="305" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="391" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text></svg><div class="chart-direction">a misma intensidad: menos = más eficiente</div></div>
+
+<div class="stat-card">
+<div class="stat-card-icon">💓</div>
+<div class="stat-card-content">
+<div class="stat-card-lbl">El veredicto</div>
+<div class="stat-card-val">Tu corazón trabaja <em>5 ppm menos</em> que hace un año</div>
+</div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">07 · Contexto</div><div class="page-num">07/18</div></div>
+<span class="detail-tag">Qué pasó</span>
+<h2 class="detail-title">Tu corazón <em>en perspectiva</em></h2>
+<div class="detail-body">
+<p>Tu FC media del período fue de <strong>156 ppm</strong>.</p><p>Las causas pueden ser muchas: más volumen sin descanso suficiente, calor, plan más exigente, o falta de adaptación. La data sola no responde cuál.</p>
+<div class="stat-line"><span class="lbl">FC media del período</span><span class="val">156 ppm</span></div><div class="stat-line"><span class="lbl">FC más baja</span><span class="val green">148 ppm · dic 24</span></div><div class="stat-line"><span class="lbl">FC más alta</span><span class="val rose">168 ppm · ago 23</span></div><div class="stat-line"><span class="lbl">Diferencia inicio vs fin</span><span class="val green">-5 ppm</span></div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">07 · Glosario</div><div class="page-num">07/18</div></div>
+<span class="detail-tag">Qué es</span>
+<h2 class="detail-title">La <em>frecuencia cardíaca</em></h2>
+<div class="detail-body">
+<p>La FC media es <strong>cuántas veces late tu corazón por minuto</strong> durante toda la corrida.</p><p>A misma velocidad, una FC más baja indica mayor eficiencia cardiovascular. Si tu FC sube en sesiones similares, puede indicar fatiga, calor, falta de descanso o inicio de adaptación.</p>
+<div class="glosario-scale"><div class="gs-row green"><span class="gs-range">&lt;140</span><span class="gs-desc"><strong>Zona aeróbica baja.</strong> Sesión liviana o regenerativa.</span></div><div class="gs-row amber"><span class="gs-range">140-155</span><span class="gs-desc"><strong>Zona aeróbica.</strong> Construcción de base.</span></div><div class="gs-row red"><span class="gs-range">155-170</span><span class="gs-desc"><strong>Umbral.</strong> Sesiones de calidad.</span></div><div class="gs-row red"><span class="gs-range">170+</span><span class="gs-desc"><strong>Zona alta.</strong> Series, intervalos exigentes.</span></div></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="3"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">08 · Calidad de entrenamiento</div><div class="page-num">08/18</div></div>
+<h2 class="page-title">Tu TE Aeróbico, mes a <em>mes</em></h2>
+<div class="page-sub">Estímulo aeróbico promedio · escala 0-5</div>
+<div class="chart-zone"><svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet"><rect x="34" y="0.5" width="361" height="354.2" fill="#F3E8FF" opacity="0.5"/><text x="390" y="16" fill="#9333EA" font-size="10" font-family="DM Mono,monospace" text-anchor="end" font-weight="600">zona productiva 3-5</text><line x1="34" y1="290.0" x2="395" y2="290.0" stroke="#f3f3f3"/><text x="30" y="294.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">3,4</text><line x1="34" y1="222.5" x2="395" y2="222.5" stroke="#f3f3f3"/><text x="30" y="226.5" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">3,7</text><line x1="34" y1="155.0" x2="395" y2="155.0" stroke="#f3f3f3"/><text x="30" y="159.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">4,1</text><line x1="34" y1="87.5" x2="395" y2="87.5" stroke="#f3f3f3"/><text x="30" y="91.5" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">4,5</text><line x1="34" y1="20.0" x2="395" y2="20.0" stroke="#f3f3f3"/><text x="30" y="24.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">4,9</text><line x1="373" y1="14" x2="373" y2="296" stroke="#E11D48" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/><polyline points="38,181 45,235 52,201 59,192 66,118 74,90 81,165 88,76 95,224 103,39 110,68 117,109 124,222 131,98 139,155 146,180 153,33 160,195 168,265 175,124 182,97 189,139 196,135 204,131 211,190 218,193 225,218 233,190 240,182 247,174 254,181 261,165 269,212 276,182 283,233 290,211 298,193 305,180 312,181 319,141 326,225 334,177 341,196 348,189 355,211 363,267 370,176 377,172 384,249 391,216" fill="none" stroke="#9333EA" stroke-width="3" stroke-linejoin="round"/><circle cx="38" cy="181" r="4" fill="#9333EA"/><circle cx="45" cy="235" r="4" fill="#9333EA"/><circle cx="52" cy="201" r="4" fill="#9333EA"/><circle cx="59" cy="192" r="4" fill="#9333EA"/><circle cx="66" cy="118" r="4" fill="#9333EA"/><circle cx="74" cy="90" r="4" fill="#9333EA"/><circle cx="81" cy="165" r="4" fill="#9333EA"/><circle cx="88" cy="76" r="4" fill="#9333EA"/><circle cx="95" cy="224" r="4" fill="#9333EA"/><circle cx="103" cy="39" r="4" fill="#9333EA"/><circle cx="110" cy="68" r="4" fill="#9333EA"/><circle cx="117" cy="109" r="4" fill="#9333EA"/><circle cx="124" cy="222" r="4" fill="#9333EA"/><circle cx="131" cy="98" r="4" fill="#9333EA"/><circle cx="139" cy="155" r="4" fill="#9333EA"/><circle cx="146" cy="180" r="4" fill="#9333EA"/><circle cx="153" cy="33" r="4" fill="#9333EA"/><circle cx="160" cy="195" r="4" fill="#9333EA"/><circle cx="168" cy="265" r="4" fill="#9333EA"/><circle cx="175" cy="124" r="4" fill="#9333EA"/><circle cx="182" cy="97" r="4" fill="#9333EA"/><circle cx="189" cy="139" r="4" fill="#9333EA"/><circle cx="196" cy="135" r="4" fill="#9333EA"/><circle cx="204" cy="131" r="4" fill="#9333EA"/><circle cx="211" cy="190" r="4" fill="#9333EA"/><circle cx="218" cy="193" r="4" fill="#9333EA"/><circle cx="225" cy="218" r="4" fill="#9333EA"/><circle cx="233" cy="190" r="4" fill="#9333EA"/><circle cx="240" cy="182" r="4" fill="#9333EA"/><circle cx="247" cy="174" r="4" fill="#9333EA"/><circle cx="254" cy="181" r="4" fill="#9333EA"/><circle cx="261" cy="165" r="4" fill="#9333EA"/><circle cx="269" cy="212" r="4" fill="#9333EA"/><circle cx="276" cy="182" r="4" fill="#9333EA"/><circle cx="283" cy="233" r="4" fill="#9333EA"/><circle cx="290" cy="211" r="4" fill="#9333EA"/><circle cx="298" cy="193" r="4" fill="#9333EA"/><circle cx="305" cy="180" r="4" fill="#9333EA"/><circle cx="312" cy="181" r="4" fill="#9333EA"/><circle cx="319" cy="141" r="4" fill="#9333EA"/><circle cx="326" cy="225" r="4" fill="#9333EA"/><circle cx="334" cy="177" r="4" fill="#9333EA"/><circle cx="341" cy="196" r="4" fill="#9333EA"/><circle cx="348" cy="189" r="4" fill="#9333EA"/><circle cx="355" cy="211" r="4" fill="#9333EA"/><circle cx="363" cy="267" r="4" fill="#9333EA"/><circle cx="370" cy="176" r="4" fill="#9333EA"/><circle cx="377" cy="172" r="4" fill="#9333EA"/><circle cx="384" cy="249" r="4" fill="#9333EA"/><circle cx="391" cy="216" r="6" fill="#9333EA" stroke="#fff" stroke-width="3"/><text x="391" y="204" fill="#9333EA" font-size="13" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">3.8</text><line x1="34" y1="290" x2="395" y2="290" stroke="#0a0a0a" stroke-width="1.5"/><text x="38" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="124" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="218" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="305" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="391" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text></svg><div class="chart-direction">más alto = mejor estímulo aeróbico</div></div>
+
+<div class="stat-card">
+<div class="stat-card-icon">💪</div>
+<div class="stat-card-content">
+<div class="stat-card-lbl">El estímulo</div>
+<div class="stat-card-val">Métrica registrada en la mayoría de tus corridas</div>
+</div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">08 · Contexto</div><div class="page-num">08/18</div></div>
+<span class="detail-tag">Qué pasó</span>
+<h2 class="detail-title">Tu TE Aeróbico, <em>en perspectiva</em></h2>
+<div class="detail-body">
+<p>Esta métrica se registró en 50 de los 50 meses del período.</p>
+<div class="stat-line"><span class="lbl">Promedio del período</span><span class="val">4,0</span></div><div class="stat-line"><span class="lbl">Mejor mes</span><span class="val green">4,8 · ago 23</span></div><div class="stat-line"><span class="lbl">Peor mes</span><span class="val rose">3,5 · ene 26</span></div><div class="stat-line"><span class="lbl">Mes más reciente</span><span class="val">3,8</span></div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">08 · Glosario</div><div class="page-num">08/18</div></div>
+<span class="detail-tag">Qué es</span>
+<h2 class="detail-title">El <em>TE Aeróbico</em></h2>
+<div class="detail-body">
+<p>El <strong>TE Aeróbico</strong> es una métrica de Garmin que mide el estímulo aeróbico de cada corrida en una escala de 0 a 5.</p><p>Refleja qué tan exigente fue la sesión para tu sistema cardiovascular.</p>
+<div class="glosario-scale"><div class="gs-row amber"><span class="gs-range">0-1</span><span class="gs-desc"><strong>Mínimo.</strong> Calentamiento o regenerativo.</span></div><div class="gs-row green"><span class="gs-range">1-3</span><span class="gs-desc"><strong>Mantenimiento.</strong> Sesión liviana.</span></div><div class="gs-row green"><span class="gs-range">3-4</span><span class="gs-desc"><strong>Productivo.</strong> Mejora de capacidad.</span></div><div class="gs-row red"><span class="gs-range">4-5</span><span class="gs-desc"><strong>Alto/exigente.</strong> Demanda recuperación.</span></div></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="3"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">09 · Cadencia</div><div class="page-num">09/18</div></div>
+<h2 class="page-title">Tu cadencia, mes a <em>mes</em></h2>
+<div class="page-sub">Pasos por minuto promedio</div>
+<div class="chart-zone"><svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet"><rect x="34" y="-110.9" width="361" height="144.9" fill="#DCFCE7" opacity="0.5"/><text x="390" y="-95" fill="#16A34A" font-size="10" font-family="DM Mono,monospace" text-anchor="end" font-weight="600">zona ideal 170+</text><line x1="34" y1="290.0" x2="395" y2="290.0" stroke="#f3f3f3"/><text x="30" y="294.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">117</text><line x1="34" y1="222.5" x2="395" y2="222.5" stroke="#f3f3f3"/><text x="30" y="226.5" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">131</text><line x1="34" y1="155.0" x2="395" y2="155.0" stroke="#f3f3f3"/><text x="30" y="159.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">145</text><line x1="34" y1="87.5" x2="395" y2="87.5" stroke="#f3f3f3"/><text x="30" y="91.5" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">159</text><line x1="34" y1="20.0" x2="395" y2="20.0" stroke="#f3f3f3"/><text x="30" y="24.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">173</text><line x1="373" y1="14" x2="373" y2="296" stroke="#E11D48" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/><polyline points="38,57 45,64 52,67 59,74 66,50 74,61 81,74 88,61 95,56 103,50 110,52 117,33 124,42 131,49 139,49 146,53 153,57 160,40 168,91 175,52 182,44 189,38 196,41 204,48 211,54 218,42 225,63 233,104 240,77 247,64 254,45 261,50 269,57 276,52 283,72 290,53 298,57 305,67 312,45 319,48 326,53 334,50 341,98 348,57 355,67 363,60 370,66 377,267 384,73 391,82" fill="none" stroke="#E11D48" stroke-width="3" stroke-linejoin="round"/><circle cx="38" cy="57" r="4" fill="#E11D48"/><circle cx="45" cy="64" r="4" fill="#E11D48"/><circle cx="52" cy="67" r="4" fill="#E11D48"/><circle cx="59" cy="74" r="4" fill="#E11D48"/><circle cx="66" cy="50" r="4" fill="#E11D48"/><circle cx="74" cy="61" r="4" fill="#E11D48"/><circle cx="81" cy="74" r="4" fill="#E11D48"/><circle cx="88" cy="61" r="4" fill="#E11D48"/><circle cx="95" cy="56" r="4" fill="#E11D48"/><circle cx="103" cy="50" r="4" fill="#E11D48"/><circle cx="110" cy="52" r="4" fill="#E11D48"/><circle cx="117" cy="33" r="4" fill="#E11D48"/><circle cx="124" cy="42" r="4" fill="#E11D48"/><circle cx="131" cy="49" r="4" fill="#E11D48"/><circle cx="139" cy="49" r="4" fill="#E11D48"/><circle cx="146" cy="53" r="4" fill="#E11D48"/><circle cx="153" cy="57" r="4" fill="#E11D48"/><circle cx="160" cy="40" r="4" fill="#E11D48"/><circle cx="168" cy="91" r="4" fill="#E11D48"/><circle cx="175" cy="52" r="4" fill="#E11D48"/><circle cx="182" cy="44" r="4" fill="#E11D48"/><circle cx="189" cy="38" r="4" fill="#E11D48"/><circle cx="196" cy="41" r="4" fill="#E11D48"/><circle cx="204" cy="48" r="4" fill="#E11D48"/><circle cx="211" cy="54" r="4" fill="#E11D48"/><circle cx="218" cy="42" r="4" fill="#E11D48"/><circle cx="225" cy="63" r="4" fill="#E11D48"/><circle cx="233" cy="104" r="4" fill="#E11D48"/><circle cx="240" cy="77" r="4" fill="#E11D48"/><circle cx="247" cy="64" r="4" fill="#E11D48"/><circle cx="254" cy="45" r="4" fill="#E11D48"/><circle cx="261" cy="50" r="4" fill="#E11D48"/><circle cx="269" cy="57" r="4" fill="#E11D48"/><circle cx="276" cy="52" r="4" fill="#E11D48"/><circle cx="283" cy="72" r="4" fill="#E11D48"/><circle cx="290" cy="53" r="4" fill="#E11D48"/><circle cx="298" cy="57" r="4" fill="#E11D48"/><circle cx="305" cy="67" r="4" fill="#E11D48"/><circle cx="312" cy="45" r="4" fill="#E11D48"/><circle cx="319" cy="48" r="4" fill="#E11D48"/><circle cx="326" cy="53" r="4" fill="#E11D48"/><circle cx="334" cy="50" r="4" fill="#E11D48"/><circle cx="341" cy="98" r="4" fill="#E11D48"/><circle cx="348" cy="57" r="4" fill="#E11D48"/><circle cx="355" cy="67" r="4" fill="#E11D48"/><circle cx="363" cy="60" r="4" fill="#E11D48"/><circle cx="370" cy="66" r="4" fill="#E11D48"/><circle cx="377" cy="267" r="4" fill="#E11D48"/><circle cx="384" cy="73" r="4" fill="#E11D48"/><circle cx="391" cy="82" r="6" fill="#E11D48" stroke="#fff" stroke-width="3"/><text x="391" y="104" fill="#E11D48" font-size="13" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">160</text><line x1="34" y1="290" x2="395" y2="290" stroke="#0a0a0a" stroke-width="1.5"/><text x="38" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="124" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="218" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="305" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="391" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text></svg><div class="chart-direction">más alta = más eficiente</div></div>
+
+<div class="stat-card">
+<div class="stat-card-icon">👟</div>
+<div class="stat-card-content">
+<div class="stat-card-lbl">El gap</div>
+<div class="stat-card-val">Métrica registrada en la mayoría de tus corridas</div>
+</div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">09 · Contexto</div><div class="page-num">09/18</div></div>
+<span class="detail-tag">Qué pasó</span>
+<h2 class="detail-title">Tu cadencia, <em>en perspectiva</em></h2>
+<div class="detail-body">
+<p>Esta métrica se registró en 50 de los 50 meses del período.</p>
+<div class="stat-line"><span class="lbl">Promedio del período</span><span class="val">164</span></div><div class="stat-line"><span class="lbl">Mejor mes</span><span class="val green">170 · mar 23</span></div><div class="stat-line"><span class="lbl">Peor mes</span><span class="val rose">122 · mar 26</span></div><div class="stat-line"><span class="lbl">Mes más reciente</span><span class="val">160</span></div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">09 · Glosario</div><div class="page-num">09/18</div></div>
+<span class="detail-tag">Qué es</span>
+<h2 class="detail-title">La <em>cadencia</em></h2>
+<div class="detail-body">
+<p>La cadencia son los <strong>pasos por minuto</strong> que das al correr.</p><p>Cuanta más alta, mejor. Pasos cortos y rápidos generan menos impacto y mejor eficiencia. Los corredores élite están entre 180 y 190 ppm.</p>
+<div class="glosario-scale"><div class="gs-row green"><span class="gs-range">180+</span><span class="gs-desc"><strong>Élite.</strong> Eficiencia máxima.</span></div><div class="gs-row green"><span class="gs-range">170-180</span><span class="gs-desc"><strong>Zona ideal</strong> para amateur serio.</span></div><div class="gs-row amber"><span class="gs-range">160-170</span><span class="gs-desc"><strong>Aceptable.</strong> Espacio para mejorar.</span></div><div class="gs-row red"><span class="gs-range">&lt;160</span><span class="gs-desc"><strong>Bajo.</strong> Más impacto, menos eficiencia.</span></div></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="3"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">12 · Longitud de zancada</div><div class="page-num">12/18</div></div>
+<h2 class="page-title">Tu zancada, mes a <em>mes</em></h2>
+<div class="page-sub">Metros por paso</div>
+<div class="chart-zone"><svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet"><line x1="34" y1="290.0" x2="395" y2="290.0" stroke="#f3f3f3"/><text x="30" y="294.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">-27,7</text><line x1="34" y1="222.5" x2="395" y2="222.5" stroke="#f3f3f3"/><text x="30" y="226.5" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">55</text><line x1="34" y1="155.0" x2="395" y2="155.0" stroke="#f3f3f3"/><text x="30" y="159.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">138</text><line x1="34" y1="87.5" x2="395" y2="87.5" stroke="#f3f3f3"/><text x="30" y="91.5" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">220</text><line x1="34" y1="20.0" x2="395" y2="20.0" stroke="#f3f3f3"/><text x="30" y="24.0" fill="#a3a3a3" font-size="11" font-family="DM Mono,monospace" text-anchor="end">303</text><line x1="373" y1="14" x2="373" y2="296" stroke="#E11D48" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/><polyline points="38,267 45,267 52,267 59,267 66,267 74,267 81,267 88,267 95,267 103,267 110,266 117,267 124,267 131,267 139,267 146,267 153,267 160,267 168,267 175,267 182,267 189,267 196,267 204,267 211,267 218,267 225,267 233,267 240,267 247,267 254,267 261,266 269,267 276,267 283,267 290,267 298,267 305,267 312,267 319,267 326,267 334,267 341,267 348,267 355,267 363,267 370,267 377,33 384,267 391,267" fill="none" stroke="#16A34A" stroke-width="3" stroke-linejoin="round"/><circle cx="38" cy="267" r="4" fill="#16A34A"/><circle cx="45" cy="267" r="4" fill="#16A34A"/><circle cx="52" cy="267" r="4" fill="#16A34A"/><circle cx="59" cy="267" r="4" fill="#16A34A"/><circle cx="66" cy="267" r="4" fill="#16A34A"/><circle cx="74" cy="267" r="4" fill="#16A34A"/><circle cx="81" cy="267" r="4" fill="#16A34A"/><circle cx="88" cy="267" r="4" fill="#16A34A"/><circle cx="95" cy="267" r="4" fill="#16A34A"/><circle cx="103" cy="267" r="4" fill="#16A34A"/><circle cx="110" cy="266" r="4" fill="#16A34A"/><circle cx="117" cy="267" r="4" fill="#16A34A"/><circle cx="124" cy="267" r="4" fill="#16A34A"/><circle cx="131" cy="267" r="4" fill="#16A34A"/><circle cx="139" cy="267" r="4" fill="#16A34A"/><circle cx="146" cy="267" r="4" fill="#16A34A"/><circle cx="153" cy="267" r="4" fill="#16A34A"/><circle cx="160" cy="267" r="4" fill="#16A34A"/><circle cx="168" cy="267" r="4" fill="#16A34A"/><circle cx="175" cy="267" r="4" fill="#16A34A"/><circle cx="182" cy="267" r="4" fill="#16A34A"/><circle cx="189" cy="267" r="4" fill="#16A34A"/><circle cx="196" cy="267" r="4" fill="#16A34A"/><circle cx="204" cy="267" r="4" fill="#16A34A"/><circle cx="211" cy="267" r="4" fill="#16A34A"/><circle cx="218" cy="267" r="4" fill="#16A34A"/><circle cx="225" cy="267" r="4" fill="#16A34A"/><circle cx="233" cy="267" r="4" fill="#16A34A"/><circle cx="240" cy="267" r="4" fill="#16A34A"/><circle cx="247" cy="267" r="4" fill="#16A34A"/><circle cx="254" cy="267" r="4" fill="#16A34A"/><circle cx="261" cy="266" r="4" fill="#16A34A"/><circle cx="269" cy="267" r="4" fill="#16A34A"/><circle cx="276" cy="267" r="4" fill="#16A34A"/><circle cx="283" cy="267" r="4" fill="#16A34A"/><circle cx="290" cy="267" r="4" fill="#16A34A"/><circle cx="298" cy="267" r="4" fill="#16A34A"/><circle cx="305" cy="267" r="4" fill="#16A34A"/><circle cx="312" cy="267" r="4" fill="#16A34A"/><circle cx="319" cy="267" r="4" fill="#16A34A"/><circle cx="326" cy="267" r="4" fill="#16A34A"/><circle cx="334" cy="267" r="4" fill="#16A34A"/><circle cx="341" cy="267" r="4" fill="#16A34A"/><circle cx="348" cy="267" r="4" fill="#16A34A"/><circle cx="355" cy="267" r="4" fill="#16A34A"/><circle cx="363" cy="267" r="4" fill="#16A34A"/><circle cx="370" cy="267" r="4" fill="#16A34A"/><circle cx="377" cy="33" r="4" fill="#16A34A"/><circle cx="384" cy="267" r="4" fill="#16A34A"/><circle cx="391" cy="267" r="6" fill="#16A34A" stroke="#fff" stroke-width="3"/><text x="391" y="255" fill="#16A34A" font-size="13" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">1.00</text><line x1="34" y1="290" x2="395" y2="290" stroke="#0a0a0a" stroke-width="1.5"/><text x="38" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="124" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">A</text><text x="218" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="305" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text><text x="391" y="306" fill="#737373" font-size="11" font-family="DM Mono,monospace" text-anchor="middle">M</text></svg><div class="chart-direction">depende del ritmo y la cadencia</div></div>
+
+<div class="stat-card">
+<div class="stat-card-icon">📐</div>
+<div class="stat-card-content">
+<div class="stat-card-lbl">Tu zancada</div>
+<div class="stat-card-val">Métrica registrada en la mayoría de tus corridas</div>
+</div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">12 · Contexto</div><div class="page-num">12/18</div></div>
+<span class="detail-tag">Qué pasó</span>
+<h2 class="detail-title">Tu zancada, <em>en perspectiva</em></h2>
+<div class="detail-body">
+<p>Esta métrica se registró en 50 de los 50 meses del período.</p>
+<div class="stat-line"><span class="lbl">Promedio del período</span><span class="val">6,75</span></div><div class="stat-line"><span class="lbl">Mejor mes</span><span class="val green">287,16 · mar 26</span></div><div class="stat-line"><span class="lbl">Peor mes</span><span class="val rose">0,94 · ene 26</span></div><div class="stat-line"><span class="lbl">Mes más reciente</span><span class="val">1,00</span></div>
+</div>
+</article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">12 · Glosario</div><div class="page-num">12/18</div></div>
+<span class="detail-tag">Qué es</span>
+<h2 class="detail-title">La <em>longitud de zancada</em></h2>
+<div class="detail-body">
+<p>La longitud de zancada son los <strong>metros que avanzás en cada paso</strong>.</p><p>No hay un valor 'ideal' fijo: depende de tu altura, ritmo y cadencia. Lo importante es que sea consistente con tu cadencia objetivo.</p>
+<div class="glosario-scale"><div class="gs-row green"><span class="gs-range">1.4+ m</span><span class="gs-desc"><strong>Larga.</strong> Típica de ritmos rápidos.</span></div><div class="gs-row green"><span class="gs-range">1.2-1.4 m</span><span class="gs-desc"><strong>Media-larga.</strong> Trote firme.</span></div><div class="gs-row amber"><span class="gs-range">1.0-1.2 m</span><span class="gs-desc"><strong>Media.</strong> Trote suave.</span></div><div class="gs-row red"><span class="gs-range">&lt;1.0 m</span><span class="gs-desc"><strong>Corta.</strong> Recovery o ritmos lentos.</span></div></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="2"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">14 · Días de la semana</div><div class="page-num">14/18</div></div>
+<h2 class="page-title">Tus días de <em>correr</em></h2>
+<div class="page-sub">Distribución del kilometraje por día</div>
+<div class="wd-list"><div class="wd-row "><span class="lbl">Lunes</span><div class="bar"><div class="bar-fill" style="width:33%"></div></div><div class="val">8%<small>201 km</small></div></div><div class="wd-row "><span class="lbl">Martes</span><div class="bar"><div class="bar-fill" style="width:100%"></div></div><div class="val">23%<small>599 km</small></div></div><div class="wd-row "><span class="lbl">Miércoles</span><div class="bar"><div class="bar-fill" style="width:42%"></div></div><div class="val">10%<small>250 km</small></div></div><div class="wd-row "><span class="lbl">Jueves</span><div class="bar"><div class="bar-fill" style="width:74%"></div></div><div class="val">17%<small>445 km</small></div></div><div class="wd-row "><span class="lbl">Viernes</span><div class="bar"><div class="bar-fill" style="width:44%"></div></div><div class="val">10%<small>262 km</small></div></div><div class="wd-row featured"><span class="lbl">Sábado</span><div class="bar"><div class="bar-fill" style="width:63%"></div></div><div class="val">14%<small>380 km</small></div></div><div class="wd-row featured"><span class="lbl">Domingo</span><div class="bar"><div class="bar-fill" style="width:83%"></div></div><div class="val">19%<small>498 km</small></div></div></div>
+
+<div class="stat-card">
+<div class="stat-card-icon">📅</div>
+<div class="stat-card-content">
+<div class="stat-card-lbl">Patrón claro</div>
+<div class="stat-card-val">El <em>fin de semana concentra el 33%</em> de tus kilómetros</div>
+</div>
+</div></article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">14 · Detalle</div><div class="page-num">14/18</div></div>
+<span class="detail-tag">El detalle</span>
+<h2 class="detail-title">Tu <em>patrón semanal</em></h2>
+<div class="detail-body">
+<p>Casi 33% de tus kilómetros los hacés los fines de semana, con domingo concentrando 19%.</p>
+<p>Durante la semana las sesiones son cortas, probablemente de calidad. El fin de semana son los fondos.</p>
+<div class="stat-line"><span class="lbl">Día con más km</span><span class="val rose">Mar · 599 km</span></div>
+<div class="stat-line"><span class="lbl">Día con menos km</span><span class="val">Lun · 201 km</span></div>
+<div class="stat-line"><span class="lbl">Fin de semana</span><span class="val rose">33%</span></div>
+<div class="stat-line"><span class="lbl">Total semana</span><span class="val">67%</span></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span></div></section>
+<section class="row" data-pages="2"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">15 · Geografía</div><div class="page-num">15/18</div></div>
+<h2 class="page-title">Tus lugares de <em>correr</em></h2>
+<div class="page-sub">18 lugares · 6 países</div>
+<div class="lugares-list"><div class="lugar-row"><span class="flag">🇪🇸</span><div class="lugar-info"><div class="lugar-name">Barcelona</div><div class="lugar-bar"><div class="lugar-bar-fill" style="width:100%"></div></div></div><div class="lugar-val">1890<small>km</small></div></div><div class="lugar-row"><span class="flag">🇫🇷</span><div class="lugar-info"><div class="lugar-name">Pézenas</div><div class="lugar-bar"><div class="lugar-bar-fill" style="width:24%"></div></div></div><div class="lugar-val">456<small>km</small></div></div><div class="lugar-row"><span class="flag">🌎</span><div class="lugar-info"><div class="lugar-name">Desconocido</div><div class="lugar-bar"><div class="lugar-bar-fill" style="width:5%"></div></div></div><div class="lugar-val">97<small>km</small></div></div><div class="lugar-row"><span class="flag">🇪🇸</span><div class="lugar-info"><div class="lugar-name">El Masnou</div><div class="lugar-bar"><div class="lugar-bar-fill" style="width:2%"></div></div></div><div class="lugar-val">40<small>km</small></div></div><div class="lugar-row"><span class="flag">🇫🇷</span><div class="lugar-info"><div class="lugar-name">Montpellier</div><div class="lugar-bar"><div class="lugar-bar-fill" style="width:1%"></div></div></div><div class="lugar-val">26<small>km</small></div></div><div class="lugar-row"><span class="flag">🇪🇸</span><div class="lugar-info"><div class="lugar-name">Sitges</div><div class="lugar-bar"><div class="lugar-bar-fill" style="width:1%"></div></div></div><div class="lugar-val">21<small>km</small></div></div><div class="lugar-row"><span class="flag">🇦🇷</span><div class="lugar-info"><div class="lugar-name">General Rodríguez</div><div class="lugar-bar"><div class="lugar-bar-fill" style="width:1%"></div></div></div><div class="lugar-val">18<small>km</small></div></div><div class="lugar-row"><span class="flag">🇫🇷</span><div class="lugar-info"><div class="lugar-name">Tourbes</div><div class="lugar-bar"><div class="lugar-bar-fill" style="width:1%"></div></div></div><div class="lugar-val">13<small>km</small></div></div><div class="lugar-row"><span class="flag">🌎</span><div class="lugar-info"><div class="lugar-name">Otros 10 lugares</div><div class="lugar-bar"><div class="lugar-bar-fill" style="width:4%"></div></div></div><div class="lugar-val">74<small>km</small></div></div></div>
+
+<div class="stat-card">
+<div class="stat-card-icon">🌎</div>
+<div class="stat-card-content">
+<div class="stat-card-lbl">Tu mundo</div>
+<div class="stat-card-val"><em>6 países, 18 lugares</em> · Barcelona concentra el 72%</div>
+</div>
+</div></article>
+<article class="page detail">
+<div class="page-head"><div class="page-cap">15 · Detalle</div><div class="page-num">15/18</div></div>
+<span class="detail-tag">El detalle</span>
+<h2 class="detail-title">Tu mapa <em>recorrido</em></h2>
+<div class="detail-body">
+<p>Corriste en <strong>18 lugares distintos</strong> de 6 países.</p>
+<div class="stat-line"><span class="lbl">Total lugares</span><span class="val rose">18</span></div>
+<div class="stat-line"><span class="lbl">En España 🇪🇸</span><span class="val">6</span></div><div class="stat-line"><span class="lbl">En Francia 🇫🇷</span><span class="val">5</span></div><div class="stat-line"><span class="lbl">En Sin clasificar 🌎</span><span class="val">2</span></div><div class="stat-line"><span class="lbl">En Portugal 🇵🇹</span><span class="val">2</span></div><div class="stat-line"><span class="lbl">En Argentina 🇦🇷</span><span class="val">1</span></div><div class="stat-line"><span class="lbl">En Vietnam 🇻🇳</span><span class="val">1</span></div><div class="stat-line"><span class="lbl">En Brasil 🇧🇷</span><span class="val">1</span></div>
+</div>
+</article>
+</div><div class="row-dots"><span class="row-dot active"></span><span class="row-dot"></span></div></section>
+<section class="row"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">16 · Lo mejor</div><div class="page-num">16/18</div></div>
+<h2 class="page-title">Tus <em>mejores</em> records</h2>
+<div class="page-sub">Los puntos altos del año</div>
+<div class="records-stack"><div class="record-card best"><div class="record-tag">Mejor mes (kilómetros)</div><div class="record-num best">131<span class="unit">km</span></div><div class="record-info"><strong>Mar 26.</strong> 9 sesiones. Tu mes más activo en 50 meses.</div></div><div class="record-card best"><div class="record-tag">Tu mejor 5K</div><div class="record-num best">5:40<span class="unit">/km</span></div><div class="record-info"><strong>14 de junio 2022.</strong> 5k a 170 ppm. Tu corrida más eficiente del período.</div></div><div class="record-card best"><div class="record-tag">Tu mejor mes (calidad TE)</div><div class="record-num best">4,82<span class="unit">/5</span></div><div class="record-info"><strong>Ago 23.</strong> Sesiones largas con FC alta. Estímulo aeróbico máximo.</div></div></div>
+</article>
+</div></section>
+<section class="row"><div class="pages">
+<article class="page">
+<div class="page-head"><div class="page-cap">17 · Lo más bajo</div><div class="page-num">17/18</div></div>
+<h2 class="page-title">Tus <em>puntos bajos</em></h2>
+<div class="page-sub">Los meses y momentos a revisar</div>
+<div class="records-stack"><div class="record-card worst"><div class="record-tag">Peor mes (kilómetros)</div><div class="record-num worst">15<span class="unit">km</span></div><div class="record-info"><strong>Ene 26.</strong> 2 sesiones. Casi cuatro semanas sin correr. ¿Lesión, viaje, otra cosa?</div></div><div class="record-card worst"><div class="record-tag">Tu fondo más reciente (15+ km)</div><div class="record-num worst">44<span class="unit">días</span></div><div class="record-info"><strong>Hace 44 días.</strong> Último fondo: 28 de marzo 2026, 54 km.</div></div><div class="record-card worst"><div class="record-tag">Pausa más larga</div><div class="record-num worst">29<span class="unit">días</span></div><div class="record-info"><strong>21 de julio 2025 a 20 de agosto 2025.</strong> 29 días sin correr. La pausa más larga del período.</div></div></div>
+</article>
+</div></section>
+<section class="row"><div class="pages">
+<article class="page close-card">
+<div class="page-head"><div class="page-cap">18 · Cierre</div><div class="page-num">18/18</div></div>
+<h2 class="page-title">Tu año en una <em>línea</em></h2>
+<div class="page-sub">Resumen y preguntas abiertas</div>
+<div class="close-resume">
+<div class="close-resume-lbl">Resumen</div>
+<div class="close-resume-text">Corriste <em>2.634 km</em> en 1488 días. 289 sesiones consolidadas con métricas registradas a lo largo de todo el período.</div>
+</div>
+<div class="preguntas">
+<div class="pregunta">
+<div class="pregunta-tag">Sobre tu plan</div>
+<div class="pregunta-q">¿Si entrenás más y te cuesta más, está calibrado para vos?</div>
+<div class="pregunta-sub">Vale charlarlo con quien lo arma.</div>
+</div>
+<div class="pregunta">
+<div class="pregunta-tag">Sobre tu cuerpo</div>
+<div class="pregunta-q">¿Cómo dormiste durante estos meses?</div>
+<div class="pregunta-sub">Esta lectura solo tiene tu data de actividad. Si tu sueño bajó, parte del aumento de FC podría explicarse desde ahí.</div>
+</div>
+<div class="pregunta">
+<div class="pregunta-tag">Sobre lo que falta</div>
+<div class="pregunta-q">¿Qué te dijo tu último chequeo médico?</div>
+<div class="pregunta-sub">Hierro, ferritina, TSH, vitamina D. Tres meses con FC más alta puede ser plan, calor, o algo que solo dice una sangre.</div>
+</div>
+</div>
+<div class="aster">
+<strong>Sobre este informe.</strong> Procesamos 289 sesiones registradas con tu Garmin entre 14/04/2022 y 11/05/2026. Cuando una corrida vino partida en varias entradas las consolidamos en una sola sesión. <strong>No tenemos</strong> tu sueño, nutrición ni estado de ánimo.
+</div>
+<div class="cta-block">
+<div class="cta-block-title">¿Querés un informe así?</div>
+<div class="cta-block-sub">Anotate y te lo armamos cuando llegue tu turno.</div>
+<a href="#" class="cta-block-btn">Anotate acá →</a>
+</div>
+<div class="share-row">
+<a href="#" class="share-btn primary">Compartir</a>
+<a href="#" class="share-btn">Copiar link</a>
+</div>
+<div class="brand-foot">Tu año corriendo · <strong>Clement</strong> · 2022—2026</div>
+</article>
+</div></section>
+</div>
+<script>// HERO HÍBRIDO A+C: contador dramático + histograma secuencial
+function playHero(){
+  const counter = document.getElementById('counter');
+  const unit = document.getElementById('heroUnit');
+  const histoWrap = document.getElementById('heroHistoWrap');
+  const bottom = document.getElementById('heroBottom');
+  if(!counter) return;
+  const bars = histoWrap.querySelectorAll('.hero-bar');
+
+  counter.textContent = '0';
+  counter.classList.remove('bounce','glow');
+  unit.classList.remove('show');
+  histoWrap.classList.remove('show');
+  bottom.classList.remove('show');
+  bars.forEach(b => b.classList.remove('show'));
+
+  const target = 2634;
+  const duration = 3000;
+  const start = performance.now();
+  function easeOutQuart(t){return 1 - Math.pow(1-t, 4)}
+
+  function step(now){
+    const elapsed = now - start;
+    const t = Math.min(elapsed/duration, 1);
+    const eased = easeOutQuart(t);
+    counter.textContent = Math.round(target * eased).toLocaleString('es-AR');
+    if(t < 1) requestAnimationFrame(step);
+    else {
+      counter.classList.add('bounce','glow');
+      setTimeout(()=>unit.classList.add('show'), 200);
+      setTimeout(()=>histoWrap.classList.add('show'), 500);
+      bars.forEach((b, i) => setTimeout(()=>b.classList.add('show'), 700 + i*70));
+      setTimeout(()=>bottom.classList.add('show'), 700 + bars.length*70 + 300);
+    }
+  }
+  requestAnimationFrame(step);
+}
+window.addEventListener('load', () => setTimeout(playHero, 400));
+
+// Sincronizar dots con scroll horizontal
+(function(){
+  document.querySelectorAll('.pages').forEach(pages => {
+    pages.addEventListener('scroll', () => {
+      const idx = Math.round(pages.scrollLeft / pages.clientWidth);
+      pages.querySelectorAll('.page').forEach(page => {
+        page.querySelectorAll('.ig-dots').forEach(c => {
+          c.querySelectorAll('.ig-dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === idx);
+          });
+        });
+      });
+    });
+  });
+})();
+
+// Barra de progreso global
+(function(){
+  const feed = document.getElementById('feed');
+  const fill = document.getElementById('progressFill');
+  if(!feed || !fill) return;
+  feed.addEventListener('scroll', () => {
+    const scrollable = feed.scrollHeight - feed.clientHeight;
+    if(scrollable <= 0){fill.style.width = '100%'; return}
+    fill.style.width = ((feed.scrollTop / scrollable) * 100) + '%';
+  });
+})();
+// Sincronizar row-dots con scroll horizontal de cada carrousel
+document.querySelectorAll('.row').forEach(row => {
+  const pages = row.querySelector('.pages');
+  const dots = row.querySelectorAll('.row-dot');
+  if(!pages || dots.length === 0) return;
+  pages.addEventListener('scroll', () => {
+    const idx = Math.round(pages.scrollLeft / pages.clientWidth);
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+  });
+});
+</script>
+</body>
+</html>
