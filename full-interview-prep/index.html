@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Interview Prep — Llegá mejor preparado a tu próxima entrevista de trabajo · Martín Bellocq</title>
+  <meta name="description" content="Una skill open source de Claude que genera un informe ad hoc en 3 minutos por entrevista. Para llegar mejor preparado y rendir mejor. Por Martín Bellocq, ex-CMO Regional de Ualá.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Llegá mejor preparado a tu próxima entrevista de trabajo">
+  <meta property="og:description" content="Una skill open source de Claude que genera un informe ad hoc en 3 minutos por entrevista. Por Martín Bellocq.">
+  <meta property="og:image" content="https://martinbellocq.vercel.app/full-interview-prep/images/hero-interview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Llegá mejor preparado a tu próxima entrevista de trabajo">
+  <meta name="twitter:description" content="Una skill open source de Claude que genera un informe ad hoc en 3 minutos por entrevista.">
+  <meta name="twitter:image" content="https://martinbellocq.vercel.app/full-interview-prep/images/hero-interview.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg: #FFFFFF;
+      --color-text: #1A1A1A;
+      --color-text-secondary: #4A4A4A;
+      --color-text-muted: #888888;
+      --color-accent: #7A2E2E;
+      --color-border: #E8E5E0;
+      --font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-wide: 1100px;
+      --max-narrow: 680px;
+      --padding-page: clamp(1.5rem, 5vw, 3rem);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-serif);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection { background: var(--color-accent); color: #fff; }
+
+    .container {
+      max-width: var(--max-wide);
+      margin: 0 auto;
+      padding: 0 var(--padding-page);
+    }
+
+    /* narrow se alinea al edge izquierdo del container wide, no se centra */
+    .narrow {
+      max-width: var(--max-narrow);
+    }
+
+    header {
+      padding: 1.25rem 0 0;
+    }
+    header a {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    header a:hover { color: var(--color-accent); }
+
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero {
+      padding: 1.5rem 0 3rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (min-width: 860px) {
+      .hero {
+        grid-template-columns: 1.05fr 1fr;
+        gap: 4rem;
+        padding: 3rem 0 5rem;
+      }
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4.8vw, 3.25rem);
+      line-height: 1.1;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+      color: var(--color-accent);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-serif);
+      font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+      line-height: 1.55;
+      color: var(--color-text-secondary);
+      margin-bottom: 2.25rem;
+      max-width: 36em;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .ctas {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      font-family: var(--font-sans);
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 1.5rem;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: var(--color-accent);
+      color: #FFFFFF;
+    }
+
+    section {
+      padding: 2rem 0;
+      border-top: 0.5px solid var(--color-border);
+    }
+    @media (min-width: 860px) {
+      section { padding: 3.5rem 0; }
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.625rem, 3.2vw, 2.5rem);
+      line-height: 1.15;
+      font-weight: 400;
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.005em;
+    }
+
+    h2 em.accent {
+      color: var(--color-accent);
+      font-style: italic;
+    }
+
+    p {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--color-text);
+      margin-bottom: 1.25rem;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    a.inline-link {
+      color: var(--color-accent);
+      text-decoration: underline;
+      text-decoration-thickness: 0.5px;
+      text-underline-offset: 3px;
+    }
+
+    .section-intro {
+      font-family: var(--font-serif);
+      font-size: 1.125rem;
+      line-height: 1.55;
+      color: var(--color-text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 36em;
+    }
+
+    .diagram-wrap {
+      margin: 2.5rem 0 3rem;
+      max-width: 560px;
+    }
+    .diagram-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .cards-group { margin-top: 2.5rem; }
+    .cards-group-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .card {
+      padding: 1.75rem 0;
+      border-top: 0.5px solid var(--color-border);
+    }
+    .card:first-of-type {
+      border-top: none;
+      padding-top: 0.5rem;
+    }
+    .card-number {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--color-accent);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .card-body {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      margin-top: 2.25rem;
+    }
+    @media (min-width: 700px) {
+      .two-columns {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+    }
+    .column h3 {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .column ol {
+      list-style: none;
+      counter-reset: item;
+      padding: 0;
+    }
+    .column ol li {
+      counter-increment: item;
+      position: relative;
+      padding-left: 2.25rem;
+      margin-bottom: 1.5rem;
+      font-family: var(--font-serif);
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--color-text);
+    }
+    .column ol li:last-child { margin-bottom: 0; }
+    .column ol li::before {
+      content: counter(item, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.25rem;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    .closing-note {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--color-text-secondary);
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid var(--color-border);
+    }
+
+    .limits, .steps, .faqs { margin-top: 2rem; }
+    .limit-item, .step, .faq-item {
+      padding: 1.75rem 0;
+      border-top: 0.5px solid var(--color-border);
+    }
+    .limit-item:first-child, .step:first-child, .faq-item:first-child {
+      border-top: none;
+      padding-top: 0.5rem;
+    }
+    .limit-title, .faq-question {
+      font-family: var(--font-serif);
+      font-size: 1.1875rem;
+      line-height: 1.3;
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+
+    .cta-final {
+      padding: 3rem 0 2.5rem;
+      border-top: 0.5px solid var(--color-border);
+    }
+    .cta-final h2 { margin-bottom: 2rem; }
+    .cta-final .ctas { margin-bottom: 1.5rem; }
+    .cta-final .contact {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+    .cta-final .contact a {
+      color: var(--color-accent);
+      text-decoration: none;
+      border-bottom: 0.5px solid var(--color-accent);
+      padding-bottom: 1px;
+    }
+
+    footer {
+      padding: 1.5rem 0 2rem;
+      border-top: 0.5px solid var(--color-border);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--color-text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <a href="/">Martín Bellocq</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <div class="container">
+      <section class="hero" style="border-top: none;">
+        <div>
+          <p class="eyebrow">Skill open source para Claude</p>
+          <h1 class="hero-title">Llegá mejor preparado a tu próxima entrevista de trabajo.</h1>
+          <p class="hero-subtitle">Cuando estás buscando trabajo, las entrevistas te agarran corto de tiempo. Esta skill genera un informe ad hoc en 3 minutos por entrevista. Para que llegues con todo.</p>
+          <div class="ctas">
+            <a href="https://github.com/martinjbellocq/full-interview-prep" class="btn btn-primary">Quiero prepararme mejor →</a>
+          </div>
+        </div>
+        <div>
+          <img src="./images/hero-interview.jpg" alt="Profesional en videollamada de entrevista de trabajo, tomando notas en un cuaderno" class="hero-image">
+        </div>
+      </section>
+    </div>
+
+    <!-- 01 · El problema -->
+    <section>
+      <div class="container">
+        <div class="narrow">
+          <p class="section-eyebrow">01 · El problema</p>
+          <h2>Si estás buscando trabajo, esto te va a sonar.</h2>
+          <p>Estás trabajando full-time con mil cosas — proyectos en marcha, vida personal, familia. Y en paralelo te aparece una entrevista para algo que te interesa. Se agenda rápido. No tenés tiempo para sentarte tres horas a investigar la empresa, repensar tus historias, anticipar las preguntas duras, leer el perfil del entrevistador.</p>
+          <p>Llegás improvisando, porque eras vos o no llegabas. La conversación va más o menos bien — pero salís con la sensación de que no diste todo lo que podías. Y la posición se la lleva alguien que se preparó mejor.</p>
+          <p>Eso es lo que esta skill viene a resolver.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · La solución -->
+    <section>
+      <div class="container">
+        <div class="narrow">
+          <p class="section-eyebrow">02 · La solución</p>
+          <h2>Cuatro análisis. Cinco entregables. Un solo <em class="accent">prompt</em>.</h2>
+
+          <div class="diagram-wrap">
+            <img src="./images/framework-diagram.jpg" alt="Diagrama: las cuatro dimensiones (candidato, entrevistador, empresa, rol) convergen en la skill y producen cinco entregables">
+          </div>
+
+          <div class="cards-group">
+            <p class="cards-group-label">Los cuatro análisis</p>
+
+            <div class="card">
+              <span class="card-number">01 · El candidato</span>
+              <p class="card-body">Tu perfil completo: track record, fortalezas, gaps reconocidos, dirección de carrera y tus patterns bajo presión. Se construye una vez en el onboarding y se reusa en cada entrevista.</p>
+            </div>
+
+            <div class="card">
+              <span class="card-number">02 · El rol</span>
+              <p class="card-body">Qué busca el rol más allá de la descripción literal: prioridades implícitas, skills críticos vs deseables, señales de cultura.</p>
+            </div>
+
+            <div class="card">
+              <span class="card-number">03 · El entrevistador</span>
+              <p class="card-body">Investigación profunda de quien te va a entrevistar, con un mínimo de 3 fuentes públicas. Si no hay huella digital, se declara.</p>
+            </div>
+
+            <div class="card">
+              <span class="card-number">04 · La empresa</span>
+              <p class="card-body">Análisis ejecutivo, filtrado al mercado, región o unidad donde está el rol. Con una sección sobre cómo la IA está afectando al sector.</p>
+            </div>
+          </div>
+
+          <div class="cards-group">
+            <p class="cards-group-label">Los cinco entregables</p>
+
+            <div class="card">
+              <span class="card-number">05 · Fit-gap calibrado</span>
+              <p class="card-body">El cruce entre tu perfil y el puesto. Tus 3 fortalezas más fuertes y los 3-5 gaps reales que te van a cuestionar.</p>
+            </div>
+
+            <div class="card">
+              <span class="card-number">06 · Banco de preguntas predichas</span>
+              <p class="card-body">Las preguntas más probables que te van a hacer, con borradores de respuesta estructurados (formato STAR).</p>
+            </div>
+
+            <div class="card">
+              <span class="card-number">07 · Modo sparring</span>
+              <p class="card-body">Para cada gap, una pregunta hostil calibrada al estilo del entrevistador, la respuesta defensiva que probablemente vas a dar bajo presión, y un frame mental para defenderte.</p>
+            </div>
+
+            <div class="card">
+              <span class="card-number">08 · Preguntas para hacer al entrevistador</span>
+              <p class="card-body">Las preguntas inteligentes que tenés que hacerle vos al final. Calibradas al perfil del entrevistador y al momento del proceso.</p>
+            </div>
+
+            <div class="card">
+              <span class="card-number">09 · Una hoja para los últimos 10 minutos</span>
+              <p class="card-body">Un resumen para leer 10 minutos antes de entrar. Lo esencial del framework en una sola hoja.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · Cómo se usa -->
+    <section>
+      <div class="container">
+        <div class="narrow">
+          <p class="section-eyebrow">03 · Cómo se usa</p>
+          <h2>Tres pasos. Después, un solo <em class="accent">prompt</em> por entrevista.</h2>
+          <p class="section-intro">45 minutos la primera vez. 3 minutos por entrevista después. Bajás al mínimo el tiempo de research y enfocás todo en pensar, practicar y aprender de la empresa para ver si hay fit real.</p>
+
+          <div class="steps">
+            <div class="step">
+              <span class="card-number">Paso 01 · Instalá la skill en Claude</span>
+              <p class="card-body">Descargá el ZIP desde el <a href="https://github.com/martinjbellocq/full-interview-prep" class="inline-link">repo en GitHub</a> y subilo en Claude.ai → Customize → Skills.</p>
+            </div>
+            <div class="step">
+              <span class="card-number">Paso 02 · Hacé el onboarding una vez</span>
+              <p class="card-body">La primera vez, decile a Claude "Hagamos el onboarding" y dedicá 45-60 minutos a construir tu perfil. Es una conversación, no un formulario. Recomendable usar modo audio para que las historias y patterns salgan más naturales. Al final, Claude te entrega tu archivo de perfil para reusar.</p>
+            </div>
+            <div class="step">
+              <span class="card-number">Paso 03 · Usala para cada entrevista</span>
+              <p class="card-body">Le pasás los inputs en un solo mensaje (link de la JD, nombre y LinkedIn del entrevistador, mercado o región, etapa del proceso). La skill te entrega los .docx con todo el prep listo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · Quién la armó -->
+    <section>
+      <div class="container">
+        <div class="narrow">
+          <p class="section-eyebrow">04 · Quién la armó</p>
+          <h2>Quién la armó.</h2>
+          <p>Soy Martín Bellocq. Empecé a entrevistar en Google Argentina (2012-2017), donde aprendí que entrevistar bien era un método, no una intuición. Lo escalé después en Ualá, durante mis 8 años como CMO Regional (2017-2025) — entrevistando a más de 150 personas (analistas, líderes, managers y directores regionales en Argentina, México y Colombia) mientras construía un equipo de marketing que creció de 0 a 80 personas.</p>
+          <p>La skill nace de cruzar lo que aprendí del lado del entrevistador con la preparación de mis propias entrevistas más recientes. Las guías que encontré no cubrían las 4 dimensiones al nivel que necesitaba, así que armé un framework propio. Lo probé varias veces hasta que funcionó y lo convertí en una skill open source de Claude.</p>
+          <p>Algo que vi en esas entrevistas: la diferencia entre alguien preparado y alguien que no lo está es enorme, y se nota desde los primeros minutos. La preparación también es predictor de cómo va a hacer el trabajo. Sé auténtico, decí la verdad — pero andá preparado. Si querés que te contraten, prepará la entrevista.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · Para quién es ideal -->
+    <section>
+      <div class="container">
+        <div class="narrow">
+          <p class="section-eyebrow">05 · Para quién es ideal</p>
+          <h2>Para quién es ideal. Y cuándo no rinde tanto.</h2>
+
+          <div class="two-columns">
+            <div class="column">
+              <h3>La skill es ideal si…</h3>
+              <ol>
+                <li>La entrevista que tenés enfrente importa: cambio de empresa, salto de seniority, rol que define los próximos años.</li>
+                <li>Estás en una búsqueda activa y vas a tener varias entrevistas en los próximos meses.</li>
+                <li>Tenés experiencia acumulada. Desde team leader para arriba es donde más le saca jugo.</li>
+                <li>Aceptás dedicarle una hora la primera vez para cargar tu perfil bien.</li>
+              </ol>
+            </div>
+
+            <div class="column">
+              <h3>La skill no es tan potente cuando…</h3>
+              <ol>
+                <li>Querés saltar el onboarding. Sin perfil bien cargado, la skill se queda sin nafta.</li>
+                <li>Tenés una sola entrevista por delante y el rol no te termina de interesar. La inversión inicial no vale la pena para algo que tampoco te importa demasiado.</li>
+                <li>Estás empezando tu carrera y todavía no tenés volumen para alimentar el fit-gap y el sparring (otras partes te van a servir igual).</li>
+                <li>Buscás respuestas literales para memorizar. La skill identifica gaps de contenido, no los rellena por vos.</li>
+              </ol>
+            </div>
+          </div>
+
+          <p class="closing-note">En cualquiera de estos casos la skill sigue funcionando; solo que no despliega todo su potencial.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · Lo que no es -->
+    <section>
+      <div class="container">
+        <div class="narrow">
+          <p class="section-eyebrow">06 · Lo que no es</p>
+          <h2>Lo que no es.</h2>
+
+          <div class="limits">
+            <div class="limit-item">
+              <p class="limit-title">No es coaching de carrera.</p>
+              <p class="card-body">Prepara una entrevista específica una vez que decidiste aplicar. No te ayuda a decidir si te conviene el rol, si es el momento de cambiar, o si es la empresa correcta.</p>
+            </div>
+            <div class="limit-item">
+              <p class="limit-title">No te genera respuestas listas para memorizar.</p>
+              <p class="card-body">Identifica gaps de contenido, te entrena a anticipar preguntas y te da frames mentales para defenderte. Pero las respuestas las construís vos.</p>
+            </div>
+            <div class="limit-item">
+              <p class="limit-title">No es para entrevistas de coding técnico.</p>
+              <p class="card-body">Si vas a un proceso con leetcode, system design o pair programming, esta skill no aplica. Está pensada para entrevistas de fit, comportamiento y ejecutivas.</p>
+            </div>
+            <div class="limit-item">
+              <p class="limit-title">No practica con vos en voz alta.</p>
+              <p class="card-body">Te entrega el material para hacerlo (preguntas, ataques, frames). Pero la práctica oral con un amigo, coach o frente al espejo, esa parte la tenés que hacer vos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 · FAQ -->
+    <section>
+      <div class="container">
+        <div class="narrow">
+          <p class="section-eyebrow">07 · Preguntas frecuentes</p>
+          <h2>Preguntas frecuentes.</h2>
+
+          <div class="faqs">
+            <div class="faq-item">
+              <p class="faq-question">¿Tiene costo?</p>
+              <p class="card-body">No. La skill es gratis y open source bajo licencia MIT. Lo único que podés pagar es Claude, si querés un plan superior al gratuito — pero eso es decisión tuya y no es necesario para usarla.</p>
+            </div>
+            <div class="faq-item">
+              <p class="faq-question">¿Qué plan de Claude necesito?</p>
+              <p class="card-body">Funciona desde el plan gratuito. Si tenés Pro o superior, vas a poder usar Projects, que te permite tener tu perfil siempre cargado para que cada chat de prep arranque con todo el contexto disponible automáticamente. Sin Projects también se puede, pero tenés que adjuntar tu perfil como archivo en cada chat nuevo.</p>
+            </div>
+            <div class="faq-item">
+              <p class="faq-question">¿Necesito saber programar o de IA para usarla?</p>
+              <p class="card-body">No. La instalación es subir un ZIP a Claude.ai como cualquier archivo. Toda la interacción es por escrito o por audio, como si chatearas con alguien. No hace falta saber código ni tener experiencia previa con herramientas de IA.</p>
+            </div>
+            <div class="faq-item">
+              <p class="faq-question">¿Qué pasa con mis datos?</p>
+              <p class="card-body">Lo que cargás va a Claude y queda en tu cuenta. La skill no tiene backend propio ni manda datos a ningún servidor externo: tu perfil, tus inputs y los outputs viven en tus chats y archivos de Claude. Si querés saber qué hace Claude con eso, está en sus políticas (la skill no agrega ni cambia nada).</p>
+            </div>
+            <div class="faq-item">
+              <p class="faq-question">¿Por qué la publicaste gratis?</p>
+              <p class="card-body">La armé para preparar mis propias entrevistas. Una vez que funcionaba bien, me pareció más interesante liberarla open source que tenerla guardada. Es un experimento: quiero ver si a otros les sirve la misma lógica que me sirvió a mí.</p>
+            </div>
+            <div class="faq-item">
+              <p class="faq-question">¿Puedo contribuir o sugerir mejoras?</p>
+              <p class="card-body">Sí. Si la usás y encontrás cosas que faltan, frameworks que iterarías, o casos donde el sparring no acertó al gap real, abrí un issue o un PR en <a href="https://github.com/martinjbellocq/full-interview-prep" class="inline-link">GitHub</a>. Es especialmente útil documentar casos donde no funcionó — eso es lo que permite iterar la lógica.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-final">
+      <div class="container">
+        <div class="narrow">
+          <p class="section-eyebrow">Por último</p>
+          <h2>Bajala. Probala. Avisame cómo te fue.</h2>
+          <div class="ctas">
+            <a href="https://github.com/martinjbellocq/full-interview-prep" class="btn btn-primary">Quiero prepararme mejor →</a>
+          </div>
+          <p class="contact">¿Dudas o feedback? <a href="mailto:martinjbellocq@gmail.com">martinjbellocq@gmail.com</a></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      Hecho por Martín Bellocq · 2026
+    </div>
+  </footer>
+
+</body>
+</html>
