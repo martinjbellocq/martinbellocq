@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Vector — Growth Partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07070A; --surface:#0E0E12; --surface-2:#15151A;
+    --white:#F6F6F8; --soft:#A6A6AE; --muted:#6B6B74; --faint:#48484F;
+    --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.05); --line-bright:rgba(255,255,255,.22);
+    --accent:#FF5A30; --accent-soft:rgba(255,90,48,.13);
+    --disp:"Sora",-apple-system,sans-serif;
+    --sans:"Hanken Grotesk",-apple-system,sans-serif;
+    --mono:"JetBrains Mono",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--bg);color:var(--white);line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(900px 600px at 70% -10%,rgba(255,255,255,.06),transparent 60%);}
+  ::selection{background:var(--white);color:#000}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+  .silver{background:linear-gradient(180deg,#FFFFFF 0%,#B7B7BF 100%);-webkit-background-clip:text;
+    background-clip:text;color:transparent}
+  .accent-tx{color:var(--accent)}
+
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+    background:rgba(7,7,10,.7);border-bottom:1px solid var(--line-2)}
+  .nav-in{max-width:1080px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:600;font-size:18px;letter-spacing:.04em}
+  .brand .mk{width:17px;height:17px;flex:none}
+  .nav-links{display:flex;gap:24px;font-size:13px;font-weight:500}
+  .nav-links a{color:var(--soft);text-decoration:none;transition:color .2s}
+  .nav-links a:hover{color:var(--white)}
+  @media(max-width:820px){.nav-links{display:none}}
+
+  /* HERO — full screen */
+  header.hero{position:relative;min-height:calc(100vh - 51px);display:flex;align-items:center;padding:40px 0;overflow:hidden}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:26px;display:flex;align-items:center;gap:11px}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--faint)}
+  h1{font-family:var(--disp);font-weight:300;font-size:clamp(44px,7.8vw,86px);line-height:1.02;
+    letter-spacing:-.035em;margin-bottom:30px;max-width:15ch}
+  h1 b{font-weight:600}
+  .lede{font-size:clamp(17px,2.2vw,21px);color:var(--soft);line-height:1.55;font-weight:400}
+  .hero-trace{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:440px;height:440px;opacity:.55;pointer-events:none}
+  @media(max-width:900px){.hero-trace{display:none}}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+  .chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;padding:8px 14px;
+    border:1px solid var(--line);border-radius:100px;color:var(--soft);background:rgba(255,255,255,.02)}
+
+  /* SECTIONS — tighter rhythm */
+  section{padding:42px 0;border-top:1px solid var(--line-2);position:relative}
+  .sec-label{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:inline-flex;align-items:center;gap:11px}
+  .sec-label::before{content:"";width:24px;height:2px;background:var(--accent)}
+  h2{font-family:var(--disp);font-weight:400;font-size:clamp(32px,5.2vw,54px);letter-spacing:-.03em;line-height:1.04;margin-bottom:16px;max-width:18ch}
+  h2 b{font-weight:600}
+  .sec-intro{font-size:17px;color:var(--soft);margin-bottom:6px;line-height:1.62}
+  .em{color:var(--white);font-weight:600}
+
+  /* problem context lead */
+  .lead{font-family:var(--disp);font-weight:300;font-size:clamp(19px,2.5vw,26px);line-height:1.42;
+    letter-spacing:-.02em;color:var(--soft);margin-bottom:6px}
+  .lead .em{color:var(--white);font-weight:400}
+
+  /* CARDS */
+  .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-top:22px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;transition:transform .25s,border-color .25s}
+  .card:hover{transform:translateY(-4px);border-color:var(--line-bright)}
+  .tag-n{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;
+    border:1px solid var(--line-bright);color:var(--white);font-family:var(--disp);font-weight:500;font-size:16px;margin-bottom:15px}
+  .card h3{font-family:var(--disp);font-weight:500;font-size:19px;letter-spacing:-.01em;margin-bottom:9px}
+  .card p{font-size:14px;color:var(--soft);line-height:1.55}
+
+  /* ROOT / punch block */
+  
+  .root{margin-top:18px;border-left:2px solid var(--accent);background:linear-gradient(90deg,var(--accent-soft),transparent 70%);
+    border-radius:0 14px 14px 0;padding:26px 30px}
+  .root .rk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .root p{font-family:var(--disp);font-weight:300;font-size:clamp(18px,2.4vw,23px);line-height:1.42;letter-spacing:-.015em;color:var(--white)}
+  .root p .em{font-weight:500}
+
+  /* MODES (solución / fee) */
+  .modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px}
+  .mode{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px;transition:border-color .25s}
+  .mode:hover{border-color:var(--line-bright)}
+  .mode.flag{border-color:var(--accent);background:linear-gradient(180deg,rgba(255,90,48,.08),rgba(255,90,48,.01))}
+  .mode .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .mode.flag .tag{color:var(--accent)}
+  .mode h3{font-family:var(--disp);font-weight:500;font-size:20px;margin-bottom:9px;letter-spacing:-.01em}
+  .mode p{font-size:14px;color:var(--soft);line-height:1.55}
+  .punch{font-family:var(--disp);font-weight:400;color:var(--white);border-left:2px solid var(--accent);
+    padding-left:22px;margin-top:26px;font-size:clamp(18px,2.5vw,24px);line-height:1.34;letter-spacing:-.015em;max-width:60ch}
+  
+  .note-strip{margin-top:18px;font-size:15px;color:var(--soft);background:var(--surface);border:1px solid var(--line);
+    border-radius:14px;padding:20px 24px;line-height:1.55}
+  .note-strip b{color:var(--white)}
+
+  /* BUCKETS (vector servicios) */
+  .buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:22px}
+  .bucket{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .bucket .bh{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;color:var(--muted)}
+  .bucket h3{font-family:var(--disp);font-weight:500;font-size:19px;margin-bottom:11px;letter-spacing:-.01em}
+  .bucket p{font-size:14px;color:var(--soft);line-height:1.55}
+  .bucket li{font-size:13.5px;line-height:1.45;color:var(--soft);padding-left:15px;position:relative;margin-bottom:8px;list-style:none}
+  .bucket li::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--faint)}
+
+  .sub{font-family:var(--disp);font-weight:500;font-size:20px;margin-top:26px;margin-bottom:8px;letter-spacing:-.01em}
+  .sub-lead{font-size:15px;color:var(--soft);line-height:1.6}
+
+  /* AGENT DEMO */
+  
+  .agent-demo{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px 32px;position:relative;overflow:hidden}
+  .agent-demo::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent)}
+  .agent-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .pulse{width:10px;height:10px;border-radius:50%;background:var(--accent);flex:none;animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,90,48,.5)}70%{box-shadow:0 0 0 12px rgba(255,90,48,0)}100%{box-shadow:0 0 0 0 rgba(255,90,48,0)}}
+  .agent-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+  .agent-demo h3{font-family:var(--disp);font-weight:500;font-size:21px;letter-spacing:-.01em}
+  .agent-desc{font-size:14.5px;color:var(--soft);line-height:1.55;margin-bottom:14px;max-width:82ch}
+  .agent-actions{list-style:none;margin-bottom:16px}
+  .agent-actions li{font-size:14px;color:var(--soft);line-height:1.5;padding-left:20px;position:relative;margin-bottom:9px}
+  .agent-actions li::before{content:"\2192";position:absolute;left:0;color:var(--accent);font-family:var(--mono)}
+  .agent-foot{font-size:14.5px;color:var(--white);line-height:1.55;max-width:82ch;border-top:1px solid var(--line);padding-top:15px}
+  .lib{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .lib-item{font-size:13.5px;color:var(--soft);line-height:1.5;background:rgba(255,255,255,.02);border:1px solid var(--line-2);border-radius:12px;padding:14px 16px}
+  .lib-item b{color:var(--white);font-weight:600;font-family:var(--disp)}
+
+  /* WHY — reasons */
+  .why{margin-top:22px;display:grid;gap:14px}
+  .why-item{display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+  .why-item .wn{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em;flex:none;padding-top:3px}
+  .why-item h4{font-family:var(--disp);font-weight:500;font-size:17px;margin-bottom:5px;letter-spacing:-.01em}
+  .why-item p{font-size:14px;color:var(--soft);line-height:1.55}
+
+  /* OPEN */
+  .open-list{margin-top:20px;display:grid;gap:14px}
+  .open-item{display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+  .open-item .qn{font-family:var(--disp);font-size:24px;color:var(--white);line-height:1;flex:none;font-weight:300}
+  .open-item .qn.ok{color:var(--accent)}
+  .open-item h4{font-family:var(--disp);font-weight:500;font-size:16px;margin-bottom:5px}
+  .open-item p{font-size:14px;color:var(--soft);line-height:1.5}
+  
+  .invite{margin-top:24px;border:1px solid var(--line-bright);border-radius:18px;padding:34px 38px;max-width:760px;
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0))}
+  .invite h3{font-family:var(--disp);font-weight:400;font-size:clamp(22px,3vw,28px);color:var(--white);margin-bottom:12px;letter-spacing:-.02em}
+  .invite p{font-size:16px;color:var(--soft);line-height:1.55}
+
+  footer{padding:48px 0 56px;border-top:1px solid var(--line-2);text-align:center}
+  footer .brand{justify-content:center;margin-bottom:12px}
+  footer p{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.04em}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+  .stagger>*{opacity:0;transform:translateY(18px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+  .stagger>*:nth-child(2){animation-delay:.08s}.stagger>*:nth-child(3){animation-delay:.16s}
+  .stagger>*:nth-child(4){animation-delay:.24s}.stagger>*:nth-child(5){animation-delay:.32s}
+  @keyframes rise{to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="brand">
+      <svg class="mk" viewBox="0 0 24 24" fill="none"><path d="M3 21 L21 3 M21 3 L13 3 M21 3 L21 11" stroke="#FF5A30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="silver">Vector</span>
+    </div>
+    <div class="nav-links">
+      <a href="#problema">Problema</a>
+      <a href="#solucion">Solución</a>
+      <a href="#vector">Vector</a>
+      <a href="#fee">Modelo</a>
+      <a href="#abierto">Abierto</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <svg class="hero-trace" viewBox="0 0 440 440" fill="none">
+      <defs>
+        <linearGradient id="g" x1="0" y1="440" x2="440" y2="0">
+          <stop offset="0" stop-color="#FF5A30" stop-opacity="0"/>
+          <stop offset="1" stop-color="#FF5A30"/>
+        </linearGradient>
+      </defs>
+      <line x1="40" y1="400" x2="380" y2="60" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M380 60 L300 60 M380 60 L380 140" stroke="#FF5A30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="40" y1="400" x2="40" y2="60" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+      <line x1="40" y1="400" x2="380" y2="400" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+    </svg>
+    <div class="stagger">
+      <div class="eyebrow">Vector · Growth Partner · Idea en construcción</div>
+      <h1>Construir es commodity. <b class="accent-tx">Distribuir</b> es el moat.</h1>
+      <p class="lede">Vector es un growth partner para empresas en LatAm —B2C y B2B—: aporta la arquitectura de crecimiento que escaló a las mayores compañías de la región, ejecutada sobre IA, y alinea su retorno con el crecimiento del cliente.</p>
+      <div class="meta-row">
+        <span class="chip">Growth partner</span>
+        <span class="chip">B2C + B2B · LatAm</span>
+        <span class="chip">Retorno alineado al crecimiento</span>
+        <span class="chip">Idea en construcción</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="problema">
+  <div class="wrap">
+    <div class="sec-label">01 · El problema</div>
+    <p class="lead">El producto dejó de ser el diferencial: con IA, capital y herramientas al alcance de todos, construir algo bueno está al alcance de muchos. La competencia se trasladó a la distribución —<span class="em">llegar al cliente, convencerlo y retenerlo</span>—, y ahí los costos suben y los canales se saturan. Sobre ese terreno, quien responde por el crecimiento enfrenta cinco problemas.</p>
+    <div class="grid-cards">
+      <div class="card reveal"><span class="tag-n">1</span><h3>Decisiones a ciegas</h3><p><span class="em">Sin saber qué funciona ni dónde invertir.</span> El LTV temprano carga demasiados supuestos y la atribución es imperfecta. Con datos parciales, el recurso se vuelca a lo medible e inmediato y se desatiende lo que rinde pero no se ve.</p></div>
+      <div class="card reveal"><span class="tag-n">2</span><h3>Retención</h3><p><span class="em">Todos adquieren, nadie retiene.</span> Adquirir es caro y se lleva la atención; retener exige recursos que no se asignan, y no tiene dueño claro. Se crece llenando un balde que pierde, y el CAC nunca termina de amortizarse.</p></div>
+      <div class="card reveal"><span class="tag-n">3</span><h3>Velocidad</h3><p><span class="em">El ciclo de aprendizaje es demasiado lento.</span> Qué funciona se descubre probando, pero cada experimento tarda semanas —y cuando hay conclusión, el creative ya se fatigó o el canal cambió de precio—.</p></div>
+      <div class="card reveal"><span class="tag-n">4</span><h3>Coordinación</h3><p><span class="em">Cada área optimiza su silo y el efecto se anula.</span> Marketing no mira el P&amp;L, el negocio no entiende al cliente, ventas no devuelve qué leads cerraron. El cliente recibe diez comunicaciones que se pisan: diez impactos rinden menos que uno bien puesto.</p></div>
+      <div class="card reveal"><span class="tag-n">5</span><h3>Horizonte</h3><p><span class="em">El corto plazo desplaza al largo.</span> La marca y la retención maduran lento; medidas por trimestre parecen caras y se recortan justo cuando empezaban a pagar. No es una mala decisión: es un incentivo que mide la cosa equivocada.</p></div>
+    </div>
+    <div class="root reveal">
+      <div class="rk">La raíz</div>
+      <p>Los cinco tienen una causa común: <span class="em">nadie reúne la vista completa</span> —criterio de negocio, entendimiento del cliente, ejecución de growth y criterio para leer los datos sin engañarse—. Casi nadie las reúne. Y construir esa capacidad de forma interna es caro, lento y compite con todo lo demás que la empresa tiene que hacer.</p>
+    </div>
+  </div>
+</section>
+
+<section id="solucion">
+  <div class="wrap">
+    <div class="sec-label">02 · La solución</div>
+    <h2>Reunir la vista completa: <b>dirección y fuerza</b>, alineadas.</h2>
+    <p class="sec-intro">Ganar la distribución no se resuelve con más inversión ni con más herramientas —eso es solo fuerza—. Se resuelve alineando las dos mitades que el problema mantuvo separadas.</p>
+    <div class="modes">
+      <div class="mode reveal">
+        <div class="tag">Dirección</div>
+        <h3>Saber qué hacer</h3>
+        <p>La vista completa en una sola cabeza —negocio, cliente, ejecución y datos—, sin silos. Criterio para leer la medición con honestidad, priorizar lo que no se ve (la retención) y sostener lo que tarda en pagar (la marca).</p>
+      </div>
+      <div class="mode reveal">
+        <div class="tag">Fuerza</div>
+        <h3>Hacerlo, rápido y bien</h3>
+        <p>Un set diversificado de palancas, operado con un sistema de experimentación que reasigna hacia lo que funciona y corta lo que no. Y, sobre todo, velocidad: iterar en días, no en semanas.</p>
+      </div>
+    </div>
+    <p class="punch">Dirección define qué hacer —dónde invertir, qué priorizar, qué sostener—; fuerza lo ejecuta rápido y a escala. El problema, en el fondo, era siempre tener una sin la otra.</p>
+    <div class="note-strip reveal"><b>El catch:</b> sostener esta capacidad adentro es lo que casi ninguna empresa puede —estructura senior y junior, gente de data y de producto, presupuesto y tiempo para iterar—. Y aun teniéndola, rara vez reúne el criterio que la dirige: ese criterio se forja operando a escala y no se transfiere en un PDF.</div>
+  </div>
+</section>
+
+<section id="vector">
+  <div class="wrap">
+    <div class="sec-label">03 · Vector</div>
+    <h2>La dirección y la fuerza, <b>sin montar la estructura.</b></h2>
+    <p class="sec-intro">La relación empieza con un diagnóstico y se despliega en dos planos.</p>
+    <div class="buckets">
+      <div class="bucket reveal">
+        <div class="bh">Puerta de entrada</div>
+        <h3>Diagnóstico</h3>
+        <p>Una auditoría de la distribución del cliente: dónde se pierde plata, qué canales engañan, qué se está dejando sobre la mesa. Bajo compromiso, y la base sobre la que se decide qué sigue.</p>
+      </div>
+      <div class="bucket reveal">
+        <div class="bh">Plano 1 · Dirección</div>
+        <h3>Fractional / consultoría</h3>
+        <p>Vector revisa y, si hace falta, corrige la dirección de growth: objetivos, arquitectura de funnel, unit economics, diseño del equipo y del stack de data, estrategia de canales, creative y lifecycle. Criterio de operador, no recomendaciones desde afuera.</p>
+      </div>
+      <div class="bucket reveal">
+        <div class="bh">Plano 2 · Fuerza</div>
+        <h3>Poner a rendir lo que hay</h3>
+        <p>Audita qué hace hoy cada rol del equipo del cliente, dónde están los huecos y qué palancas clave nadie está tocando —o se usan mal—, y redirige ese esfuerzo a lo que mueve la aguja. Y suma lo que el equipo no puede hacer a mano: la pata agéntica.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">La pata agéntica — el diferencial</h3>
+    <p class="sub-lead">Una agencia entrega un consejo y se va; el consejo muere en un slide. Vector deja una máquina que sigue corriendo: agentes que incorporan el criterio de un operador y trabajan 24/7. El entregable deja de ser "qué hacer" y pasa a ser "la máquina que lo hace".</p>
+    <div class="agent-demo reveal">
+      <div class="agent-head">
+        <span class="pulse"></span>
+        <div>
+          <div class="agent-kicker">Ejemplo ancla · corriendo 24/7</div>
+          <h3>Agente de optimización de paid</h3>
+        </div>
+      </div>
+      <p class="agent-desc">Conectado por MCP a Meta Ads, Google Ads y la atribución del cliente. Lee spend, CAC, ROAS y conversión por campaña, adset, creative y geo, y decide —o propone, con aprobación humana—:</p>
+      <ul class="agent-actions">
+        <li>Mueve presupuesto de los adsets por encima del CAC objetivo a los que están por debajo.</li>
+        <li>Pausa creatives con fatiga; escala ganadores dentro de guardrails.</li>
+        <li>Detecta anomalías: "el pixel de checkout dejó de disparar", "el CAC saltó 40% en MX".</li>
+        <li>Escribe el parte diario de lo que movió y por qué.</li>
+      </ul>
+      <p class="agent-foot">Es el criterio de un performance lead senior, incorporado a un agente que opera sin parar.</p>
+    </div>
+    <div class="lib">
+      <div class="lib-item"><b>Paid</b> — optimiza campañas en continuo. El primero de la librería.</div>
+      <div class="lib-item"><b>Lifecycle / CRM</b> — decide quién recibe qué mensaje y cuándo, según comportamiento.</div>
+      <div class="lib-item"><b>Creative</b> — genera e itera variantes según lo que convierte.</div>
+      <div class="lib-item"><b>Auditoría</b> — diagnóstico automático de la salud de distribución.</div>
+    </div>
+    <div class="note-strip reveal"><b>Por qué es producto y no horas:</b> se construye una vez y se instala en días. Vector es dueño de los agentes; cada implementación los mejora para la siguiente. El criterio queda como consultoría premium; los agentes son la máquina que se vuelve IP.</div>
+
+    <h3 class="sub">Por qué Vector</h3>
+    <div class="why">
+      <div class="why-item reveal"><span class="wn">01</span><div><h4>Ya lo hizo —y eso es tiempo ganado.</h4><p>Montar esta capacidad desde cero lleva años y errores caros: canales que no rinden, roles mal contratados, un LTV que se aprende a fuerza de equivocarse. Vector ya recorrió esa curva a escala regional. El cliente no compra una recomendación: compra el atajo, criterio probado que llega el primer día.</p></div></div>
+      <div class="why-item reveal"><span class="wn">02</span><div><h4>El criterio vuelto máquina.</h4><p>Y no se va con un PPT: lo deja corriendo. La tecnología para conectar agentes está cada vez más disponible; lo escaso es el criterio que se les mete adentro —y eso una agencia no lo construye, porque su negocio es facturar horas—.</p></div></div>
+      <div class="why-item reveal"><span class="wn">03</span><div><h4>Socios de verdad.</h4><p>Donde la apuesta lo justifica, Vector toma equity: quiere ser socio en serio, y está convencido de que su valor va a tener impacto.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="fee">
+  <div class="wrap">
+    <div class="sec-label">04 · Modelo de fee</div>
+    <h2>Cómo cobra es un eje <b>distinto</b> de qué hace.</h2>
+    <p class="sec-intro">Cualquiera de los servicios puede estructurarse de más de una forma.</p>
+    <div class="modes">
+      <div class="mode flag reveal">
+        <div class="tag">El diferencial</div>
+        <h3>Equity</h3>
+        <p>Es lo que vuelve a Vector único. En lugar de cobrar, participa del capital: deja de ser un proveedor y se vuelve socio, con los incentivos perfectamente alineados. Tiene sentido cuando el valor que aporta es grande y el momento del cliente pide cuidar la caja —el efectivo tiene que ir a producto, a hiring, a crecer—. El efecto wow que ninguna agencia ofrece.</p>
+      </div>
+      <div class="mode reveal">
+        <div class="tag">Modo</div>
+        <h3>Por proyecto o hito</h3>
+        <p>Alcance y entregable cerrados, pago contra resultados definidos. Típico del diagnóstico y de implementaciones puntuales.</p>
+      </div>
+      <div class="mode reveal">
+        <div class="tag">Modo</div>
+        <h3>Retainer</h3>
+        <p>Fee recurrente por la conducción de growth, cuando el rol es continuo y no tiene un entregable cerrado.</p>
+      </div>
+    </div>
+    <div class="note-strip reveal">El esquema preciso por tipo de cliente está en definición. Lo esencial hoy es conservar el equity como opción junto a las demás —es, en sí mismo, un diferencial frente a las agencias—.</div>
+  </div>
+</section>
+
+<section id="abierto">
+  <div class="wrap">
+    <div class="sec-label">05 · Lo que resta definir</div>
+    <h2>La tesis está cerrada. <b>La forma, en discusión.</b></h2>
+    <p class="sec-intro">Distribuir es el moat, y reunir dirección + fuerza —criterio de operador y ejecución sobre IA— es lo escaso. Lo que se discute es la forma.</p>
+    <div class="open-list">
+      <div class="open-item reveal"><span class="qn">1</span><div><h4>Cómo construir la pata agéntica</h4><p>Es la pieza diferencial y la que falta resolver: requiere un socio técnico que construya y mantenga la librería de agentes. Se suma con tracción y evidencia, no con una promesa.</p></div></div>
+      <div class="open-item reveal"><span class="qn">2</span><div><h4>El terminal de largo plazo</h4><p>Vector arranca como partner productizado; con el tiempo podría volverse producto, licenciar el sistema o armar un fondo de operadores. No hace falta cerrarlo hoy.</p></div></div>
+      <div class="open-item reveal"><span class="qn">3</span><div><h4>El esquema de cobro</h4><p>Equity, proyecto y retainer conviven; resta definir la regla por tipo de cliente.</p></div></div>
+      <div class="open-item reveal"><span class="qn">4</span><div><h4>El nombre</h4><p>"Vector" es tentativo, sin verificación de marca ni dominio.</p></div></div>
+      <div class="open-item reveal"><span class="qn ok">✓</span><div><h4>Geografía — resuelto</h4><p>Foco en LatAm.</p></div></div>
+    </div>
+    <div class="invite reveal">
+      <h3>Una idea en construcción, con convicción sobre el porqué.</h3>
+      <p>Distribuir es el moat, y reunir criterio + ejecución sobre IA es lo escaso: eso no se mueve. Lo que está sobre la mesa es la forma —el modelo, el nombre, el terminal—.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><svg class="mk" viewBox="0 0 24 24" fill="none"><path d="M3 21 L21 3 M21 3 L13 3 M21 3 L21 11" stroke="#FF5A30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="silver">Vector</span></div>
+    <p>Growth partner · idea en construcción · nombre y modelo tentativos</p>
+  </div>
+</footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
